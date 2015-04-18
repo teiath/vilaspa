@@ -4,3 +4,6 @@ common:
   login: Σύνδεση
   logout: Αποσύνδεση
   civilian_register: Εγγραφή Πολίτη
+
+# Admin
+Area Of Expertise List: Λίστα Γνωστικών Αντικειμένων

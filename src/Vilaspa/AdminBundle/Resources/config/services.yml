@@ -1,0 +1,21 @@
+imports:
+    - { resource: '@VilaspaAdminBundle/Resources/config/sonata.yml' }
+
+services:
+    security.acl.voter.admin_permissions:
+        class: Vilaspa\AdminBundle\Voter\AdminAclVoter
+        public: false
+        arguments:
+            - "@security.acl.provider"
+            - "@security.acl.object_identity_retrieval_strategy"
+            - "@security.acl.security_identity_retrieval_strategy"
+            - "@security.acl.permission.map"
+            - "@?logger"
+        tags:
+            - { name: monolog.logger, channel: security }
+            - { name: security.voter, priority: 255 }
+    area_of_expertise.admin:
+        class: Vilaspa\AdminBundle\Admin\AreaOfExpertiseAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Βιβλιοθήκη Εννοιών, label: Γνωστικά Αντικείμενα }
+        arguments: [null, Vilaspa\SiteBundle\Entity\AreaOfExpertise, SonataAdminBundle:CRUD]

@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: '@VilaspaAdminBundle/Resources/config/services.yml' }
     - { resource: '@VilaspaUserBundle/Resources/config/services.yml' }
 
 framework:

@@ -1,5 +1,5 @@
 <?php
-namespace Kowor\WaveBundle\Entity;
+namespace Vilaspa\SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -8,11 +8,9 @@ use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\Exclude;
 
-use Kowor\CommonBundle\Extension\ColorCalculator;
-
 /**
  * @author Dimosthenis Nikoudis <dnna@dnna.gr>
- * @ORM\Entity (repositoryClass="Kowor\WaveBundle\Entity\Repositories\BeaconsRepository") @ORM\Table(name="beacons")
+ * @ORM\Entity
  */
 class AreaOfExpertise {
     use TimestampableEntity;
@@ -34,6 +32,22 @@ class AreaOfExpertise {
 
     public function setId($id) {
         $this->id = $id;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function __toString() {
+        if(!isset($this->name)) {
+            return 'Νέο Γνωστικό Αντικείμενο';
+        } else {
+            return $this->name;
+        }
     }
 }
 ?>

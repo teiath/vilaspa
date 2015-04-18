@@ -1,10 +1,10 @@
-set :application, "petdate"
-set :user,        "petdate"
-set :domain,      "petdate.dnna.gr"
-set :deploy_to,   "/home/petdate/capifony"
+set :application, "vilaspa"
+set :user,        "vilaspa"
+set :domain,      "vilaspa.dnna.gr"
+set :deploy_to,   "/home/vilaspa/capifony"
 set :app_path,    "app"
 
-set :repository,  "git@github.com:dnna/petdate.git"
+set :repository,  "git@github.com:dnna/vilaspa.git"
 set :scm,         :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `subversion`, `mercurial`, `perforce`, or `none`
 
