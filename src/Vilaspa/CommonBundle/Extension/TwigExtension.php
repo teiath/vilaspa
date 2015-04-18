@@ -4,6 +4,12 @@ namespace Vilaspa\CommonBundle\Extension;
 
 class TwigExtension extends \Twig_Extension
 {
+  protected $container;
+
+  public function __construct($container) {
+      $this->container = $container;
+  }
+
   /**
    * {@inheritdoc}
    */
@@ -12,6 +18,28 @@ class TwigExtension extends \Twig_Extension
     return array(
         'url_decode' => new \Twig_Filter_Method($this, 'urlDecode')
     );
+  }
+
+  /**
+   * @return string
+   */
+  private function getBaseTemplate() {
+      if ($this->container->hasScope('request') && $this->container->get('request')->isXmlHttpRequest()) {
+          return $this->container->get('sonata.admin.pool')->getTemplate('ajax');
+      }
+      return $this->container->get('sonata.admin.pool')->getTemplate('layout');
+  }
+
+  public function getGlobals() {
+      if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+          return array();
+      }
+      $areasofexpertise = $this->container->get('doctrine')->getRepository('Vilaspa\SiteBundle\Entity\AreaOfExpertise')->findAll();
+      return array(
+        'base_template' => $this->getBaseTemplate(),
+        'admin_pool'      => $this->container->get('sonata.admin.pool'),
+        'all_areas_of_expertise' => $areasofexpertise,
+      );
   }
 
   /**

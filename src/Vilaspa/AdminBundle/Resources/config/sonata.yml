@@ -21,7 +21,6 @@ sonata_admin:
         list:    SonataAdminBundle:CRUD:list.html.twig
         show:    SonataAdminBundle:CRUD:show.html.twig
         edit:    SonataAdminBundle:CRUD:edit.html.twig
-        user_block: VilaspaAdminBundle::user_block.html.twig
     dashboard:
         blocks:
             # display a dashboard block

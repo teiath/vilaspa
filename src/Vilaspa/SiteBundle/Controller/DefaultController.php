@@ -11,6 +11,13 @@ class DefaultController extends Controller {
      * @Template
      */
     public function indexAction() {
-        return $this->render('VilaspaSiteBundle:Default:index.html.twig', array());
+        if (false === $this->get('security.context')->isGranted('ROLE_USER')) {
+            $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
+            return $this->render('VilaspaSiteBundle:Default:index.html.twig', array(
+                'csrf_token' => $csrfToken,
+            ));
+        } else {
+            return $this->render('VilaspaSiteBundle:Default:index_logged_in.html.twig', array());
+        }
     }
 }

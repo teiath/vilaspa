@@ -1,4 +1,4 @@
-{% extends 'VilaspaSiteBundle::base.html.twig' %}
+{% extends 'VilaspaSiteBundle:Default:index.html.twig' %}
 
 {% block title %}Εγγραφή Πολίτη{% endblock %}
 
@@ -9,7 +9,7 @@
     <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
 {% endif %}
 <div class="row text-center">
-    <div class="col-md-offset-4 col-md-4">
+    <div class="col-md-offset-4 col-md-4 well well-lg">
         <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
                 {{ form_widget(form) }}
                 <div>

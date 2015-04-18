@@ -1,4 +1,4 @@
-{% extends 'VilaspaSiteBundle::base.html.twig' %}
+{% extends 'VilaspaSiteBundle:Default:index.html.twig' %}
 
 {% block title %}Σύνδεση{% endblock %}
 
@@ -6,34 +6,8 @@
 
 {% block main %}
 <div class="row text-center">
-    <div class="col-md-offset-4 col-md-4">
-        {% if error %}
-            <div class="alert alert-danger alert-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
-        <form action="{{ path("fos_user_security_check") }}" method="post">
-          <div class="form-group">
-            <label class="control-label" for="inputEmail">{{'security.login.username'|trans}}</label>
-            <div class="controls">
-              <input type="text" id="inputEmail" name="_username" value="{{ last_username }}" required="required" class="form-control">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label" for="inputPassword">{{'security.login.password'|trans}}</label>
-            <div class="controls">
-              <input type="password" id="inputPassword" name="_password" required="required" class="form-control">
-            </div>
-          </div>
-          <div class="checkbox">
-              <label>
-                <input type="checkbox" name="_remember_me"> {{'security.login.remember_me'|trans}}
-              </label>
-          </div>
-          <button type="submit" name="_submit" class="btn btn-primary">{{'security.login.submit'|trans}}</button>
-          {% if app.request.get('redirect') != null %}
-            <input type="hidden" name="_target_path" value="{{app.request.get('redirect')|url_decode}}" />
-          {% endif %}
-          <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-        </form>
+    <div class="col-md-offset-4 col-md-4 well well-lg">
+    {% include 'VilaspaUserBundle:Security:login_content.html.twig' %}
     </div>
 </div>
 {% endblock main %}
