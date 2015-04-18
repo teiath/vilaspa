@@ -17,10 +17,15 @@ framework:
     default_locale:  %locale%
     session:         ~
 
+parameters:
+    locales: [el, en]
+
 # Twig Configuration
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    globals:
+        locales: %locales%
     form:
         resources: ['bootstrap_3_layout.html.twig']
 
@@ -139,6 +144,11 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: vilaspa_user_registration }
+
+jms_i18n_routing:
+    default_locale: %locale%
+    locales: %locales%
+    strategy: prefix_except_default
 
 jms_serializer:
     metadata:

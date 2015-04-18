@@ -25,7 +25,9 @@ class AppKernel extends Kernel
             // User Bundle
             new FOS\UserBundle\FOSUserBundle(),
             // JMS
+            new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
+            new JMS\TranslationBundle\JMSTranslationBundle(),
             // Doctrine Extensions
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         );
