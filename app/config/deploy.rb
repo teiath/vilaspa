@@ -4,7 +4,7 @@ set :domain,      "vilaspa.dnna.gr"
 set :deploy_to,   "/home/vilaspa/capifony"
 set :app_path,    "app"
 
-set :repository,  "git@github.com:dnna/vilaspa.git"
+set :repository,  "git@github.com:teiath/vilaspa.git"
 set :scm,         :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `subversion`, `mercurial`, `perforce`, or `none`
 
@@ -28,12 +28,11 @@ set :shared_children, [app_path + "/logs", web_path + "/upload", web_path + "/ca
 set :writable_dirs, [app_path + "/logs", app_path + "/cache"]
 
 # Be more verbose by uncommenting the following line
-# logger.level = Logger::MAX_LEVEL
+logger.level = Logger::MAX_LEVEL
 
 # Hooks
 before "deploy:restart", "deploy:set_permissions"
 after  "symfony:assetic:dump", "symfony:doctrine:schema:update" # Update doctrine schema
-after  "symfony:assetic:dump", "symfony:update_symlink"
 
 namespace :symfony do
   desc "Runs the test suite"

@@ -4,3 +4,10 @@ common:
   login: Login
   logout: Logout
   civilian_register: Civilian Register
+
+# Admin
+Area Of Expertise List: Area of Expertise List
+Name: Name
+Concepts: Concepts
+Concept List: Concept List
+Areaofexpertise: Area of Expertise

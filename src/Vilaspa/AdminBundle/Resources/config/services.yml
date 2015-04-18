@@ -19,3 +19,10 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Βιβλιοθήκη Εννοιών, label: Γνωστικά Αντικείμενα }
         arguments: [null, Vilaspa\SiteBundle\Entity\AreaOfExpertise, SonataAdminBundle:CRUD]
+        calls:
+            - [ addChild, ["@concept.admin"] ]
+    concept.admin:
+        class: Vilaspa\AdminBundle\Admin\ConceptAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Βιβλιοθήκη Εννοιών, label: Έννοιες }
+        arguments: [null, Vilaspa\SiteBundle\Entity\Concept, SonataAdminBundle:CRUD]

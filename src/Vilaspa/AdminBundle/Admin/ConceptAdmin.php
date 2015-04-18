@@ -7,12 +7,13 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class AreaOfExpertiseAdmin extends Admin
+class ConceptAdmin extends Admin
 {
     protected $datagridValues = array(
         '_sort_order' => 'DESC', // Descendant ordering (default = 'ASC')
         '_sort_by' => 'id' // name of the ordered field (default = the model id
     );
+    protected $parentAssociationMapping = 'areaofexpertise';
 
     /**
      * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
@@ -22,6 +23,7 @@ class AreaOfExpertiseAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+            ->add('areaofexpertise')
             ->add('name')
         ;
         parent::configureFormFields($formMapper);
@@ -41,8 +43,8 @@ class AreaOfExpertiseAdmin extends Admin
                     'delete' => array(),
             )))
             ->addIdentifier('id')
+            ->add('areaofexpertise')
             ->add('name')
-            ->add('concepts')
         ;
     }
 
@@ -54,6 +56,7 @@ class AreaOfExpertiseAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('areaofexpertise')
             ->add('name')
         ;
         parent::configureDatagridFilters($datagridMapper);
