@@ -3,7 +3,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{'common.title'|trans}}</title>
+        <title>{% block full_title %}{% block title %}Αρχική{% endblock %} - {{'common.title'|trans}}{% endblock %}</title>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
@@ -61,30 +61,26 @@
     </head>
     <body>
         <div class="loading" style="display: none;"><div class="spinner">&nbsp;</div></div>
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{{path('home')}}">{{'common.title'|trans}}</a>
                 </div>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if is_granted('ROLE_USER') %}
+                        <li><p class="nav navbar-text">{{app.user.username}} (<a href="{{path('fos_user_security_logout')}}">{{'common.logout'|trans}}</a>)</p></li>
+                    {% else %}
+                        <li{% if 'fos_user_security_login' in app.request.attributes.get('_route') %} class="active"{% endif %}><a href="{{path('fos_user_security_login')}}">{{'common.login'|trans}}</a></li>
+                        <li{% if 'fos_user_registration' in app.request.attributes.get('_route') %} class="active"{% endif %}><a href="{{path('fos_user_registration_register')}}">{{'common.civilian_register'|trans}}</a></li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
 
         <div class="container">
 
-            <div style="margin-top: 60px;">
-
-                <div class="row text-center">
-                    <div class="col-md-12">
-                        <h2>Μαθήματα</h2>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-12">
-                        ABC
-                    </div>
-                </div>
-
-            </div>
+            {% block main %}
+            {% endblock %}
 
         </div>
     </body>

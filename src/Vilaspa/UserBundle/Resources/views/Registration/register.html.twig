@@ -1,17 +1,21 @@
 {% extends 'VilaspaSiteBundle::base.html.twig' %}
 
-{% block title %}Εγγραφή | Pet Date{% endblock %}
+{% block title %}Εγγραφή Πολίτη{% endblock %}
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block content %}
+{% block main %}
 {% if error is defined %}
     <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
 {% endif %}
-<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" class="btn btn-primary" value="{{ 'registration.submit'|trans }}" />
+<div class="row text-center">
+    <div class="col-md-offset-4 col-md-4">
+        <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+                {{ form_widget(form) }}
+                <div>
+                    <input type="submit" class="btn btn-primary" value="{{ 'registration.submit'|trans }}" />
+                </div>
+        </form>
     </div>
-</form>
+</div>
 {% endblock %}

@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: '@VilaspaUserBundle/Resources/config/services.yml' }
 
 framework:
     #esi:             ~
@@ -21,7 +22,7 @@ twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
     form:
-        resources: ~
+        resources: ['bootstrap_3_layout.html.twig']
 
 # Assetic Configuration
 assetic:
@@ -128,13 +129,6 @@ services:
             - "@translator"
         tags:
         -  { name: twig.extension }
-    vilaspa.user.listener:
-        class: Vilaspa\UserBundle\Extension\UserListener
-        tags:
-            - { name: doctrine.event_listener, event: postPersist }
-            - { name: doctrine.event_listener, event: preUpdate }
-        arguments:
-            - "@service_container"
     vilaspa_user.profile.form.type:
        class: Vilaspa\UserBundle\Form\Type\ProfileFormType
        arguments: [%fos_user.model.user.class%]

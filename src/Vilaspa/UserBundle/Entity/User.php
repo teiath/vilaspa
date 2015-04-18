@@ -29,11 +29,13 @@ class User extends BaseUser
      */
     protected $id;
     /**
-     * @var string $name
-     *
      * @ORM\Column(name="name", type="string", nullable=true)
      */
     protected $name;
+    /**
+     * @ORM\Column(name="surname", type="string", nullable=true)
+     */
+    protected $surname;
 
     public function getId() {
         return $this->id;
@@ -49,5 +51,13 @@ class User extends BaseUser
 
     public function setName($name) {
         $this->name = $name;
+    }
+
+    public function getSurname() {
+        return $this->surname;
+    }
+
+    public function setSurname($surname) {
+        $this->surname = $surname;
     }
 }

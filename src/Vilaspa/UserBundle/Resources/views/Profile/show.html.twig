@@ -2,7 +2,7 @@
 
 {% block title %}{{user.username}} | Pet Date{% endblock %}
 
-{% block content %}
+{% block main %}
 <p><a href="{{path('dog', {'dog': user.dog.id})}}">Προβολή προφίλ σκύλου</a></p>
 <p><a href="{{path('home')}}">Επιστροφή στην αρχική</a></p>
 {#<script>

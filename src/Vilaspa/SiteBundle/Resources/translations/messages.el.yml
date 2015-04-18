@@ -1,2 +1,6 @@
 common:
   title: Εικονικό Εργαστήριο Χωρικής Ανάλυσης
+  areas_of_expertise: Γνωστικά Αντικείμενα
+  login: Σύνδεση
+  logout: Αποσύνδεση
+  civilian_register: Εγγραφή Πολίτη

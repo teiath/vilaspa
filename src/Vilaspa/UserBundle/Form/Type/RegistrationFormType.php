@@ -12,8 +12,10 @@ class RegistrationFormType extends BaseType
         //parent::buildForm($builder, $options);
 
         $builder
-            ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
+            ->add('name', 'text', array('label' => 'form.name', 'translation_domain' => 'FOSUserBundle'))
+            ->add('surname', 'text', array('label' => 'form.surname', 'translation_domain' => 'FOSUserBundle'))
             ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
+            ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
             ->add('plainPassword', 'repeated', array(
                 'type' => 'password',
                 'options' => array('translation_domain' => 'FOSUserBundle'),
@@ -21,9 +23,6 @@ class RegistrationFormType extends BaseType
                 'second_options' => array('label' => 'form.password_confirmation'),
                 'invalid_message' => 'fos_user.password.mismatch',
             ))
-            ->add('address', 'text', array('required' => true))
-            ->add('latitude', 'hidden', array('required' => true,))
-            ->add('longitude', 'hidden', array('required' => true,))
         ;
     }
 
