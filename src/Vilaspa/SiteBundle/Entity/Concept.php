@@ -28,6 +28,10 @@ class Concept {
      * @ORM\Column (name="name", type="string")
      */
     protected $name;
+    /**
+     * @ORM\Column (name="short_description", type="string")
+     */
+    protected $shortDescription;
 
     public function getId() {
         return $this->id;
@@ -51,6 +55,14 @@ class Concept {
 
     public function setName($name) {
         $this->name = $name;
+    }
+
+    public function getShortDescription() {
+        return $this->shortDescription;
+    }
+
+    public function setShortDescription($shortDescription) {
+        $this->shortDescription = $shortDescription;
     }
 
     public function __toString() {
