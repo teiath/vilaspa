@@ -5,12 +5,11 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block main %}
-{% if error %}
-    <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
-{% endif %}
-
 <div class="row text-center">
     <div class="col-md-offset-4 col-md-4">
+        {% if error %}
+            <div class="alert alert-danger alert-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
         <form action="{{ path("fos_user_security_check") }}" method="post">
           <div class="form-group">
             <label class="control-label" for="inputEmail">{{'security.login.username'|trans}}</label>
