@@ -1,0 +1,39 @@
+{% extends 'VilaspaSiteBundle::base.html.twig' %}
+
+{% block title %}Σύνδεση | ΕΕΧΑ{% endblock %}
+
+{% block content %}
+{% if error %}
+    <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
+{% endif %}
+
+<form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
+  <div class="row">
+    <h3>Σύνδεση</h3>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputEmail">Email</label>
+    <div class="controls">
+      <input type="text" id="inputEmail" name="_username" value="{{ last_username }}" required="required" placeholder="Email">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputPassword">Password</label>
+    <div class="controls">
+      <input type="password" id="inputPassword" name="_password" required="required" placeholder="Password">
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <label class="checkbox">
+        <input type="checkbox" name="_remember_me"> Remember me
+      </label>
+      <button type="submit" name="_submit" class="btn">Sign in</button>
+    </div>
+  </div>
+  {% if app.request.get('redirect') != null %}
+    <input type="hidden" name="_target_path" value="{{app.request.get('redirect')|url_decode}}" />
+  {% endif %}
+  <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+</form>
+{% endblock content %}
