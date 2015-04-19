@@ -1,7 +1,7 @@
 services:
     vispanlab.menu_sidebar_builder:
         class: Vispanlab\SiteBundle\Menu\SidebarMenuBuilder
-        arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager"]
+        arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager", "@security.context"]
     vispanlab.menu.sidebar:
         class: Knp\Menu\MenuItem # the service definition requires setting the class
         factory_service: vispanlab.menu_sidebar_builder
@@ -10,3 +10,11 @@ services:
         scope: request # needed as we have the request as a dependency here
         tags:
             - { name: knp_menu.menu, alias: sidebar } # The alias is what is used to retrieve the menu
+    vispanlab.menu.sidebar_bottom:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: vispanlab.menu_sidebar_builder
+        factory_method: createBottomMenu
+        arguments: ["@request"]
+        scope: request # needed as we have the request as a dependency here
+        tags:
+            - { name: knp_menu.menu, alias: sidebar_bottom } # The alias is what is used to retrieve the menu

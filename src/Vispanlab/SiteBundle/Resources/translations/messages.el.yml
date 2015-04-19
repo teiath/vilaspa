@@ -4,7 +4,7 @@ common:
   login: Σύνδεση
   logout: Αποσύνδεση
   civilian_register: Εγγραφή Πολίτη
-  admin_link: Περιβάλλον Διαχειριστή
+  admin_env_link: Περιβάλλον Διαχειριστή
   user_env_link: Περιβάλλον Χρήστη
 
 home:

@@ -5,15 +5,15 @@
 
 {% block root %}
 {% for curItem in item %}
-<li class="{% if curItem|length > 0 %}treeview{% endif %}{% if matcher.isCurrent(curItem) or matcher.isAncestor(curItem) %} active{% endif %}">
+<li class="{% if curItem|length > 0 %}treeview{% endif %}{% if matcher.isCurrent(curItem) or matcher.isAncestor(curItem) %} active{% endif %} {{curItem.attribute('class')}}">
     <a href="{{curItem.uri}}">
         <span>{{curItem.name|trans}}</span>
         {% if curItem|length > 0 %}<i class="fa pull-right fa-angle-left"></i>{% endif %}
     </a>
     {% if curItem|length > 0 %}
-    <ul class="treeview-menu{% if matcher.isCurrent(curItem) or matcher.isAncestor(curItem) %} active{% endif %}">
+    <ul class="treeview-menu">
         {% for subitem in curItem %}
-        <li{% if matcher.isCurrent(subitem) %} class="active"{% endif %}><a href="{{subitem.uri}}"><i class="fa fa-angle-double-right"></i> {{subitem.name|trans}}</a></li>
+        <li class="{{subitem.attribute('class')}}{% if matcher.isCurrent(subitem) %} active{% endif %}"><a href="{{subitem.uri}}"><i class="fa fa-angle-double-right"></i> {{subitem.name|trans}}</a></li>
         {% endfor %}
     </ul>
     {% endif %}

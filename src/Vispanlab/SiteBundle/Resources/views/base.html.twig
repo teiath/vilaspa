@@ -2,12 +2,6 @@
 
 {% block sonata_head_title %}{% block title %}Εικονικό Εργαστήριο Χωρικής Ανάλυσης{% endblock %}{% endblock %}
 
-{% block change_env_link %}
-{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_AREA_ADMIN') %}
-<li><a href="{{path('sonata_admin_dashboard')}}">{{'common.admin_link'|trans}}</a></li>
-{% endif %}
-{% endblock %}
-
 {% block logo %}
     {% spaceless %}
     <a class="logo" href="{{ url('home') }}">
@@ -37,6 +31,9 @@
 
         <ul class="sidebar-menu">
             {{ knp_menu_render('sidebar', {'template': 'VispanlabSiteBundle::sidemenu.html.twig'}) }}
+        </ul>
+        <ul class="sidebar-menu bottom">
+            {{ knp_menu_render('sidebar_bottom', {'template': 'VispanlabSiteBundle::sidemenu.html.twig'}) }}
         </ul>
     </section>
 </aside>

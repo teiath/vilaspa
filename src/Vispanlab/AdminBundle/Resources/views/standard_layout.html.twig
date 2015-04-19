@@ -5,6 +5,30 @@
 <link rel="stylesheet" href="{{asset('css/vispanlab.css')}}">
 {% endblock %}
 
+{% block javascripts %}
+{{parent()}}
+<script>
+    (function($) {
+        // Close other tree items when selecting one
+        $(document).ready(function() {
+            $(".sidebar .treeview").each(function() {
+                var btn = $(this).children("a").first();
+                btn.on('click.tree-closeall', function(e, triggeredFromSame) {
+                    if(typeof triggeredFromSame !== 'undefined' && triggeredFromSame === true) { return true; }
+                    $(".sidebar .treeview").each(function() {
+                        var curbtn = $(this).children("a").first();
+                        var isActive = $(this).hasClass('active');
+                        if(!btn.is(curbtn) && isActive) {
+                            curbtn.trigger('click', [ true ]);
+                        }
+                    });
+                });
+            });
+        });
+    }(jQuery));
+</script>
+{% endblock %}
+
 {% block sonata_top_nav_menu %}
 <div class="navbar-right">
     <ul class="nav navbar-nav">
@@ -25,11 +49,12 @@
             {% if not loop.last %}|{% endif %}
         {% endfor %}
         </p></li>
-        {% block change_env_link %}
-        <li><a href="{{path('home')}}">{{'common.user_env_link'|trans}}</a></li>
-        {% endblock %}
     </ul>
 </div>
 {% endblock %}
 
-{% block side_bar_after_nav %}{% endblock %}
+{% block side_bar_after_nav %}
+<ul class="sidebar-menu bottom">
+    {{ knp_menu_render('sidebar_bottom', {'template': 'VispanlabSiteBundle::sidemenu.html.twig'}) }}
+</ul>
+{% endblock %}
