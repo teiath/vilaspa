@@ -8,7 +8,7 @@
         {% for concept in area_of_expertise.concepts %}
             <li class="well well-lg" style="min-width: 300px;">
                 <p>{{concept.nameEl}}</p>
-                <p><a href="#" data-toggle="collapse" data-target="#concept_{{concept.id}}" aria-expanded="false" aria-controls="concept_{{concept.id}}">&raquo;</a></p>
+                <p><a href="#" data-toggle="collapse" data-target="#concept_{{concept.id}}" style="display: block;" aria-expanded="false" aria-controls="concept_{{concept.id}}">&raquo;</a></p>
                 <p id="concept_{{concept.id}}" class="collapse">{{concept.definitionEl}}</p>
             </li>
         {% endfor %}
