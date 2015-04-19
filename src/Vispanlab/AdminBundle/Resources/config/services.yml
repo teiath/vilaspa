@@ -25,4 +25,6 @@ services:
         class: Vispanlab\AdminBundle\Admin\ConceptAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Βιβλιοθήκη Εννοιών, label: Έννοιες }
+        calls:
+            - [ setUploadableManager, ["@stof_doctrine_extensions.uploadable.manager"] ]
         arguments: [null, Vispanlab\SiteBundle\Entity\Concept, SonataAdminBundle:CRUD]

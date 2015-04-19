@@ -9,6 +9,7 @@ class AppKernel extends Kernel
     {
         $bundles = array(
             new Vispanlab\AdminBundle\VispanlabAdminBundle(),
+            new Vispanlab\CommonBundle\VispanlabCommonBundle(),
             new Vispanlab\SiteBundle\VispanlabSiteBundle(),
             new Vispanlab\UserBundle\VispanlabUserBundle(),
 

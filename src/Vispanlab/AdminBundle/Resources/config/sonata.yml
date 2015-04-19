@@ -12,6 +12,8 @@ sonata_block:
 sonata_admin:
     title:      ΕΕΧΑ
     title_logo: /img/tei_logo.png
+    options:
+        use_select2: false
     templates:
         # default global templates
         layout:  VispanlabAdminBundle::standard_layout.html.twig
@@ -45,5 +47,6 @@ sonata_admin:
 sonata_doctrine_orm_admin:
     templates:
       types:
-        list: ~
+        list:
+          image: VispanlabAdminBundle::list_image.html.twig
         show: ~

@@ -9,6 +9,8 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class ConceptAdmin extends Admin
 {
+    protected $uploadableManager;
+
     protected $datagridValues = array(
         '_sort_order' => 'DESC', // Descendant ordering (default = 'ASC')
         '_sort_by' => 'id' // name of the ordered field (default = the model id
@@ -23,8 +25,33 @@ class ConceptAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('areaofexpertise')
-            ->add('name')
+            ->add('areaofexpertise', null, array('required' => true))
+            ->add('nameEl')
+            ->add('nameEn')
+            ->add('definitionEl')
+            ->add('definitionEn')
+            ->add('alternativeDefintions', 'collection', array(
+                'type'   => 'text',
+                'required' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'options'  => array(
+                    'required'  => false,
+                    'label' => 'Ορισμός'
+                )
+            ))
+            ->add('relatedConcepts', 'collection', array(
+                'type'   => 'text',
+                'required' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'options'  => array(
+                    'required'  => false,
+                    'label' => 'Ορισμός'
+                )
+            ))
+            ->add('newImageExcerpt', 'file', array('required' => false))
+            ->add('comments', null, array('help' => 'comments_placeholder'))
         ;
         parent::configureFormFields($formMapper);
     }
@@ -44,7 +71,14 @@ class ConceptAdmin extends Admin
             )))
             ->addIdentifier('id')
             ->add('areaofexpertise')
-            ->add('name')
+            ->add('nameEl')
+            ->add('nameEn')
+            ->add('definitionEl')
+            ->add('definitionEn')
+            ->add('alternativeDefintions')
+            ->add('relatedConcepts')
+            ->add('imageExcerpt.imagePath', 'image')
+            ->add('comments')
         ;
     }
 
@@ -57,8 +91,30 @@ class ConceptAdmin extends Admin
     {
         $datagridMapper
             ->add('areaofexpertise')
-            ->add('name')
+            ->add('nameEl')
+            ->add('nameEn')
+            ->add('definitionEl')
+            ->add('definitionEn')
         ;
         parent::configureDatagridFilters($datagridMapper);
+    }
+
+    public function setUploadableManager($uploadableManager) {
+        $this->uploadableManager = $uploadableManager;
+    }
+
+    // Use uploadable manager to upload the file
+    public function prePersist($concept)
+    {
+        if($concept->getNewImageExcerpt() != null) {
+            $concept->getImageExcerpt()->setPhoto($concept->getNewImageExcerpt());
+            $em = $this->modelManager->getEntityManager(get_class($concept->getImageExcerpt()));
+            $em->persist($concept->getImageExcerpt());
+            $this->uploadableManager->markEntityToUpload($concept->getImageExcerpt(), $concept->getImageExcerpt()->getPhoto());
+        }
+    }
+
+    public function preUpdate($recipe) {
+        return $this->prePersist($recipe);
     }
 }

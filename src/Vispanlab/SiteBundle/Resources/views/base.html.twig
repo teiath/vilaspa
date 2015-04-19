@@ -2,8 +2,7 @@
 
 {% block sonata_head_title %}{% block title %}Εικονικό Εργαστήριο Χωρικής Ανάλυσης{% endblock %}{% endblock %}
 
-{% block header_menu %}
-{{parent()}}
+{% block change_env_link %}
 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_AREA_ADMIN') %}
 <li><a href="{{path('sonata_admin_dashboard')}}">{{'common.admin_link'|trans}}</a></li>
 {% endif %}
