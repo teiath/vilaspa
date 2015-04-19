@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: '@VispanlabAdminBundle/Resources/config/services.yml' }
+    - { resource: '@VispanlabSiteBundle/Resources/config/services.yml' }
     - { resource: '@VispanlabUserBundle/Resources/config/services.yml' }
 
 framework:

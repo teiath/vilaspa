@@ -1,0 +1,22 @@
+{% block compressed_root %}
+{% spaceless %}
+{% endspaceless %}
+{% endblock %}
+
+{% block root %}
+{% for curItem in item %}
+<li class="{% if curItem|length > 0 %}treeview{% endif %}{% if matcher.isCurrent(curItem) or matcher.isAncestor(curItem) %} active{% endif %}">
+    <a href="{{curItem.uri}}">
+        <span>{{curItem.name|trans}}</span>
+        {% if curItem|length > 0 %}<i class="fa pull-right fa-angle-left"></i>{% endif %}
+    </a>
+    {% if curItem|length > 0 %}
+    <ul class="treeview-menu{% if matcher.isCurrent(curItem) or matcher.isAncestor(curItem) %} active{% endif %}">
+        {% for subitem in curItem %}
+        <li{% if matcher.isCurrent(subitem) %} class="active"{% endif %}><a href="{{subitem.uri}}"><i class="fa fa-angle-double-right"></i> {{subitem.name|trans}}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</li>
+{% endfor %}
+{% endblock %}

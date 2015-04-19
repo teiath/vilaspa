@@ -37,18 +37,7 @@
         </form>
 
         <ul class="sidebar-menu">
-            <li class="treeview active">
-                <a href="#">
-                    <span>Γνωστικά αντικείμενα</span>
-                    <i class="fa pull-right fa-angle-left"></i>
-                </a>
-                <ul class="treeview-menu active">
-                    {% for aoe in all_areas_of_expertise %}
-                    <li{% if app.request.attributes.get('_route') == 'concept_library' and app.request.attributes.get('_route_params').aoe is defined and app.request.attributes.get('_route_params').aoe == aoe.id %} class="active"{% endif %}><a href="{{path('concept_library', {'aoe': aoe.url})}}"><i class="fa fa-angle-double-right"></i> {{aoe.name}}</a></li>
-                    {% endfor %}
-                </ul>
-            </li>
-            <li><a href="#">Οδηγίες Χρήσης</a></li>
+            {{ knp_menu_render('sidebar', {'template': 'VispanlabSiteBundle::sidemenu.html.twig'}) }}
         </ul>
     </section>
 </aside>

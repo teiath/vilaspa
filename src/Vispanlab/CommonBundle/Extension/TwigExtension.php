@@ -34,11 +34,9 @@ class TwigExtension extends \Twig_Extension
       if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
           return array();
       }
-      $areasofexpertise = $this->container->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\AreaOfExpertise')->findAll();
       return array(
         'base_template' => $this->getBaseTemplate(),
         'admin_pool'      => $this->container->get('sonata.admin.pool'),
-        'all_areas_of_expertise' => $areasofexpertise,
       );
   }
 
