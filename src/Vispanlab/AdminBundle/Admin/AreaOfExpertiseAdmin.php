@@ -5,6 +5,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 class AreaOfExpertiseAdmin extends Admin
@@ -13,6 +14,11 @@ class AreaOfExpertiseAdmin extends Admin
         '_sort_order' => 'DESC', // Descendant ordering (default = 'ASC')
         '_sort_by' => 'id' // name of the ordered field (default = the model id
     );
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->remove('acl');
+    }
 
     /**
      * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
