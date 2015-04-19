@@ -23,7 +23,7 @@ fos_user_change_password:
     prefix: /profile
 
 sitebundle:
-    resource: "@VilaspaSiteBundle/Controller"
+    resource: "@VispanlabSiteBundle/Controller"
     type:     annotation
 
 admin:

@@ -1,8 +1,8 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: '@VilaspaAdminBundle/Resources/config/services.yml' }
-    - { resource: '@VilaspaUserBundle/Resources/config/services.yml' }
+    - { resource: '@VispanlabAdminBundle/Resources/config/services.yml' }
+    - { resource: '@VispanlabUserBundle/Resources/config/services.yml' }
 
 framework:
     #esi:             ~
@@ -54,7 +54,7 @@ doctrine:
         charset:  UTF8
         #unix_socket:	/var/mysql/mysql.sock
         types:
-            point: Vilaspa\CommonBundle\Wantlet\ORM\PointType
+            point: Vispanlab\CommonBundle\Wantlet\ORM\PointType
         mapping_types:
             point: string
     orm:
@@ -64,9 +64,9 @@ doctrine:
                               SIN: DoctrineExtensions\Query\Mysql\Sin
                               RADIANS: DoctrineExtensions\Query\Mysql\Radians
                               COS: DoctrineExtensions\Query\Mysql\Cos
-                              DISTANCE: Vilaspa\CommonBundle\Wantlet\ORM\Distance
-                              POINT_STR: Vilaspa\CommonBundle\Wantlet\ORM\PointStr
-                              RAND: Vilaspa\CommonBundle\Wantlet\ORM\Rand
+                              DISTANCE: Vispanlab\CommonBundle\Wantlet\ORM\Distance
+                              POINT_STR: Vispanlab\CommonBundle\Wantlet\ORM\PointStr
+                              RAND: Vispanlab\CommonBundle\Wantlet\ORM\Rand
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
         mappings:
@@ -108,45 +108,45 @@ swiftmailer:
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
-    user_class: Vilaspa\UserBundle\Entity\User
+    user_class: Vispanlab\UserBundle\Entity\User
     profile:
         form:
-            type: vilaspa_user_profile
+            type: vispanlab_user_profile
     registration:
         form:
-            type: vilaspa_user_registration
+            type: vispanlab_user_registration
 
 services:
     cache:
         class: Doctrine\Common\Cache\ApcCache
-    vilaspa.paginator.extension:
-        class: Vilaspa\CommonBundle\Extension\PaginatorExtension
+    vispanlab.paginator.extension:
+        class: Vispanlab\CommonBundle\Extension\PaginatorExtension
         tags:
             -  { name: twig.extension }
         arguments:
             - "@service_container"
-    vilaspa.twig.extension:
-        class: Vilaspa\CommonBundle\Extension\TwigExtension
+    vispanlab.twig.extension:
+        class: Vispanlab\CommonBundle\Extension\TwigExtension
         arguments:
             - "@service_container"
         tags:
             -  { name: twig.extension }
-    vilaspa.twig.timeago_extension:
-        class: Vilaspa\CommonBundle\Extension\TimeAgoExtension
+    vispanlab.twig.timeago_extension:
+        class: Vispanlab\CommonBundle\Extension\TimeAgoExtension
         arguments:
             - "@translator"
         tags:
         -  { name: twig.extension }
-    vilaspa_user.profile.form.type:
-       class: Vilaspa\UserBundle\Form\Type\ProfileFormType
+    vispanlab_user.profile.form.type:
+       class: Vispanlab\UserBundle\Form\Type\ProfileFormType
        arguments: [%fos_user.model.user.class%]
        tags:
-           - { name: form.type, alias: vilaspa_user_profile }
-    vilaspa_user.registration.form.type:
-        class: Vilaspa\UserBundle\Form\Type\RegistrationFormType
+           - { name: form.type, alias: vispanlab_user_profile }
+    vispanlab_user.registration.form.type:
+        class: Vispanlab\UserBundle\Form\Type\RegistrationFormType
         arguments: [%fos_user.model.user.class%]
         tags:
-            - { name: form.type, alias: vilaspa_user_registration }
+            - { name: form.type, alias: vispanlab_user_registration }
 
 jms_i18n_routing:
     default_locale: %locale%

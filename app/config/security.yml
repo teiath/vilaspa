@@ -12,7 +12,7 @@ security:
 
     encoders:
         FOS\UserBundle\Model\UserInterface: sha512
-        Vilaspa\UserBundle\Entity\User: plaintext
+        Vispanlab\UserBundle\Entity\User: plaintext
 
     role_hierarchy:
         ROLE_USER:      ROLE_USER

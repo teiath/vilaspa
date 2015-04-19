@@ -1,0 +1,7 @@
+services:
+    vispanlab.registration_listener:
+        class: Vispanlab\UserBundle\Extension\RegistrationListener
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: kernel.event_subscriber }

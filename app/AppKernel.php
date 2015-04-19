@@ -8,9 +8,9 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         $bundles = array(
-            new Vilaspa\AdminBundle\VilaspaAdminBundle(),
-            new Vilaspa\SiteBundle\VilaspaSiteBundle(),
-            new Vilaspa\UserBundle\VilaspaUserBundle(),
+            new Vispanlab\AdminBundle\VispanlabAdminBundle(),
+            new Vispanlab\SiteBundle\VispanlabSiteBundle(),
+            new Vispanlab\UserBundle\VispanlabUserBundle(),
 
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),

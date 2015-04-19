@@ -1,10 +1,10 @@
-set :application, "vilaspa"
-set :user,        "vilaspa"
-set :domain,      "vilaspa.dnna.gr"
-set :deploy_to,   "/home/vilaspa/capifony"
+set :application, "vispanlab"
+set :user,        "vispanlab"
+set :domain,      "vispanlab.dnna.gr"
+set :deploy_to,   "/home/vispanlab/capifony"
 set :app_path,    "app"
 
-set :repository,  "git@github.com:teiath/vilaspa.git"
+set :repository,  "git@github.com:teiath/vispanlab.git"
 set :scm,         :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `subversion`, `mercurial`, `perforce`, or `none`
 

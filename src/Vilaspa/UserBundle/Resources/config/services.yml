@@ -1,7 +1,0 @@
-services:
-    vilaspa.registration_listener:
-        class: Vilaspa\UserBundle\Extension\RegistrationListener
-        arguments:
-            - "@doctrine.orm.entity_manager"
-        tags:
-            - { name: kernel.event_subscriber }

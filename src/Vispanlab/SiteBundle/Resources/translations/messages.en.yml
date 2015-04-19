@@ -1,0 +1,23 @@
+common:
+  title: Virtual Laboratory for Spatial Analysis
+  areas_of_expertise: Areas of Expertise
+  login: Login
+  logout: Logout
+  civilian_register: Civilian Register
+  admin_link: Admin
+
+home:
+  welcome: Welcome %user%
+  text1: You can navigate to the available areas of expertise by using the left-hand menu.
+
+concept_library:
+  heading: Concepts for %aoe%
+
+# Admin
+Area Of Expertise List: Area of Expertise List
+Url: Unique URL
+url_help: String that appears in the URL when accessing a resource (eg. /concept_library/). Has to contain up to 20 latin characters.
+Name: Name
+Concepts: Concepts
+Concept List: Concept List
+Areaofexpertise: Area of Expertise

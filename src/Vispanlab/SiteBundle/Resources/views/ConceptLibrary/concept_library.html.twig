@@ -1,0 +1,16 @@
+{% extends 'VispanlabSiteBundle::base.html.twig' %}
+
+{% block content %}
+<div class="row text-center">
+    <div class="col-md-12">
+        <h2>{{'concept_library.heading'|trans({'%aoe%': area_of_expertise.name})}}</h2>
+        <ul class="list-inline">
+        {% for concept in area_of_expertise.concepts %}
+            <li class="well well-lg">
+                {{concept.name}}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

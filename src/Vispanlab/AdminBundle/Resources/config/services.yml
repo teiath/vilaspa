@@ -1,0 +1,28 @@
+imports:
+    - { resource: '@VispanlabAdminBundle/Resources/config/sonata.yml' }
+
+services:
+    security.acl.voter.admin_permissions:
+        class: Vispanlab\AdminBundle\Voter\AdminAclVoter
+        public: false
+        arguments:
+            - "@security.acl.provider"
+            - "@security.acl.object_identity_retrieval_strategy"
+            - "@security.acl.security_identity_retrieval_strategy"
+            - "@security.acl.permission.map"
+            - "@?logger"
+        tags:
+            - { name: monolog.logger, channel: security }
+            - { name: security.voter, priority: 255 }
+    area_of_expertise.admin:
+        class: Vispanlab\AdminBundle\Admin\AreaOfExpertiseAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Βιβλιοθήκη Εννοιών, label: Γνωστικά Αντικείμενα }
+        arguments: [null, Vispanlab\SiteBundle\Entity\AreaOfExpertise, SonataAdminBundle:CRUD]
+        calls:
+            - [ addChild, ["@concept.admin"] ]
+    concept.admin:
+        class: Vispanlab\AdminBundle\Admin\ConceptAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Βιβλιοθήκη Εννοιών, label: Έννοιες }
+        arguments: [null, Vispanlab\SiteBundle\Entity\Concept, SonataAdminBundle:CRUD]
