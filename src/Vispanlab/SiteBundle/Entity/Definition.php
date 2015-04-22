@@ -42,13 +42,13 @@ class Definition {
      */
     protected $conceptAsDefinition;
     /**
-     * @ORM\ManyToOne(targetEntity="Concept", inversedBy="alternativeDefinition")
+     * @ORM\ManyToOne(targetEntity="Concept", inversedBy="alternativeDefinitions")
      * @ORM\JoinColumn(name="concept_alternative_definition_id", referencedColumnName="id", onDelete="CASCADE")
      * @var Concept
      */
     protected $conceptAsAlternativeDefinition;
     /**
-     * @ORM\ManyToOne(targetEntity="Concept", inversedBy="relatedConcept")
+     * @ORM\ManyToOne(targetEntity="Concept", inversedBy="relatedConcepts")
      * @ORM\JoinColumn(name="concept_related_concept_id", referencedColumnName="id", onDelete="CASCADE")
      * @var Concept
      */

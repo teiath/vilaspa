@@ -7,3 +7,18 @@
     bottom: 0;
     width: 100%;
 }
+
+/* Concept Details */
+.concept-details .well {
+    min-height: 150px;
+}
+
+.concept-details .well h4 {
+    font-weight: bold;
+    color: #3C8DBC;
+    cursor: pointer;
+}
+
+.concept-details .well .flag-icon {
+    float: right;
+}

@@ -17,7 +17,8 @@ class TwigExtension extends \Twig_Extension
   {
     return array(
         'url_decode' => new \Twig_Filter_Method($this, 'urlDecode'),
-        'roman_numeral' => new \Twig_Filter_Method($this, 'romanNumeral')
+        'roman_numeral' => new \Twig_Filter_Method($this, 'romanNumeral'),
+        'md5' => new \Twig_Filter_Method($this, 'md5'),
     );
   }
 
@@ -51,6 +52,10 @@ class TwigExtension extends \Twig_Extension
   public function urlDecode( $url )
   {
     return urldecode( $url );
+  }
+
+  public function md5($string) {
+      return md5($string);
   }
 
   function romanNumeral($integer, $upcase = true)
