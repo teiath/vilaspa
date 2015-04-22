@@ -18,7 +18,7 @@
 {% block sonata_left_side %}
 <aside class="left-side sidebar-offcanvas">
     <section class="sidebar">
-        <form action="#" method="GET" class="sidebar-form" role="search">
+        {#<form action="#" method="GET" class="sidebar-form" role="search">
             <div class="input-group custom-search-form">
                 <input type="text" name="q" value="{{ app.request.get('q') }}" class="form-control" placeholder="{{ 'search_placeholder'|trans({}, 'SonataAdminBundle') }}">
                     <span class="input-group-btn">
@@ -27,9 +27,9 @@
                         </button>
                     </span>
             </div>
-        </form>
+        </form>#}
 
-        <ul class="sidebar-menu">
+        <ul class="sidebar-menu" style="margin-top: 10px;">
             {{ knp_menu_render('sidebar', {'template': 'VispanlabSiteBundle::sidemenu.html.twig'}) }}
         </ul>
         <ul class="sidebar-menu bottom">

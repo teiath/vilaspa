@@ -7,9 +7,9 @@
         <ul class="list-inline">
         {% for concept in area_of_expertise.concepts %}
             <li class="well well-lg" style="min-width: 300px;">
-                <p>{{concept.nameEl}}</p>
-                <p><a href="#" data-toggle="collapse" data-target="#concept_{{concept.id}}" style="display: block;" aria-expanded="false" aria-controls="concept_{{concept.id}}">&raquo;</a></p>
-                <p id="concept_{{concept.id}}" class="collapse">{{concept.definitionEl}}</p>
+                <p>{{concept.nameForLang('el')}}</p>
+                <p><a href="#" data-toggle="collapse" data-target="#concept_{{concept.id}}" style="display: block;" aria-expanded="false" aria-controls="concept_{{concept.id}}">&raquo;</a><a href="{{path('concept', {'concept': concept.id})}}">test</a></p>
+                <p id="concept_{{concept.id}}" class="collapse">{{concept.definitionForLang('el')}}</p>
             </li>
         {% endfor %}
         </ul>

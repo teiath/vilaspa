@@ -1,0 +1,49 @@
+{% extends 'VispanlabSiteBundle::base.html.twig' %}
+
+{% block content %}
+<div class="row text-center">
+    <div class="col-md-12">
+        <h2>{{concept.nameForLang('el')}}</h2>
+        <div class="row text-justify">
+            <div class="col-md-6">
+                <h3 class="text-center">TERM</h3>
+                <div class="well well-lg">
+                    <h4>DEFINITION</h4>
+                    <p>{{concept.definitionForLang('en')|nl2br}}</p>
+                </div>
+                <div class="well well-lg">
+                    <h4>ΣΥΝΑΦΕΙΣ ΕΝΝΟΙΕΣ</h4>
+                    <p>{{concept.relatedConceptsForLang('el')|nl2br}}</p>
+                </div>
+                <div class="well well-lg">
+                    <h4>ΔΙΑΓΡΑΜΜΑ/ΧΑΡΤΗΣ/κλπ.</h4>
+                    <p><img src="{{asset(concept.imageExcerpt.imagePath)}}" style="width: 70%;" alt="map" /></p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3 class="text-center">ΕΝΝΟΙΑ</h3>
+                <div class="well well-lg">
+                    <h4>ΟΡΙΣΜΟΣ</h4>
+                    <p>{{concept.definitionForLang('el')|nl2br}}</p>
+                </div>
+                {% for text in concept.alternativeDefinitionsForLang('el') %}
+                    <div class="well well-lg">
+                        <h4>ΕΝΑΛΛΑΚΤΙΚΟΣ ΟΡΙΣΜΟΣ {{loop.index|roman_numeral}}</h4>
+                        <p>{{text}}</p>
+                    </div>
+                {% endfor %}
+                <div class="well well-lg">
+                    <h4>ΣΧΟΛΙΑ/ΠΑΡΑΔΕΙΓΜΑ</h4>
+                    <p>{{concept.comments|nl2br}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{parent()}}
+<script src="{{asset('bundles/sonataadmin/vendor/bootstrap/js/transition.js')}}"></script>
+<script src="{{asset('bundles/sonataadmin/vendor/bootstrap/js/collapse.js')}}"></script>
+{% endblock %}

@@ -5,7 +5,7 @@
 
 {% block root %}
 {% for curItem in item %}
-<li class="{% if curItem|length > 0 %}treeview{% endif %}{% if matcher.isCurrent(curItem) or matcher.isAncestor(curItem) %} active{% endif %} {{curItem.attribute('class')}}">
+<li class="{% if curItem|length > 0 %}treeview{% endif %} active {{curItem.attribute('class')}}">
     <a href="{{curItem.uri}}">
         <span>{{curItem.name|trans}}</span>
         {% if curItem|length > 0 %}<i class="fa pull-right fa-angle-left"></i>{% endif %}

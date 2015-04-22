@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use Vispanlab\SiteBundle\Entity\AreaOfExpertise;
+use Vispanlab\SiteBundle\Entity\Concept;
 
 class ConceptLibraryController extends Controller {
     /**
@@ -17,6 +18,16 @@ class ConceptLibraryController extends Controller {
     public function conceptLibrary(AreaOfExpertise $aoe) {
         return $this->render('VispanlabSiteBundle:ConceptLibrary:concept_library.html.twig', array(
             'area_of_expertise' => $aoe,
+        ));
+    }
+
+    /**
+     * @Route("/concept/{concept}", name="concept")
+     * @Secure(roles="ROLE_USER")
+     */
+    public function concept(Concept $concept) {
+        return $this->render('VispanlabSiteBundle:ConceptLibrary:concept.html.twig', array(
+            'concept' => $concept,
         ));
     }
 }

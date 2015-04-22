@@ -28,27 +28,19 @@ class Concept {
      */
     protected $areaofexpertise;
     /**
-     * @ORM\Column (name="name", type="string")
+     * @ORM\OneToMany(targetEntity="Definition", mappedBy="conceptAsName", cascade={"persist"}, orphanRemoval=true)
      */
-    protected $nameEl;
+    protected $name;
     /**
-     * @ORM\Column (name="name_en", type="string", nullable=true)
+     * @ORM\OneToMany(targetEntity="Definition", mappedBy="conceptAsDefinition", cascade={"persist"}, orphanRemoval=true)
      */
-    protected $nameEn;
+    protected $definition;
     /**
-     * @ORM\Column (name="defintion", type="string")
+     * @ORM\OneToMany(targetEntity="Definition", mappedBy="conceptAsAlternativeDefinition", cascade={"persist"}, orphanRemoval=true)
      */
-    protected $definitionEl;
+    protected $alternativeDefinitions;
     /**
-     * @ORM\Column (name="defintion_en", type="string", nullable=true)
-     */
-    protected $definitionEn;
-    /**
-     * @ORM\Column (name="alternative_definitions", type="array")
-     */
-    protected $alternativeDefintions;
-    /**
-     * @ORM\Column (name="related_concepts", type="array")
+     * @ORM\OneToMany(targetEntity="Definition", mappedBy="conceptAsRelatedConcept", cascade={"persist"}, orphanRemoval=true)
      */
     protected $relatedConcepts;
     /**
@@ -84,44 +76,73 @@ class Concept {
         $this->areaofexpertise = $areaofexpertise;
     }
 
-    public function getNameEl() {
-        return $this->nameEl;
+    public function getName() {
+        return $this->name;
     }
 
-    public function setNameEl($nameEl) {
-        $this->nameEl = $nameEl;
+    public function setName($name) {
+        $this->name = $name;
     }
 
-    public function getNameEn() {
-        return $this->nameEn;
+    public function addName(Definition $name) {
+        $this->getName()->add($name);
     }
 
-    public function setNameEn($nameEn) {
-        $this->nameEn = $nameEn;
+    private function getFieldForLang($field, $lang) {
+        if($this->$field() == null) { return null; }
+        foreach($this->$field() as $curName) {
+            if($curName->getLocale() == $lang) {
+                return $curName->getText();
+            }
+        }
+        return $field.' NOT FOUND FOR LANG '.$lang;
     }
 
-    public function getDefinitionEl() {
-        return $this->definitionEl;
+    private function getArrayFieldForLang($field, $lang) {
+        if($this->$field() == null) { return null; }
+        $result = array();
+        foreach($this->$field() as $curName) {
+            if($curName->getLocale() == $lang) {
+                $result[] = $curName->getText();
+            }
+        }
+        return $result;
     }
 
-    public function setDefinitionEl($definitionEl) {
-        $this->definitionEl = $definitionEl;
+    public function getNameForLang($lang) {
+        return $this->getFieldForLang('getName', $lang);
     }
 
-    public function getDefinitionEn() {
-        return $this->definitionEn;
+    public function getDefinition() {
+        return $this->definition;
     }
 
-    public function setDefinitionEn($definitionEn) {
-        $this->definitionEn = $definitionEn;
+    public function setDefinition($definition) {
+        $this->definition = $definition;
     }
 
-    public function getAlternativeDefintions() {
-        return $this->alternativeDefintions;
+    public function addDefinition(Definition $definition) {
+        $this->getDefinition()->add($definition);
     }
 
-    public function setAlternativeDefintions($alternativeDefintions) {
-        $this->alternativeDefintions = $alternativeDefintions;
+    public function getDefinitionForLang($lang) {
+        return $this->getFieldForLang('getDefinition', $lang);
+    }
+
+    public function getAlternativeDefinitions() {
+        return $this->alternativeDefinitions;
+    }
+
+    public function setAlternativeDefinitions($alternativeDefinitions) {
+        $this->alternativeDefinitions = $alternativeDefinitions;
+    }
+
+    public function addAlternativeDefinitions(Definition $definition) {
+        $this->getAlternativeDefinitions()->add($definition);
+    }
+
+    public function getAlternativeDefinitionsForLang($lang) {
+        return $this->getArrayFieldForLang('getAlternativeDefinitions', $lang);
     }
 
     public function getRelatedConcepts() {
@@ -130,6 +151,14 @@ class Concept {
 
     public function setRelatedConcepts($relatedConcepts) {
         $this->relatedConcepts = $relatedConcepts;
+    }
+
+    public function addRelatedConcepts(Definition $definition) {
+        $this->getRelatedConcepts()->add($definition);
+    }
+
+    public function getRelatedConceptsForLang($lang) {
+        return $this->getFieldForLang('getRelatedConcepts', $lang);
     }
 
     public function getImageExcerpt() {

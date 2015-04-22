@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Vispanlab\SiteBundle\Form\Type\LangTextType;
 
 class ConceptAdmin extends Admin
 {
@@ -32,30 +33,10 @@ class ConceptAdmin extends Admin
     {
         $formMapper
             ->add('areaofexpertise', null, array('required' => true))
-            ->add('nameEl')
-            ->add('nameEn')
-            ->add('definitionEl')
-            ->add('definitionEn')
-            ->add('alternativeDefintions', 'collection', array(
-                'type'   => 'text',
-                'required' => false,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'options'  => array(
-                    'required'  => false,
-                    'label' => 'Ορισμός'
-                )
-            ))
-            ->add('relatedConcepts', 'collection', array(
-                'type'   => 'text',
-                'required' => false,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'options'  => array(
-                    'required'  => false,
-                    'label' => 'Ορισμός'
-                )
-            ))
+            ->add('name', 'sonata_type_collection', array(), array('edit' => 'inline', 'inline' => 'table'))
+            ->add('definition', 'sonata_type_collection', array(), array('edit' => 'inline', 'inline' => 'table'))
+            ->add('alternativeDefinitions', 'sonata_type_collection', array(), array('edit' => 'inline', 'inline' => 'table'))
+            ->add('relatedConcepts', 'sonata_type_collection', array(), array('edit' => 'inline', 'inline' => 'table'))
             ->add('newImageExcerpt', 'file', array('required' => false))
             ->add('comments', null, array('help' => 'comments_placeholder'))
         ;
@@ -77,12 +58,10 @@ class ConceptAdmin extends Admin
             )))
             ->addIdentifier('id')
             ->add('areaofexpertise')
-            ->add('nameEl')
-            ->add('nameEn')
-            ->add('definitionEl')
-            ->add('definitionEn')
-            ->add('alternativeDefintions')
-            ->add('relatedConcepts')
+            ->add('name', 'langtext')
+            ->add('definition', 'langtext')
+            ->add('alternativeDefinitions', 'langtext')
+            ->add('relatedConcepts', 'langtext')
             ->add('imageExcerpt.imagePath', 'image')
             ->add('comments')
         ;
@@ -97,10 +76,7 @@ class ConceptAdmin extends Admin
     {
         $datagridMapper
             ->add('areaofexpertise')
-            ->add('nameEl')
-            ->add('nameEn')
-            ->add('definitionEl')
-            ->add('definitionEn')
+            //->add('name', 'doctrine_orm_model_autocomplete', array(), null, array('property'=>'text',))
         ;
         parent::configureDatagridFilters($datagridMapper);
     }
@@ -112,6 +88,18 @@ class ConceptAdmin extends Admin
     // Use uploadable manager to upload the file
     public function prePersist($concept)
     {
+        foreach($concept->getName() as $definition) {
+            $definition->setConceptAsName($concept);
+        }
+        foreach($concept->getDefinition() as $definition) {
+            $definition->setConceptAsDefinition($concept);
+        }
+        foreach($concept->getAlternativeDefinitions() as $definition) {
+            $definition->setConceptAsAlternativeDefinition($concept);
+        }
+        foreach($concept->getRelatedConcepts() as $definition) {
+            $definition->setConceptAsRelatedConcept($concept);
+        }
         if($concept->getNewImageExcerpt() != null) {
             $concept->getImageExcerpt()->setPhoto($concept->getNewImageExcerpt());
             $em = $this->modelManager->getEntityManager(get_class($concept->getImageExcerpt()));

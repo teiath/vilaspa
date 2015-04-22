@@ -1,0 +1,7 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+    {% for curValue in value %}
+        <i>{{curValue.locale}}</i>:{{curValue.text}}{% if not loop.last %}<BR />{% endif %}
+    {% endfor %}
+{% endblock %}

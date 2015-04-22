@@ -28,3 +28,8 @@ services:
         calls:
             - [ setUploadableManager, ["@stof_doctrine_extensions.uploadable.manager"] ]
         arguments: [null, Vispanlab\SiteBundle\Entity\Concept, SonataAdminBundle:CRUD]
+    definition.admin:
+        class: Vispanlab\AdminBundle\Admin\DefinitionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: Definitions, label: Definitions }
+        arguments: [null, Vispanlab\SiteBundle\Entity\Definition, SonataAdminBundle:CRUD]

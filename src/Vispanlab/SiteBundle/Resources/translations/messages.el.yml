@@ -18,10 +18,10 @@ concept_library:
 Area Of Expertise List: Λίστα Γνωστικών Αντικειμένων
 Url: Μοναδικό URL
 url_help: Αλφαριθμητικό που εμφανίζεται στο URL κατά την προσπέλαση του πόρου (πχ. /concept_library/). Πρέπει να περιλαμβάνει εως 20 λατινικούς χαρακτήρες.
-Name El: Όνομα (Ελληνικά)
-Name En: Όνομα (Αγγλικά)
-Definition El: Ορισμός (Ελληνικά)
-Definition En: Ορισμός (Αγγλικά)
+Locale: Γλώσσα
+Text: Κείμενο
+Name: Όνομα
+Definition: Ορισμός
 Alternative Defintions: Εναλλακτικοί Ορισμοί
 Related Concepts: Συναφείς Έννοιες
 New Image Excerpt: Απόσπασμα διαγράμματος/σχεδίου/χάρτη
