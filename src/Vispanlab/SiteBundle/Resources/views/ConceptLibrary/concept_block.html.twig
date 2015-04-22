@@ -2,5 +2,5 @@
 {% set blockId = ((method is defined ? method : (content|md5))~'_'~(locale is defined ? locale : '')) %}
 <div class="well well-lg">
     <h4 data-toggle="collapse" data-target="#{{blockId}}">{{block_name}} {% if locale is defined %}<span class="flag-icon flag-icon-{{langFlags[locale]}}"></span>{% endif %}</h4>
-    <p id="{{blockId}}" class="collapse">{{method is defined ? attribute(concept, method, [locale])|nl2br : content|raw}}</p>
+    <div id="{{blockId}}" class="collapse" style="display: inline;">{{method is defined ? attribute(concept, method, [locale])|raw : content|raw}}</div>
 </div>

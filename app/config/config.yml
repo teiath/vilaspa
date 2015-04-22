@@ -29,7 +29,9 @@ twig:
     globals:
         locales: %locales%
     form:
-        resources: ['bootstrap_3_layout.html.twig']
+        resources:
+          - 'bootstrap_3_layout.html.twig'
+          - 'SonataFormatterBundle:Form:formatter.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -56,6 +58,7 @@ doctrine:
         #unix_socket:	/var/mysql/mysql.sock
         types:
             point: Vispanlab\CommonBundle\Wantlet\ORM\PointType
+            json: Sonata\Doctrine\Types\JsonType
         mapping_types:
             point: string
     orm:
@@ -71,6 +74,8 @@ doctrine:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
         mappings:
+            ApplicationSonataMediaBundle: ~
+            SonataMediaBundle: ~
             gedmo_translatable:
                 type: annotation
                 prefix: Gedmo\Translatable\Entity

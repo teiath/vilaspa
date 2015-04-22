@@ -20,7 +20,14 @@ class DefinitionAdmin extends Admin
     {
         $formMapper
             ->add('locale', 'language', array('preferred_choices' => array('el', 'en', 'fr', 'de')))
-            ->add('text')
+            ->add('text', 'sonata_formatter_type', array(
+                'source_field'         => 'text',
+                'source_field_options' => array('attr' => array('class' => 'span10', 'rows' => 20)),
+                'format_field'         => 'format_type',
+                'target_field'         => 'text_formatted',
+                'event_dispatcher'     => $formMapper->getFormBuilder()->getEventDispatcher(),
+                'listener'             => true,
+            ))
         ;
         parent::configureFormFields($formMapper);
     }

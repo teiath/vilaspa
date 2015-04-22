@@ -30,6 +30,14 @@ class Definition {
      */
     protected $text;
     /**
+     * @ORM\Column (name="format_type", type="text")
+     */
+    public $format_type = 'richhtml';
+    /**
+     * @ORM\Column (name="text_formatted", type="text")
+     */
+    public $text_formatted;
+    /**
      * @ORM\ManyToOne(targetEntity="Concept", inversedBy="name")
      * @ORM\JoinColumn(name="concept_name_id", referencedColumnName="id", onDelete="CASCADE")
      * @var Concept
@@ -76,6 +84,26 @@ class Definition {
 
     public function setText($text) {
         $this->text = $text;
+    }
+
+    public function getFormat_type() {
+        return $this->format_type;
+    }
+
+    public function setFormat_type($format_type) {
+        $this->format_type = $format_type;
+    }
+
+    public function getText_formatted() {
+        return $this->text_formatted;
+    }
+
+    public function setText_formatted($text_formatted) {
+        $this->text_formatted = $text_formatted;
+    }
+
+    public function getTextFormatted() {
+        return $this->getText_formatted();
     }
 
     public function getConceptAsName() {

@@ -92,7 +92,7 @@ class Concept {
         if($this->$field() == null) { return null; }
         foreach($this->$field() as $curName) {
             if($curName->getLocale() == $lang) {
-                return $curName->getText();
+                return $curName->getTextFormatted();
             }
         }
         return $field.' NOT FOUND FOR LANG '.$lang;
@@ -103,7 +103,7 @@ class Concept {
         $result = array();
         foreach($this->$field() as $curName) {
             if($curName->getLocale() == $lang) {
-                $result[] = $curName->getText();
+                $result[] = $curName->getTextFormatted();
             }
         }
         return $result;

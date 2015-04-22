@@ -2,6 +2,6 @@
 
 {% block field%}
     {% for curValue in value %}
-        <i>{{curValue.locale}}</i>:{{curValue.text}}{% if not loop.last %}<BR />{% endif %}
+        <div><i>{{curValue.locale}}</i>:{{curValue.text_formatted|raw}}</div>
     {% endfor %}
 {% endblock %}
