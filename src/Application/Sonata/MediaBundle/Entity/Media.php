@@ -37,4 +37,4 @@ class Media extends BaseMedia
     {
         return $this->id;
     }
-}
+    }

@@ -11,8 +11,6 @@ use Vispanlab\SiteBundle\Form\Type\LangTextType;
 
 class ConceptAdmin extends Admin
 {
-    protected $uploadableManager;
-
     protected $datagridValues = array(
         '_sort_order' => 'DESC', // Descendant ordering (default = 'ASC')
         '_sort_by' => 'id' // name of the ordered field (default = the model id
@@ -37,7 +35,8 @@ class ConceptAdmin extends Admin
             ->add('definition', 'sonata_type_collection', array(), array('edit' => 'inline', 'inline' => 'table'))
             ->add('alternativeDefinitions', 'sonata_type_collection', array(), array('edit' => 'inline', 'inline' => 'table'))
             ->add('relatedConcepts', 'sonata_type_collection', array(), array('edit' => 'inline', 'inline' => 'table'))
-            ->add('newImageExcerpt', 'file', array('required' => false))
+            //->add('media', 'sonata_type_native_collection', array('allow_add' => true, 'type' => 'entity', 'options' => array('class' => 'Application\Sonata\MediaBundle\Entity\Media'), 'allow_delete' => true, ))
+            ->add('media')
             ->add('comments', null, array('help' => 'comments_placeholder'))
         ;
         parent::configureFormFields($formMapper);
@@ -62,7 +61,7 @@ class ConceptAdmin extends Admin
             ->add('definition', 'langtext')
             ->add('alternativeDefinitions', 'langtext')
             ->add('relatedConcepts', 'langtext')
-            ->add('imageExcerpt.imagePath', 'image')
+            ->add('media', 'media')
             ->add('comments')
         ;
     }
@@ -81,10 +80,6 @@ class ConceptAdmin extends Admin
         parent::configureDatagridFilters($datagridMapper);
     }
 
-    public function setUploadableManager($uploadableManager) {
-        $this->uploadableManager = $uploadableManager;
-    }
-
     // Use uploadable manager to upload the file
     public function prePersist($concept)
     {
@@ -99,12 +94,6 @@ class ConceptAdmin extends Admin
         }
         foreach($concept->getRelatedConcepts() as $definition) {
             $definition->setConceptAsRelatedConcept($concept);
-        }
-        if($concept->getNewImageExcerpt() != null) {
-            $concept->getImageExcerpt()->setPhoto($concept->getNewImageExcerpt());
-            $em = $this->modelManager->getEntityManager(get_class($concept->getImageExcerpt()));
-            $em->persist($concept->getImageExcerpt());
-            $this->uploadableManager->markEntityToUpload($concept->getImageExcerpt(), $concept->getImageExcerpt()->getPhoto());
         }
     }
 

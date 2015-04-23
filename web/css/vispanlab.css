@@ -8,6 +8,24 @@
     width: 100%;
 }
 
+/* Concept Search */
+.concept-library .sidebar-form input:focus {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-color: transparent!important;
+}
+
+.concept-library .concept-search-form-wrapper {
+    display: inline-block;
+    width: 300px;
+}
+
+.concept-library .concept-search-form {
+    border: 1px solid #eee;
+}
+/* End Concept Search */
+
 /* Concept Details */
 .concept-details .well {
     min-height: 120px;
@@ -22,3 +40,4 @@
 .concept-details .well .flag-icon {
     float: right;
 }
+/* End Concept Details */

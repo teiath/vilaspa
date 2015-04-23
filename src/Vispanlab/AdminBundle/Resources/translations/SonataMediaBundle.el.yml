@@ -1,0 +1,31 @@
+sonata_media: Μέσα (Εικόνες/Video κτλ.)
+media: Μέσα
+breadcrumb.link_media_list: Λίστα Μέσων
+breadcrumb.link_media_create: Δημιουργία Μέσου
+label.select_context: "Πλαίσιο:"
+default: Προεπιλεγμένο
+label.select_provider: "Τύπος:"
+link.all_providers: Όλοι
+title_select_provider: Επιλογή τύπου
+sonata.media.provider.dailymotion: Video Dailymotion
+sonata.media.provider.dailymotion.description: Εισαγωγή video από την υπηρεσία Dailymotion
+sonata.media.provider.youtube: Video Youtube
+sonata.media.provider.youtube.description: Εισαγωγή video από την υπηρεσία Youtube
+sonata.media.provider.image: Εικόνα
+sonata.media.provider.image.description: Ανέβασμα εικόνας
+sonata.media.provider.file: Αρχείο
+sonata.media.provider.file.description: Ανέβασμα αρχείου
+form.label_binary_content: "Αρχείο:"
+
+filter.label_name: "Όνομα:"
+filter.label_provider_reference: "Id σε πάροχο:"
+filter.label_enabled: "Ενεργό:"
+label_type_yes: Ναι
+label_type_no: Όχι
+filter.label_context: "Πλαίσιο:"
+filter.label_provider_name: "Τύπος:"
+
+list.label_name: Όνομα
+list.label_description: Περιγραφή
+list.label_enabled: Ενεργό
+list.label_size: Μέγεθος

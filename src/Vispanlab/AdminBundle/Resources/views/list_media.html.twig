@@ -1,0 +1,7 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+    {% for curValue in value %}
+        <p><a href="{% path curValue,'reference' %}" target="_blank">{% thumbnail curValue, 'small' %}</a></p>
+    {% endfor %}
+{% endblock %}

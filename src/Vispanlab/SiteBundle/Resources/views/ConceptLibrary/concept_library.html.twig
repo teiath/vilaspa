@@ -1,15 +1,27 @@
 {% extends 'VispanlabSiteBundle::base.html.twig' %}
 
 {% block content %}
-<div class="row text-center">
+<div class="row text-center concept-library">
     <div class="col-md-12">
         <h2>{{'concept_library.heading'|trans({'%aoe%': area_of_expertise.name})}}</h2>
+        <div class="concept-search-form-wrapper">
+            <form action="#" method="GET" class="sidebar-form" role="search">
+                <div class="input-group concept-search-form">
+                    <input type="text" name="q" value="{{ app.request.get('q') }}" class="form-control" placeholder="{{ 'search_placeholder'|trans({}, 'SonataAdminBundle') }}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-flat" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                </div>
+            </form>
+        </div>
         <ul class="list-inline">
         {% for concept in area_of_expertise.concepts %}
-            <li class="well well-lg" style="min-width: 300px;">
-                <p>{{concept.nameForLang('el')|raw}}</p>
-                <p><a href="#" data-toggle="collapse" data-target="#concept_{{concept.id}}" style="display: block;" aria-expanded="false" aria-controls="concept_{{concept.id}}">&raquo;</a><a href="{{path('concept', {'concept': concept.id})}}">test</a></p>
-                <p id="concept_{{concept.id}}" class="collapse">{{concept.definitionForLang('el')}}</p>
+            <li style="vertical-align: bottom;">
+                <a href="{{path('concept', {'concept': concept.id})}}" class="well well-lg" style="display: inline-block; height: 70px; min-width: 300px;">
+                    {{concept.nameForLang('el')|striptags|raw}}
+                </a>
             </li>
         {% endfor %}
         </ul>

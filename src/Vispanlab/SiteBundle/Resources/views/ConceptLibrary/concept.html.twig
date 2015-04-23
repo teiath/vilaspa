@@ -21,7 +21,7 @@
                 } %}
                 {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
                     'concept': concept,
-                    'content': '<img src="'~asset(concept.imageExcerpt.imagePath)~'" style="width: 70%;" alt="map" />',
+                    'method': 'getMedia',
                     'block_name' : 'ΔΙΑΓΡΑΜΜΑ/ΧΑΡΤΗΣ/κλπ.',
                 } %}
             </div>

@@ -1,7 +1,7 @@
 <?php
 namespace Vispanlab\SiteBundle\Entity;
 
-use Vispanlab\CommonBundle\Entity\ImageFile;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -44,21 +44,21 @@ class Concept {
      */
     protected $relatedConcepts;
     /**
-     * @ORM\ManyToOne(targetEntity="Vispanlab\CommonBundle\Entity\ImageFile")
-     * @ORM\JoinColumn(name="image_excerpt_id", referencedColumnName="id", onDelete="SET NULL")
-     * @var ImageFile
+     * @ORM\ManyToMany(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY")
+     * @ORM\JoinTable(name="conccept_has_media",
+     *      joinColumns={@ORM\JoinColumn(name="concept_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="media_id", referencedColumnName="id")}
+     *      )
      */
-    protected $imageExcerpt;
-    /**
-     * @Assert\File(
-     *     mimeTypes={"image/jpeg", "image/pjpeg", "image/png", "image/x-png"}
-     * )
-     */
-    protected $newImageExcerpt;
+    protected $media;
     /**
      * @ORM\Column (name="comments", type="text", nullable=true)
      */
     protected $comments;
+
+    public function __construct() {
+        $this->media = new ArrayCollection();
+    }
 
     public function getId() {
         return $this->id;
@@ -161,21 +161,20 @@ class Concept {
         return $this->getFieldForLang('getRelatedConcepts', $lang);
     }
 
-    public function getImageExcerpt() {
-        if(!isset($this->imageExcerpt)) { $this->imageExcerpt = new ImageFile(); }
-        return $this->imageExcerpt;
+    public function getMedia() {
+        return $this->media;
     }
 
-    public function setImageExcerpt(ImageFile $imageExcerpt) {
-        $this->imageExcerpt = $imageExcerpt;
+    public function setMedia($media) {
+        $this->media = $media;
     }
 
-    public function getNewImageExcerpt() {
-        return $this->newImageExcerpt;
+    public function addMedia($media) {
+        $this->getMedia()->add($media);
     }
 
-    public function setNewImageExcerpt($newImageExcerpt) {
-        $this->newImageExcerpt = $newImageExcerpt;
+    public function removeMedia($media) {
+        $this->getMedia()->removeElement($media);
     }
 
     public function getComments() {

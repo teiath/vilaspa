@@ -13,6 +13,7 @@ home:
 
 concept_library:
   heading: Έννοιες για %aoe%
+  goto_concept: Μετάβαση
 
 # Admin
 Area Of Expertise List: Λίστα Γνωστικών Αντικειμένων
