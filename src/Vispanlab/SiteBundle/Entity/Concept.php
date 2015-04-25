@@ -28,7 +28,7 @@ class Concept {
      */
     protected $areaofexpertise;
     /**
-     * @ORM\OneToMany(targetEntity="Definition", mappedBy="conceptAsName", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Definition", mappedBy="conceptAsName", cascade={"persist"}, orphanRemoval=true, fetch="EAGER")
      */
     protected $name;
     /**
@@ -57,6 +57,10 @@ class Concept {
     protected $comments;
 
     public function __construct() {
+        $this->name = new ArrayCollection();
+        $this->definition = new ArrayCollection();
+        $this->alternativeDefinitions = new ArrayCollection();
+        $this->relatedConcepts = new ArrayCollection();
         $this->media = new ArrayCollection();
     }
 
@@ -98,6 +102,16 @@ class Concept {
         return $field.' NOT FOUND FOR LANG '.$lang;
     }
 
+    private function hasFieldForLang($field, $lang) {
+        if($this->$field() == null) { return null; }
+        foreach($this->$field() as $curName) {
+            if($curName->getLocale() == $lang) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private function getArrayFieldForLang($field, $lang) {
         if($this->$field() == null) { return null; }
         $result = array();
@@ -127,6 +141,10 @@ class Concept {
 
     public function getDefinitionForLang($lang) {
         return $this->getFieldForLang('getDefinition', $lang);
+    }
+
+    public function hasDefinitionForLang($lang) {
+        return $this->hasFieldForLang('getDefinition', $lang);
     }
 
     public function getAlternativeDefinitions() {
