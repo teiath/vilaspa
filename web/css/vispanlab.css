@@ -16,6 +16,14 @@
   border-color: transparent!important;
 }
 
+.skin-black .sidebar-form input[type="text"]:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
 .concept-library .concept-search-form-wrapper {
     display: inline-block;
     width: 300px;
