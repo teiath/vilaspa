@@ -27,11 +27,11 @@ class ImportWordCommand extends ContainerAwareCommand
         $dom = HtmlDomParser::str_get_html( $htmlStr );
 
         // TODO fetch actual gnwstiko antikeimno instead of default
-        $poleodomia = $this->getContainer()->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\AreaOfExpertise')->find(1);
+        //$poleodomia = $this->getContainer()->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\AreaOfExpertise')->find(1);
 
         foreach($dom->find('table') as $curTable) {
             $concept = new Concept();
-            $concept->setAreaofexpertise($poleodomia);
+            //$concept->setAreaofexpertise($poleodomia); // Moved to LinkConceptsToAreasCommand
             // TR Structure:
             // 0 is GR Name
             // 1 is Alternative Names (EN, FR, DE)
@@ -70,16 +70,21 @@ class ImportWordCommand extends ContainerAwareCommand
             $this->getContainer()->get('doctrine')->getManager()->flush($concept);
             $output->writeln('Added concept: '.$concept->getNameForLang('el'));
         }
+
+        // Remove multiple spcaes
+        // UPDATE `definition`
+        // SET text_formatted = REPLACE( REPLACE( REPLACE( text_formatted, "  ", " " ), "  ", " " ) "  ", " " )
+        // WHERE `concept_name_id` IS NOT NULL
         $output->writeln('Completed ImportWord process');
     }
 
     private function parseTitle($domPlainText, Concept &$concept, $locale) {
         // Remove EN: etc
         $domPlainText = str_replace(strtoupper($locale).':', '', $domPlainText);
-        $domPlainText = $this->mb_trim($domPlainText, ' ');
+        $domPlainText = $this->mb_trim($domPlainText, ' '.PHP_EOL);
         if(mb_strlen($domPlainText) <= 0) { return; }
         $definition = new Definition();
-        $definition->setFormat_type('raw');
+        $definition->setFormat_type('richhtml');
         $definition->setLocale($locale);
         $definition->setConceptAsName($concept);
         $definition->setText($domPlainText);
@@ -88,7 +93,7 @@ class ImportWordCommand extends ContainerAwareCommand
     }
 
     private function parseDefinition($domPlainText, Concept &$concept, $locale) {
-        $domPlainText = $this->mb_trim($domPlainText, ' ');
+        $domPlainText = $this->mb_trim($domPlainText, ' '.PHP_EOL);
         if(mb_strlen($domPlainText) <= 0) { return; }
         $definition = new Definition();
         $definition->setFormat_type('raw');
@@ -100,7 +105,7 @@ class ImportWordCommand extends ContainerAwareCommand
     }
 
     private function parseAlternativeDefinition($domPlainText, Concept &$concept, $locale) {
-        $domPlainText = $this->mb_trim($domPlainText, ' ');
+        $domPlainText = $this->mb_trim($domPlainText, ' '.PHP_EOL);
         if(mb_strlen($domPlainText) <= 0) { return; }
         $definition = new Definition();
         $definition->setFormat_type('raw');
@@ -112,7 +117,7 @@ class ImportWordCommand extends ContainerAwareCommand
     }
 
     private function parseRelatedConcepts($domPlainText, Concept &$concept, $locale) {
-        $domPlainText = $this->mb_trim($domPlainText, ' ');
+        $domPlainText = $this->mb_trim($domPlainText, ' '.PHP_EOL);
         if(mb_strlen($domPlainText) <= 0) { return; }
         $definition = new Definition();
         $definition->setFormat_type('raw');
@@ -124,7 +129,7 @@ class ImportWordCommand extends ContainerAwareCommand
     }
 
     private function parseComments($domPlainText, Concept &$concept) {
-        $domPlainText = $this->mb_trim($domPlainText, ' ');
+        $domPlainText = $this->mb_trim($domPlainText, ' '.PHP_EOL);
         if(mb_strlen($domPlainText) <= 0) { return; }
         $concept->setComments($domPlainText);
     }
@@ -133,7 +138,7 @@ class ImportWordCommand extends ContainerAwareCommand
         $plaintext = $el->innertext;
         $locale = $this->getTextLanguage($el->plaintext, 'el');
         // Ignore empty
-        if(mb_strlen($this->mb_trim($el->plaintext, ' ')) <= 0) { return array('type' => 'ignore', 'text' => str_replace('ΕΙΚΟΝΙΚΗ ΑΝΑΠΑΡΑΣΤΑΣΗ', '', $plaintext), 'locale' => $locale); }
+        if(mb_strlen($this->mb_trim($el->plaintext, ' '.PHP_EOL)) <= 0) { return array('type' => 'ignore', 'text' => str_replace('ΕΙΚΟΝΙΚΗ ΑΝΑΠΑΡΑΣΤΑΣΗ', '', $plaintext), 'locale' => $locale); }
         // End ignore empty
         if(mb_strpos($plaintext, 'ΣΥΝΑΦΕΙΣ ΕΝΝΟΙΕΣ') !== false) { return array('type' => 'relatedConcept', 'text' => str_replace('ΣΥΝΑΦΕΙΣ ΕΝΝΟΙΕΣ', '', $plaintext), 'locale' => $locale); }
         if(mb_strpos($plaintext, 'ΕΙΚΟΝΙΚΗ ΑΝΑΠΑΡΑΣΤΑΣΗ') !== false) { return array('type' => 'ignore', 'text' => str_replace('ΕΙΚΟΝΙΚΗ ΑΝΑΠΑΡΑΣΤΑΣΗ', '', $plaintext), 'locale' => $locale); }

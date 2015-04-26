@@ -19,6 +19,7 @@ class TwigExtension extends \Twig_Extension
         'url_decode' => new \Twig_Filter_Method($this, 'urlDecode'),
         'roman_numeral' => new \Twig_Filter_Method($this, 'romanNumeral'),
         'md5' => new \Twig_Filter_Method($this, 'md5'),
+        'stripGrAccent' => new \Twig_Filter_Method($this, 'stripGrAccent'),
     );
   }
 
@@ -83,6 +84,12 @@ class TwigExtension extends \Twig_Extension
     }
 
     return $return;
+  }
+
+  function stripGrAccent($tempName)
+  {
+    $tempName = strtr($tempName, "ΆάΈέΉήΌόΎύΏώ", "ααεεηηοουυωω");
+    return strtr($tempName, "αβγδεζηθικλμνξοπρστυφχψως" , "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΣ");
   }
 
   /**

@@ -135,5 +135,19 @@ class Definition {
     public function setConceptAsRelatedConcept(Concept $conceptAsRelatedConcept) {
         $this->conceptAsRelatedConcept = $conceptAsRelatedConcept;
     }
+
+    public function getConcept() {
+        if(isset($this->conceptAsAlternativeDefinition)) {
+            return $this->conceptAsAlternativeDefinition;
+        } else if(isset($this->conceptAsDefinition)) {
+            return $this->conceptAsDefinition;
+        } else if(isset($this->conceptAsName)) {
+            return $this->conceptAsName;
+        } else if(isset($this->conceptAsRelatedConcept)) {
+            return $this->conceptAsRelatedConcept;
+        } else {
+            throw new \Exception('Could not find concept');
+        }
+    }
 }
 ?>

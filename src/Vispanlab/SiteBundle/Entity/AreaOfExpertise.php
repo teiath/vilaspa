@@ -1,6 +1,8 @@
 <?php
 namespace Vispanlab\SiteBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -30,6 +32,10 @@ class AreaOfExpertise {
      * @ORM\OneToMany(targetEntity="Concept", mappedBy="areaofexpertise")
      */
     protected $concepts;
+
+    public function __construct() {
+        $this->name = new ArrayCollection();
+    }
 
     public function getId() {
         return $this->id;
@@ -61,6 +67,22 @@ class AreaOfExpertise {
 
     public function setConcepts($concepts) {
         $this->concepts = $concepts;
+    }
+
+    public function getSortedConcepts() {
+        $concepts = $this->concepts->getIterator();
+        $concepts->uasort(function ($a, $b) {
+            $at = $this->stripGrAccent($a->getNameForLang('el'));
+            $bt = $this->stripGrAccent($b->getNameForLang('el'));
+            if($at == $bt) { return 0; }
+            return ($at > $bt) ? 1 : -1;
+        });
+        return new ArrayCollection(iterator_to_array($concepts));
+    }
+
+    private function stripGrAccent($tempName) {
+      $tempName = strtr($tempName, "ΆάΈέΉήΌόΎύΏώ", "ααεεηηοουυωω");
+      return strtr($tempName, "αβγδεζηθικλμνξοπρστυφχψως" , "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΣ");
     }
 
     public function __toString() {
