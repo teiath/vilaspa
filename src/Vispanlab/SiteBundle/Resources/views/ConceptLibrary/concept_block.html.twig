@@ -2,7 +2,7 @@
 {% set blockId = ((method is defined ? method : (content|md5))~'_'~(locale is defined ? locale : '')) %}
 <div class="well well-lg">
     <h4 data-toggle="collapse" data-target="#{{blockId}}">{{block_name}} {% if locale is defined %}<span class="flag-icon flag-icon-{{langFlags[locale]}}"></span>{% endif %}</h4>
-    <div id="{{blockId}}" class="collapse">
+    <div id="{{blockId}}" class="concept-details-block collapse">
         <div style="display: inline;">
             {% set content = method is defined ? attribute(concept, method, [locale is defined ? locale : null]) : content %}
             {% if content is iterable %}
@@ -16,5 +16,5 @@
             {% endif %}
         </div>
     </div>
-    <div data-toggle="collapse" data-target="#{{blockId}}" class="text-center" style="position: relative; bottom: -25px; cursor: pointer;"><i class="fa fa-angle-double-down"></i></div>
+    <div data-toggle="collapse" data-target="#{{blockId}}" class="text-center collapse-arrows-wrapper" style="position: relative; bottom: -25px; cursor: pointer;"><i class="fa fa-angle-double-down"></i></div>
 </div>
