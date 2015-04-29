@@ -4,7 +4,11 @@ common:
   login: Login
   logout: Logout
   civilian_register: Civilian Register
-  admin_link: Admin
+  admin_env_link: Admin Panel
+  user_env_link: User Environment
+  concept_library: Library
+  virtual_assignments: Virtual Assignments
+  user_guide: User Guide
 
 home:
   welcome: Welcome %user%
@@ -12,6 +16,7 @@ home:
 
 concept_library:
   heading: Library
+  goto_concept: Go to
 
 # Admin
 Area Of Expertise List: Area of Expertise List

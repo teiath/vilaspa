@@ -78,8 +78,13 @@ class AreaOfExpertise {
         else return $this->nameEn;
     }
 
-    public function getConcepts() {
-        return $this->concepts;
+    public function getConcepts($locale) {
+        $concepts = $this->concepts;
+        $concepts = $concepts->filter(function(Concept $concept) use ($locale) {
+            if($concept->hasNameForLang($locale)) { return true; }
+            else return false;
+        });
+        return $concepts;
     }
 
     public function setConcepts($concepts) {
@@ -87,7 +92,7 @@ class AreaOfExpertise {
     }
 
     public function getSortedConcepts($locale) {
-        $concepts = $this->concepts->getIterator();
+        $concepts = $this->getConcepts($locale)->getIterator();
         $concepts->uasort(function ($a, $b) use ($locale) {
             $at = $this->stripGrAccent($a->getNameForLang($locale));
             $bt = $this->stripGrAccent($b->getNameForLang($locale));

@@ -32,8 +32,8 @@ class SidebarMenuBuilder
 
         foreach($areasofexpertise as $curArea) {
             $areaMenu = $menu->addChild($curArea->getName($request->getLocale()), array('uri' => '#', 'attributes' => array('class' => 'home')));
-            $areaMenu->addChild('Βιβλιοθήκη Εννοιών', array('route' => 'concept_library', 'routeParameters' => array('aoe' => $curArea->getUrl()), 'attributes' => array('class' => 'home')));
-            $areaMenu->addChild('Εικονικές Ασκήσεις', array('route' => 'virtual_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl()), 'attributes' => array('class' => 'home')));
+            $areaMenu->addChild('common.concept_library', array('route' => 'concept_library', 'routeParameters' => array('aoe' => $curArea->getUrl()), 'attributes' => array('class' => 'home')));
+            $areaMenu->addChild('common.virtual_assignments', array('route' => 'virtual_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl()), 'attributes' => array('class' => 'home')));
         }
 
         return $menu;
@@ -49,7 +49,7 @@ class SidebarMenuBuilder
                 $menu->addChild('common.user_env_link', array('route' => 'home', 'attributes' => array('class' => 'home')));
             }
         }
-        $menu->addChild('Οδηγίες Χρήσης', array('uri' => '#docs', 'attributes' => array('class' => 'home')));
+        $menu->addChild('common.user_guide', array('uri' => '#docs', 'attributes' => array('class' => 'home')));
 
         return $menu;
     }

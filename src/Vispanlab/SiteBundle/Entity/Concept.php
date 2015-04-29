@@ -92,6 +92,10 @@ class Concept {
         $this->getName()->add($name);
     }
 
+    public function hasNameForLang($lang) {
+        return $this->hasFieldForLang('getName', $lang);
+    }
+
     private function getFieldForLang($field, $lang) {
         if($this->$field() == null) { return null; }
         foreach($this->$field() as $curName) {

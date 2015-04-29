@@ -6,6 +6,9 @@ common:
   civilian_register: Εγγραφή Πολίτη
   admin_env_link: Περιβάλλον Διαχειριστή
   user_env_link: Περιβάλλον Χρήστη
+  concept_library: Βιβλιοθήκη Εννοιών
+  virtual_assignments: Εικονικές Ασκήσεις
+  user_guide: Οδηγός Χρήσης
 
 home:
   welcome: Καλώς Όρισες %user%
