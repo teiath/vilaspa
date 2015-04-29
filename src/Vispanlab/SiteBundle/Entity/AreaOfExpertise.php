@@ -25,9 +25,13 @@ class AreaOfExpertise {
      */
     protected $url;
     /**
-     * @ORM\Column (name="name", type="string")
+     * @ORM\Column (name="name_el", type="string")
      */
-    protected $name;
+    protected $nameEl;
+    /**
+     * @ORM\Column (name="name_en", type="string")
+     */
+    protected $nameEn;
     /**
      * @ORM\OneToMany(targetEntity="Concept", mappedBy="areaofexpertise")
      */
@@ -53,12 +57,25 @@ class AreaOfExpertise {
         $this->url = $url;
     }
 
-    public function getName() {
-        return $this->name;
+    public function getNameEl() {
+        return $this->nameEl;
     }
 
-    public function setName($name) {
-        $this->name = $name;
+    public function setNameEl($nameEl) {
+        $this->nameEl = $nameEl;
+    }
+
+    public function getNameEn() {
+        return $this->nameEn;
+    }
+
+    public function setNameEn($nameEn) {
+        $this->nameEn = $nameEn;
+    }
+
+    public function getName($locale) {
+        if($locale == 'el') { return $this->nameEl; }
+        else return $this->nameEn;
     }
 
     public function getConcepts() {
@@ -69,11 +86,11 @@ class AreaOfExpertise {
         $this->concepts = $concepts;
     }
 
-    public function getSortedConcepts() {
+    public function getSortedConcepts($locale) {
         $concepts = $this->concepts->getIterator();
-        $concepts->uasort(function ($a, $b) {
-            $at = $this->stripGrAccent($a->getNameForLang('el'));
-            $bt = $this->stripGrAccent($b->getNameForLang('el'));
+        $concepts->uasort(function ($a, $b) use ($locale) {
+            $at = $this->stripGrAccent($a->getNameForLang($locale));
+            $bt = $this->stripGrAccent($b->getNameForLang($locale));
             if($at == $bt) { return 0; }
             return ($at > $bt) ? 1 : -1;
         });

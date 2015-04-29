@@ -3,7 +3,8 @@
 {% block content %}
 <div class="row text-center concept-library">
     <div class="col-md-12">
-        <h2 style="margin-top: 0;">{{'concept_library.heading'|trans({'%aoe%': area_of_expertise.name})|raw}}<hr /></h2>
+        <h2 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)}}</h2>
+        <h4>{{'concept_library.heading'|trans}}<hr /></h4>
         <div class="concept-search-form-wrapper">
             <form action="#" method="GET" class="sidebar-form" role="search" onsubmit="return false;">
                 <div class="input-group concept-search-form">
@@ -16,16 +17,27 @@
                 </div>
             </form>
         </div>
+        <div class="concept-glossary">
+            <ul class="list-inline">
+            {% set curLetter = null %}
+            {% for concept in area_of_expertise.sortedConcepts(app.request.locale) %}
+                {% set newLetter = concept.nameForLang(app.request.locale)|stripGrAccent|first %}
+                {% if newLetter != curLetter %}
+                    <li class="alphabet-letter"><a href="#concept-glossary-letter-{{newLetter}}">{{newLetter}}</a></li>{% set curLetter = newLetter %}
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
         <ul class="list-inline">
         {% set curLetter = null %}
-        {% for concept in area_of_expertise.sortedConcepts %}
-            {% set newLetter = concept.nameForLang('el')|stripGrAccent|first %}
+        {% for concept in area_of_expertise.sortedConcepts(app.request.locale) %}
+            {% set newLetter = concept.nameForLang(app.request.locale)|stripGrAccent|first %}
             {% if newLetter != curLetter %}
-                <li class="alphabet-letter col-md-12"><h3>{{newLetter}}</h3></li>{% set curLetter = newLetter %}
+                <li id="concept-glossary-letter-{{newLetter}}" class="alphabet-letter col-md-12"><h3>{{newLetter}}</h3></li>{% set curLetter = newLetter %}
             {% endif %}
-            <li class="concept-search-result col-md-3" style="vertical-align: bottom;" data-name="{{concept.nameForLang('el')|striptags|raw}}">
+            <li class="concept-search-result col-md-3" style="vertical-align: bottom;" data-name="{{concept.nameForLang(app.request.locale)|striptags|raw}}">
                 <a href="{{path('concept', {'concept': concept.id})}}" class="well well-lg" style="display: inline-block; height: 70px; width: 100%;">
-                    {{concept.nameForLang('el')|striptags|raw}}
+                    {{concept.nameForLang(app.request.locale)|striptags|raw}}
                 </a>
             </li>
         {% endfor %}
@@ -63,7 +75,7 @@
 
         $('.concept-search-form input[type="text"]').typeahead({
             source: [
-                {% for concept in area_of_expertise.sortedConcepts %}"{{concept.nameForLang('el')|striptags|replace({'&amp;': '&'})|e('js')|raw}}"{% if not loop.last %},{% endif %}{% endfor %}
+                {% for concept in area_of_expertise.sortedConcepts(app.request.locale) %}"{{concept.nameForLang(app.request.locale)|striptags|replace({'&amp;': '&'})|e('js')|raw}}"{% if not loop.last %},{% endif %}{% endfor %}
             ],
             afterSelect: updateSearchResults
         });

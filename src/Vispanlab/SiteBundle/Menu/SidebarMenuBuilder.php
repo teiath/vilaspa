@@ -31,7 +31,7 @@ class SidebarMenuBuilder
         $menu = $this->factory->createItem('root');
 
         foreach($areasofexpertise as $curArea) {
-            $areaMenu = $menu->addChild($curArea->getName(), array('uri' => '#', 'attributes' => array('class' => 'home')));
+            $areaMenu = $menu->addChild($curArea->getName($request->getLocale()), array('uri' => '#', 'attributes' => array('class' => 'home')));
             $areaMenu->addChild('Βιβλιοθήκη Εννοιών', array('route' => 'concept_library', 'routeParameters' => array('aoe' => $curArea->getUrl()), 'attributes' => array('class' => 'home')));
             $areaMenu->addChild('Εικονικές Ασκήσεις', array('route' => 'virtual_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl()), 'attributes' => array('class' => 'home')));
         }
