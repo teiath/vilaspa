@@ -1,7 +1,7 @@
 {% set langFlags = { 'en': 'gb', 'el': 'gr' } %}
-{% set blockId = ((method is defined ? method : (content|md5))~'_'~(locale is defined ? locale : '')) %}
+{% set blockId = ((method is defined ? method : (content.textFormatted|md5))~'_'~(locale is defined ? locale : '')) %}
 <div class="well well-lg">
-    <h4 data-toggle="collapse" data-target="#{{blockId}}">{{block_name}} {% if locale is defined %}<span class="flag-icon flag-icon-{{langFlags[locale]}}"></span>{% endif %}</h4>
+    <h4 data-toggle="collapse" data-target="#{{blockId}}">{{block_name}}</h4>
     <div id="{{blockId}}" class="concept-details-block collapse">
         <div style="display: inline;">
             {% set content = method is defined ? attribute(concept, method, [locale is defined ? locale : null]) : content %}
@@ -12,7 +12,17 @@
             {% elseif content is instanceof('Application\Sonata\MediaBundle\Entity\Media') %}
                 <a href="{% path content,'reference' %}" target="_blank">{% thumbnail content, 'small' %}</a>
             {% else %}
-                {{content|raw}}
+                {{content.textFormatted|format_text(content.format_type)|raw}}
+            {% endif %}
+        </div>
+        <div>
+            {% if noFlags is not defined or noFlags != true and content is instanceof('Vispanlab\SiteBundle\Entity\Definition') %}
+                <ul class="list-inline">
+                    <li><span class="flag-icon flag-icon-square flag-icon-{{langFlags[locale]}}"></span></li>
+                    {% for definition in content.getDefinitionOtherLangs %}
+                        <li><span class="flag-icon flag-icon-square flag-icon-{{langFlags[definition.locale]}}"></span></li>
+                    {% endfor %}
+                </ul>
             {% endif %}
         </div>
     </div>

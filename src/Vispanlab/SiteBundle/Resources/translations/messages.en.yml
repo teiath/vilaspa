@@ -18,6 +18,10 @@ concept_library:
   heading: Library
   goto_concept: Go to
 
+concept:
+  DEFINITION: DEFINITION
+  RELATED_CONCEPTS: RELATED CONCEPTS
+
 # Admin
 Area Of Expertise List: Area of Expertise List
 Url: Unique URL

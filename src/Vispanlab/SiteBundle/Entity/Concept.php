@@ -100,7 +100,7 @@ class Concept {
         if($this->$field() == null) { return null; }
         foreach($this->$field() as $curName) {
             if($curName->getLocale() == $lang) {
-                return $curName->getTextFormatted();
+                return $curName;
             }
         }
         return $field.' NOT FOUND FOR LANG '.$lang;
@@ -121,14 +121,28 @@ class Concept {
         $result = array();
         foreach($this->$field() as $curName) {
             if($curName->getLocale() == $lang) {
-                $result[] = $curName->getTextFormatted();
+                $result[] = $curName;
             }
         }
         return $result;
     }
 
+    private function getArrayFieldForOtherLang($field, $lang) {
+        $definitions = array();
+        foreach($this->$field() as $curDefinition) {
+            if($curDefinition->getLocale() != $lang) {
+                $definitions[] = $curDefinition;
+            }
+        }
+        return $definitions;
+    }
+
     public function getNameForLang($lang) {
         return $this->getFieldForLang('getName', $lang);
+    }
+
+    public function getNameForOtherLang($lang) {
+        return $this->getArrayFieldForOtherLang('getName', $lang);
     }
 
     public function getDefinition() {
@@ -151,6 +165,10 @@ class Concept {
         return $this->hasFieldForLang('getDefinition', $lang);
     }
 
+    public function getDefinitionForOtherLang($lang) {
+        return $this->getArrayFieldForOtherLang('getDefinition', $lang);
+    }
+
     public function getAlternativeDefinitions() {
         return $this->alternativeDefinitions;
     }
@@ -167,6 +185,10 @@ class Concept {
         return $this->getArrayFieldForLang('getAlternativeDefinitions', $lang);
     }
 
+    public function getAlternativeDefinitionsForOtherLang($lang) {
+        return $this->getArrayFieldForOtherLang('getAlternativeDefinitions', $lang);
+    }
+
     public function getRelatedConcepts() {
         return $this->relatedConcepts;
     }
@@ -181,6 +203,10 @@ class Concept {
 
     public function getRelatedConceptsForLang($lang) {
         return $this->getFieldForLang('getRelatedConcepts', $lang);
+    }
+
+    public function getRelatedConceptsForOtherLang($lang) {
+        return $this->getArrayFieldForOtherLang('getAlternativeDefinitions', $lang);
     }
 
     public function getMedia() {
@@ -205,6 +231,14 @@ class Concept {
 
     public function setComments($comments) {
         $this->comments = $comments;
+    }
+
+    public function getCommentsAsDefinition() {
+        $def = new Definition();
+        $def->setLocale('el');
+        $def->setText_formatted($this->getComments());
+        $def->setConceptAsName($this);
+        return $def;
     }
 
     public function __toString() {

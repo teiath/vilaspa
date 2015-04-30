@@ -18,6 +18,10 @@ concept_library:
   heading: Βιβλιοθήκη Εννοιών
   goto_concept: Μετάβαση
 
+concept:
+  DEFINITION: ΟΡΙΣΜΟΣ
+  RELATED_CONCEPTS: ΣΥΝΑΦΕΙΣ ΕΝΝΟΙΕΣ
+
 # Admin
 Area Of Expertise List: Λίστα Γνωστικών Αντικειμένων
 Url: Μοναδικό URL

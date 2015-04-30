@@ -3,23 +3,42 @@
 {% block content %}
 <div class="row text-center">
     <div class="col-md-12 concept-details">
-        <h2 style="margin-top: 0;"><strong>{{concept.nameForLang('el')|raw}}</strong><hr /></h2>
+        <h2 style="margin-top: 0;"><strong>{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)}}</strong><hr /></h2>
         <div class="row text-justify">
             <div class="col-md-6">
-                {% if concept.hasDefinitionForLang('en') %}
+                {% if concept.hasDefinitionForLang(app.request.locale) %}
                 {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
                     'concept': concept,
                     'method': 'definitionForLang',
-                    'block_name' : 'DEFINITION',
-                    'locale': 'en',
+                    'block_name' : ('concept.DEFINITION'|trans),
+                    'locale': app.request.locale,
                 } %}
                 {% endif %}
+                {% for text in concept.alternativeDefinitionsForLang(app.request.locale) %}
+                    {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
+                        'concept': concept,
+                        'content': text,
+                        'block_name' : 'ΕΝΑΛΛΑΚΤΙΚΟΣ ΟΡΙΣΜΟΣ '~(loop.index|roman_numeral),
+                        'locale': app.request.locale,
+                    } %}
+                {% endfor %}
                 {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
                     'concept': concept,
                     'method': 'relatedConceptsForLang',
-                    'block_name' : 'ΣΥΝΑΦΕΙΣ ΕΝΝΟΙΕΣ',
-                    'locale': 'el',
+                    'block_name' : ('concept.RELATED_CONCEPTS'|trans),
+                    'locale': app.request.locale,
                 } %}
+            </div>
+            <div class="col-md-6">
+                {% for def in concept.getDefinitionForOtherLang(app.request.locale) %}
+                {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
+                    'concept': concept,
+                    'method': 'definitionForLang',
+                    'block_name' : ('concept.DEFINITION'|trans({}, null, def.locale)),
+                    'locale': def.locale,
+                    'showFlags': false
+                } %}
+                {% endfor %}
                 {% if concept.media|length > 0 %}
                 {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
                     'concept': concept,
@@ -27,30 +46,12 @@
                     'block_name' : 'ΔΙΑΓΡΑΜΜΑ/ΧΑΡΤΗΣ/κλπ.',
                 } %}
                 {% endif %}
-            </div>
-            <div class="col-md-6">
-                {% if concept.hasDefinitionForLang('el') %}
-                {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
-                    'concept': concept,
-                    'method': 'definitionForLang',
-                    'block_name' : 'ΟΡΙΣΜΟΣ',
-                    'locale': 'el',
-                } %}
-                {% endif %}
-                {% for text in concept.alternativeDefinitionsForLang('el') %}
-                    {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
-                        'concept': concept,
-                        'content': text,
-                        'block_name' : 'ΕΝΑΛΛΑΚΤΙΚΟΣ ΟΡΙΣΜΟΣ '~(loop.index|roman_numeral),
-                        'locale': 'el',
-                    } %}
-                {% endfor %}
                 {% if concept.comments|length > 0 %}
                 {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
                     'concept': concept,
-                    'method': 'comments',
+                    'method': 'commentsAsDefinition',
                     'block_name' : 'ΣΧΟΛΙΑ/ΠΑΡΑΔΕΙΓΜΑ',
-                    'locale': 'el',
+                    'locale': app.request.locale,
                 } %}
                 {% endif %}
             </div>
