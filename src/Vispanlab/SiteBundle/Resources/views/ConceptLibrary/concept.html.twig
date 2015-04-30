@@ -36,7 +36,8 @@
                     'method': 'definitionForLang',
                     'block_name' : ('concept.DEFINITION'|trans({}, null, def.locale)),
                     'locale': def.locale,
-                    'showFlags': false
+                    'showFlags': false,
+                    'initialDisplay': 'none',
                 } %}
                 {% endfor %}
                 {% if concept.media|length > 0 %}
@@ -52,6 +53,7 @@
                     'method': 'commentsAsDefinition',
                     'block_name' : 'ΣΧΟΛΙΑ/ΠΑΡΑΔΕΙΓΜΑ',
                     'locale': app.request.locale,
+                    'showFlags': false,
                 } %}
                 {% endif %}
             </div>
@@ -73,6 +75,24 @@
         $('.concept-details-block').on('show.bs.collapse', function (e) {
             $(this).parent().find('.collapse-arrows-wrapper i').removeClass('fa-angle-double-down');
             $(this).parent().find('.collapse-arrows-wrapper i').addClass('fa-angle-double-up');
+        });
+        $('.switch-lang').on('click.switch-lang', function(e) {
+            var curLang = $(this).parent().parent().parent().parent().find('.lang-block:visible').attr('data-lang');
+            var newLang = $(this).attr('data-lang');
+            if(curLang !== newLang && $('.default-lang-'+newLang).size() > 0) {
+                if($('.default-lang-'+newLang).is(':visible')) {
+                    $('.default-lang-'+newLang).fadeOut();
+                    $('.default-lang-'+newLang).find('.collapse').collapse('hide');
+                } else {
+                    $('.default-lang-'+newLang).fadeIn();
+                    $('.default-lang-'+newLang).find('.collapse').collapse('show');
+                }
+            } else if(curLang !== newLang) {
+                $(this).parent().parent().parent().parent().find('.lang-block').hide();
+                $(this).parent().parent().parent().parent().find('.lang-'+newLang).fadeIn();
+            }
+            e.preventDefault();
+            return false;
         });
     });
 </script>

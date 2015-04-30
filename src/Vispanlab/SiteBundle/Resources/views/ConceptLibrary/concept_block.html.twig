@@ -1,26 +1,22 @@
+{% import _self as macros %}
 {% set langFlags = { 'en': 'gb', 'el': 'gr' } %}
 {% set blockId = ((method is defined ? method : (content.textFormatted|md5))~'_'~(locale is defined ? locale : '')) %}
-<div class="well well-lg">
+<div class="well well-lg default-lang-{{langFlags[locale]}}" {% if initialDisplay is defined and initialDisplay == 'none' %}style="display: none"{% endif %}>
     <h4 data-toggle="collapse" data-target="#{{blockId}}">{{block_name}}</h4>
     <div id="{{blockId}}" class="concept-details-block collapse">
-        <div style="display: inline;">
-            {% set content = method is defined ? attribute(concept, method, [locale is defined ? locale : null]) : content %}
-            {% if content is iterable %}
-                {% for curContent in content %}
-                    <a href="{% path curContent,'reference' %}" target="_blank">{% thumbnail curContent, 'small' %}</a>
-                {% endfor %}
-            {% elseif content is instanceof('Application\Sonata\MediaBundle\Entity\Media') %}
-                <a href="{% path content,'reference' %}" target="_blank">{% thumbnail content, 'small' %}</a>
-            {% else %}
-                {{content.textFormatted|format_text(content.format_type)|raw}}
-            {% endif %}
-        </div>
+        {% set content = method is defined ? attribute(concept, method, [locale is defined ? locale : null]) : content %}
+        {{ macros.show_content(content, 'inline', langFlags) }}
+        {% if content is instanceof('Vispanlab\\SiteBundle\\Entity\\Definition') %}
+            {% for definition in content.getDefinitionOtherLangs %}
+                {{ macros.show_content(definition, 'none', langFlags) }}
+            {% endfor %}
+        {% endif %}
         <div>
-            {% if noFlags is not defined or noFlags != true and content is instanceof('Vispanlab\SiteBundle\Entity\Definition') %}
+            {% if showFlags is not defined or showFlags == true and content is instanceof('Vispanlab\\SiteBundle\\Entity\\Definition') %}
                 <ul class="list-inline">
-                    <li><span class="flag-icon flag-icon-square flag-icon-{{langFlags[locale]}}"></span></li>
+                    <li><a href="#" class="switch-lang flag-icon flag-icon-square flag-icon-{{langFlags[locale]}}" data-lang="{{langFlags[locale]}}">&nbsp;</a></li>
                     {% for definition in content.getDefinitionOtherLangs %}
-                        <li><span class="flag-icon flag-icon-square flag-icon-{{langFlags[definition.locale]}}"></span></li>
+                        <li><a href="#" class="switch-lang flag-icon flag-icon-square flag-icon-{{langFlags[definition.locale]}}" data-lang="{{langFlags[definition.locale]}}">&nbsp;</a></li>
                     {% endfor %}
                 </ul>
             {% endif %}
@@ -28,3 +24,17 @@
     </div>
     <div data-toggle="collapse" data-target="#{{blockId}}" class="text-center collapse-arrows-wrapper" style="position: relative; bottom: -25px; cursor: pointer;"><i class="fa fa-angle-double-down"></i></div>
 </div>
+
+{% macro show_content(content, display, langFlags) %}
+    <div style="display: {{display}}" {% if content is instanceof('Vispanlab\\SiteBundle\\Entity\\Definition') %}class="lang-block lang-{{langFlags[content.locale]}}" data-lang="{{langFlags[content.locale]}}"{% endif %}>
+        {% if content is iterable %}
+            {% for curContent in content %}
+                <a href="{% path curContent,'reference' %}" target="_blank">{% thumbnail curContent, 'small' %}</a>
+            {% endfor %}
+        {% elseif content is instanceof('Application\\Sonata\\MediaBundle\\Entity\\Media') %}
+            <a href="{% path content,'reference' %}" target="_blank">{% thumbnail content, 'small' %}</a>
+        {% else %}
+            {{content.textFormatted|format_text(content.format_type)|raw}}
+        {% endif %}
+    </div>
+{% endmacro %}
