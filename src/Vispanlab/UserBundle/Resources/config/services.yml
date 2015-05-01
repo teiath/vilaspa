@@ -1,4 +1,10 @@
 services:
+    tei.security.authentication.provider:
+        class: Vispanlab\UserBundle\Security\Authentication\Provider\TEIProvider
+        arguments: ["@security.user_checker", "", "@tei_user_provider", true]
+    tei_user_provider:
+        class: Vispanlab\UserBundle\Security\TEIUserProvider
+        arguments: ["@fos_user.user_manager"]
     vispanlab.registration_listener:
         class: Vispanlab\UserBundle\Extension\RegistrationListener
         arguments:
