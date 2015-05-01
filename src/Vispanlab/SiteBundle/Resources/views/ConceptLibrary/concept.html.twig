@@ -3,7 +3,7 @@
 {% block content %}
 <div class="row text-center">
     <div class="col-md-12 concept-details">
-        <h2 style="margin-top: 0;"><strong>{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)}}</strong><hr /></h2>
+        <h2 style="margin-top: 0;"><strong>{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|raw}}</strong><hr /></h2>
         <div class="row text-justify">
             <div class="col-md-6">
                 {% if concept.hasDefinitionForLang(app.request.locale) %}
@@ -14,14 +14,16 @@
                     'locale': app.request.locale,
                 } %}
                 {% endif %}
-                {% for text in concept.alternativeDefinitionsForLang(app.request.locale) %}
-                    {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
-                        'concept': concept,
-                        'content': text,
-                        'block_name' : 'ΕΝΑΛΛΑΚΤΙΚΟΣ ΟΡΙΣΜΟΣ '~(loop.index|roman_numeral),
-                        'locale': app.request.locale,
-                    } %}
-                {% endfor %}
+                {% if concept.hasAlternativeDefinitionsForLang(app.request.locale) %}
+                    {% for text in concept.alternativeDefinitionsForLang(app.request.locale) %}
+                        {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
+                            'concept': concept,
+                            'content': text,
+                            'block_name' : 'ΕΝΑΛΛΑΚΤΙΚΟΣ ΟΡΙΣΜΟΣ '~(loop.index|roman_numeral),
+                            'locale': app.request.locale,
+                        } %}
+                    {% endfor %}
+                {% endif %}
                 {% if concept.hasRelatedConceptsForLang(app.request.locale) %}
                     {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
                         'concept': concept,
@@ -42,12 +44,15 @@
                         'initialDisplay': 'none',
                     } %}
                 {% endfor %}
-                {% if concept.media|length > 0 %}
-                {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
-                    'concept': concept,
-                    'method': 'getMedia',
-                    'block_name' : 'ΔΙΑΓΡΑΜΜΑ/ΧΑΡΤΗΣ/κλπ.',
-                } %}
+                {% if concept.hasMediaForLang(app.request.locale) %}
+                    {% for text in concept.getMediaForLang(app.request.locale) %}
+                        {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
+                            'concept': concept,
+                            'content': text,
+                            'block_name' : ('concept.MEDIA'|trans),
+                            'locale': app.request.locale,
+                        } %}
+                    {% endfor %}
                 {% endif %}
                 {% if concept.comments|length > 0 %}
                 {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {

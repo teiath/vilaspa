@@ -1,5 +1,5 @@
 {% import _self as macros %}
-{% set langFlags = { 'en': 'gb', 'el': 'gr' } %}
+{% set langFlags = { 'en': 'gb', 'el': 'gr', 'fr': 'fr', 'de': 'de' } %}
 {% set blockId = ((method is defined ? method : (content.textFormatted|md5))~'_'~(locale is defined ? locale : '')) %}
 <div class="well well-lg default-lang-{{langFlags[locale]}}" {% if initialDisplay is defined and initialDisplay == 'none' %}style="display: none"{% endif %}>
     <h4 data-toggle="collapse" data-target="#{{blockId}}">{{block_name}}</h4>
@@ -27,14 +27,14 @@
 
 {% macro show_content(content, display, langFlags) %}
     <div style="display: {{display}}" {% if content is instanceof('Vispanlab\\SiteBundle\\Entity\\Definition') %}class="lang-block lang-{{langFlags[content.locale]}}" data-lang="{{langFlags[content.locale]}}"{% endif %}>
-        {% if content is iterable %}
+        {#{% if content is iterable %}
             {% for curContent in content %}
                 <a href="{% path curContent,'reference' %}" target="_blank">{% thumbnail curContent, 'small' %}</a>
             {% endfor %}
         {% elseif content is instanceof('Application\\Sonata\\MediaBundle\\Entity\\Media') %}
             <a href="{% path content,'reference' %}" target="_blank">{% thumbnail content, 'small' %}</a>
-        {% else %}
+        {% else %}#}
             {{content.textFormatted|format_text(content.format_type)|raw}}
-        {% endif %}
+        {#{% endif %}#}
     </div>
 {% endmacro %}

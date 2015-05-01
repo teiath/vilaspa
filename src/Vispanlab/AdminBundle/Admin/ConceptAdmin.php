@@ -36,7 +36,7 @@ class ConceptAdmin extends Admin
             ->add('alternativeDefinitions', 'sonata_type_collection', array(), array('edit' => 'inline', 'inline' => 'table'))
             ->add('relatedConcepts', 'sonata_type_collection', array(), array('edit' => 'inline', 'inline' => 'table'))
             //->add('media', 'sonata_type_native_collection', array('allow_add' => true, 'type' => 'entity', 'options' => array('class' => 'Application\Sonata\MediaBundle\Entity\Media'), 'allow_delete' => true, ))
-            ->add('media')
+            ->add('media', 'sonata_type_collection', array(), array('edit' => 'inline', 'inline' => 'table'))
             ->add('comments', null, array('help' => 'comments_placeholder'))
         ;
         parent::configureFormFields($formMapper);
@@ -61,7 +61,7 @@ class ConceptAdmin extends Admin
             ->add('definition', 'langtext')
             ->add('alternativeDefinitions', 'langtext')
             ->add('relatedConcepts', 'langtext')
-            ->add('media', 'media')
+            ->add('media', 'langtext')
             ->add('comments')
         ;
     }
@@ -94,6 +94,9 @@ class ConceptAdmin extends Admin
         }
         foreach($concept->getRelatedConcepts() as $definition) {
             $definition->setConceptAsRelatedConcept($concept);
+        }
+        foreach($concept->getMedia() as $definition) {
+            $definition->setConceptAsMedia($concept);
         }
     }
 

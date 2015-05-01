@@ -59,6 +59,12 @@ class Definition {
      * @var Concept
      */
     protected $conceptAsRelatedConcept;
+    /**
+     * @ORM\ManyToOne(targetEntity="Concept", inversedBy="media")
+     * @ORM\JoinColumn(name="concept_media_id", referencedColumnName="id", onDelete="CASCADE")
+     * @var Concept
+     */
+    protected $conceptAsMedia;
 
     public function getId() {
         return $this->id;
@@ -136,6 +142,14 @@ class Definition {
         $this->conceptAsRelatedConcept = $conceptAsRelatedConcept;
     }
 
+    public function getConceptAsMedia() {
+        return $this->conceptAsMedia;
+    }
+
+    public function setConceptAsMedia(Concept $conceptAsMedia) {
+        $this->conceptAsMedia = $conceptAsMedia;
+    }
+
     public function getConcept() {
         if(isset($this->conceptAsAlternativeDefinition)) {
             return $this->conceptAsAlternativeDefinition;
@@ -145,6 +159,8 @@ class Definition {
             return $this->conceptAsName;
         } else if(isset($this->conceptAsRelatedConcept)) {
             return $this->conceptAsRelatedConcept;
+        } else if(isset($this->conceptAsMedia)) {
+            return $this->conceptAsMedia;
         } else {
             throw new \Exception('Could not find concept');
         }
@@ -160,6 +176,8 @@ class Definition {
             return $concept->getNameForOtherLang($this->getLocale());
         } else if(isset($this->conceptAsRelatedConcept)) {
             return $concept->getRelatedConceptsForOtherLang($this->getLocale());
+        } else if(isset($this->conceptAsMedia)) {
+            return $concept->getMediaForOtherLang($this->getLocale());
         } else {
             throw new \Exception('Could not find concept');
         }

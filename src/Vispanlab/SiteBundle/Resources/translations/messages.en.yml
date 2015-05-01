@@ -21,6 +21,7 @@ concept_library:
 concept:
   DEFINITION: DEFINITION
   RELATED_CONCEPTS: RELATED CONCEPTS
+  MEDIA: DIAGRAM/MAP/etc.
 
 # Admin
 Area Of Expertise List: Area of Expertise List

@@ -44,11 +44,7 @@ class Concept {
      */
     protected $relatedConcepts;
     /**
-     * @ORM\ManyToMany(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY")
-     * @ORM\JoinTable(name="conccept_has_media",
-     *      joinColumns={@ORM\JoinColumn(name="concept_id", referencedColumnName="id", onDelete="CASCADE")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="media_id", referencedColumnName="id")}
-     *      )
+     * @ORM\OneToMany(targetEntity="Definition", mappedBy="conceptAsMedia", cascade={"persist"}, orphanRemoval=true)
      */
     protected $media;
     /**
@@ -181,6 +177,10 @@ class Concept {
         $this->getAlternativeDefinitions()->add($definition);
     }
 
+    public function hasAlternativeDefinitionsForLang($lang) {
+        return $this->hasFieldForLang('getAlternativeDefinitions', $lang);
+    }
+
     public function getAlternativeDefinitionsForLang($lang) {
         return $this->getArrayFieldForLang('getAlternativeDefinitions', $lang);
     }
@@ -221,12 +221,24 @@ class Concept {
         $this->media = $media;
     }
 
-    public function addMedia($media) {
+    public function addMedia(Definition $media) {
         $this->getMedia()->add($media);
     }
 
     public function removeMedia($media) {
         $this->getMedia()->removeElement($media);
+    }
+
+    public function hasMediaForLang($lang) {
+        return $this->hasFieldForLang('getMedia', $lang);
+    }
+
+    public function getMediaForLang($lang) {
+        return $this->getArrayFieldForLang('getMedia', $lang);
+    }
+
+    public function getMediaForOtherLang($lang) {
+        return $this->getArrayFieldForOtherLang('getMedia', $lang);
     }
 
     public function getComments() {
