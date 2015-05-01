@@ -202,7 +202,7 @@ class Concept {
     }
 
     public function hasRelatedConceptsForLang($lang) {
-        return $this->hasFieldForLang('getDefinition', $lang);
+        return $this->hasFieldForLang('getRelatedConcepts', $lang);
     }
 
     public function getRelatedConceptsForLang($lang) {

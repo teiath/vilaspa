@@ -33,14 +33,14 @@
             </div>
             <div class="col-md-6">
                 {% for def in concept.getDefinitionForOtherLang(app.request.locale) %}
-                {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
-                    'concept': concept,
-                    'method': 'definitionForLang',
-                    'block_name' : ('concept.DEFINITION'|trans({}, null, def.locale)),
-                    'locale': def.locale,
-                    'showFlags': false,
-                    'initialDisplay': 'none',
-                } %}
+                    {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
+                        'concept': concept,
+                        'method': 'definitionForLang',
+                        'block_name' : ('concept.DEFINITION'|trans({}, null, def.locale)),
+                        'locale': def.locale,
+                        'showFlags': false,
+                        'initialDisplay': 'none',
+                    } %}
                 {% endfor %}
                 {% if concept.media|length > 0 %}
                 {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
