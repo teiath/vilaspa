@@ -22,12 +22,14 @@
                         'locale': app.request.locale,
                     } %}
                 {% endfor %}
-                {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
-                    'concept': concept,
-                    'method': 'relatedConceptsForLang',
-                    'block_name' : ('concept.RELATED_CONCEPTS'|trans),
-                    'locale': app.request.locale,
-                } %}
+                {% if concept.hasRelatedConceptsForLang(app.request.locale) %}
+                    {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
+                        'concept': concept,
+                        'method': 'relatedConceptsForLang',
+                        'block_name' : ('concept.RELATED_CONCEPTS'|trans),
+                        'locale': app.request.locale,
+                    } %}
+                {% endif %}
             </div>
             <div class="col-md-6">
                 {% for def in concept.getDefinitionForOtherLang(app.request.locale) %}

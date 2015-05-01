@@ -103,7 +103,7 @@ class Concept {
                 return $curName;
             }
         }
-        return $field.' NOT FOUND FOR LANG '.$lang;
+        throw new \Exception($field.' NOT FOUND FOR LANG '.$lang);
     }
 
     private function hasFieldForLang($field, $lang) {
@@ -199,6 +199,10 @@ class Concept {
 
     public function addRelatedConcepts(Definition $definition) {
         $this->getRelatedConcepts()->add($definition);
+    }
+
+    public function hasRelatedConceptsForLang($lang) {
+        return $this->hasFieldForLang('getDefinition', $lang);
     }
 
     public function getRelatedConceptsForLang($lang) {
