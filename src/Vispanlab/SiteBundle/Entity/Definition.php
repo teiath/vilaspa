@@ -165,22 +165,5 @@ class Definition {
             throw new \Exception('Could not find concept');
         }
     }
-
-    public function getDefinitionOtherLangs() {
-        $concept = $this->getConcept();
-        if(isset($this->conceptAsAlternativeDefinition)) {
-            return $concept->getAlternativeDefinitionsForOtherLang($this->getLocale());
-        } else if(isset($this->conceptAsDefinition)) {
-            return $concept->getDefinitionForOtherLang($this->getLocale());
-        } else if(isset($this->conceptAsName)) {
-            return $concept->getNameForOtherLang($this->getLocale());
-        } else if(isset($this->conceptAsRelatedConcept)) {
-            return $concept->getRelatedConceptsForOtherLang($this->getLocale());
-        } else if(isset($this->conceptAsMedia)) {
-            return $concept->getMediaForOtherLang($this->getLocale());
-        } else {
-            throw new \Exception('Could not find concept');
-        }
-    }
 }
 ?>

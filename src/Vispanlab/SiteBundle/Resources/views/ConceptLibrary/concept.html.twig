@@ -6,54 +6,43 @@
         <h2 style="margin-top: 0;"><strong>{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|raw}}</strong><hr /></h2>
         <div class="row text-justify">
             <div class="col-md-6">
-                {% if concept.hasDefinitionForLang(app.request.locale) %}
                 {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
                     'concept': concept,
-                    'method': 'definitionForLang',
+                    'method': 'definition',
                     'block_name' : ('concept.DEFINITION'|trans),
                     'locale': app.request.locale,
                 } %}
-                {% endif %}
-                {% if concept.hasAlternativeDefinitionsForLang(app.request.locale) %}
-                    {% for text in concept.alternativeDefinitionsForLang(app.request.locale) %}
-                        {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
-                            'concept': concept,
-                            'content': text,
-                            'block_name' : 'ΕΝΑΛΛΑΚΤΙΚΟΣ ΟΡΙΣΜΟΣ '~(loop.index|roman_numeral),
-                            'locale': app.request.locale,
-                        } %}
-                    {% endfor %}
-                {% endif %}
-                {% if concept.hasRelatedConceptsForLang(app.request.locale) %}
-                    {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
-                        'concept': concept,
-                        'method': 'relatedConceptsForLang',
-                        'block_name' : ('concept.RELATED_CONCEPTS'|trans),
-                        'locale': app.request.locale,
-                    } %}
-                {% endif %}
+                {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
+                    'concept': concept,
+                    'method': 'alternativeDefinitions',
+                    'block_name' : ('concept.ALTERNATIVE_DEFINITIONS'|trans),
+                    'locale': app.request.locale,
+                } %}
+                {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
+                    'concept': concept,
+                    'method': 'relatedConcepts',
+                    'block_name' : ('concept.RELATED_CONCEPTS'|trans),
+                    'locale': app.request.locale,
+                } %}
             </div>
             <div class="col-md-6">
                 {% for def in concept.getDefinitionForOtherLang(app.request.locale) %}
                     {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
                         'concept': concept,
-                        'method': 'definitionForLang',
+                        'method': 'definition',
                         'block_name' : ('concept.DEFINITION'|trans({}, null, def.locale)),
                         'locale': def.locale,
                         'showFlags': false,
+                        'extraClasses': 'linked',
                         'initialDisplay': 'none',
                     } %}
                 {% endfor %}
-                {% if concept.hasMediaForLang(app.request.locale) %}
-                    {% for text in concept.getMediaForLang(app.request.locale) %}
-                        {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
-                            'concept': concept,
-                            'content': text,
-                            'block_name' : ('concept.MEDIA'|trans),
-                            'locale': app.request.locale,
-                        } %}
-                    {% endfor %}
-                {% endif %}
+                {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
+                    'concept': concept,
+                    'method': 'media',
+                    'block_name' : ('concept.MEDIA'|trans),
+                    'locale': app.request.locale,
+                } %}
                 {% if concept.comments|length > 0 %}
                 {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
                     'concept': concept,
@@ -85,14 +74,15 @@
         });
         $('.switch-lang').on('click.switch-lang', function(e) {
             var curLang = $(this).parent().parent().parent().parent().find('.lang-block:visible').attr('data-lang');
+            var curMethod = $(this).parent().parent().parent().parent().parent().attr('data-method');
             var newLang = $(this).attr('data-lang');
-            if(curLang !== newLang && $('.default-lang-'+newLang).size() > 0) {
-                if($('.default-lang-'+newLang).is(':visible')) {
-                    $('.default-lang-'+newLang).fadeOut();
-                    $('.default-lang-'+newLang).find('.collapse').collapse('hide');
+            if(curLang !== newLang && $('.default-lang-'+newLang+'.linked[data-method="'+curMethod+'"]').size() > 0) {
+                if($('.default-lang-'+newLang+'.linked[data-method="'+curMethod+'"]').is(':visible')) {
+                    $('.default-lang-'+newLang+'.linked[data-method="'+curMethod+'"]').fadeOut();
+                    $('.default-lang-'+newLang+'.linked[data-method="'+curMethod+'"]').find('.collapse').collapse('hide');
                 } else {
-                    $('.default-lang-'+newLang).fadeIn();
-                    $('.default-lang-'+newLang).find('.collapse').collapse('show');
+                    $('.default-lang-'+newLang+'.linked[data-method="'+curMethod+'"]').fadeIn();
+                    $('.default-lang-'+newLang+'.linked[data-method="'+curMethod+'"]').find('.collapse').collapse('show');
                 }
             } else if(curLang !== newLang) {
                 $(this).parent().parent().parent().parent().find('.lang-block').hide();

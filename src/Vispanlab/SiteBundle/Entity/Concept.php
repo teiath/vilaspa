@@ -33,18 +33,22 @@ class Concept {
     protected $name;
     /**
      * @ORM\OneToMany(targetEntity="Definition", mappedBy="conceptAsDefinition", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OrderBy({"locale" = "ASC"})
      */
     protected $definition;
     /**
      * @ORM\OneToMany(targetEntity="Definition", mappedBy="conceptAsAlternativeDefinition", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OrderBy({"locale" = "ASC"})
      */
     protected $alternativeDefinitions;
     /**
      * @ORM\OneToMany(targetEntity="Definition", mappedBy="conceptAsRelatedConcept", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OrderBy({"locale" = "ASC"})
      */
     protected $relatedConcepts;
     /**
      * @ORM\OneToMany(targetEntity="Definition", mappedBy="conceptAsMedia", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OrderBy({"locale" = "ASC"})
      */
     protected $media;
     /**
@@ -112,7 +116,7 @@ class Concept {
         return false;
     }
 
-    private function getArrayFieldForLang($field, $lang) {
+    /*private function getArrayFieldForLang($field, $lang) {
         if($this->$field() == null) { return null; }
         $result = array();
         foreach($this->$field() as $curName) {
@@ -121,7 +125,7 @@ class Concept {
             }
         }
         return $result;
-    }
+    }*/
 
     private function getArrayFieldForOtherLang($field, $lang) {
         $definitions = array();
@@ -135,10 +139,6 @@ class Concept {
 
     public function getNameForLang($lang) {
         return $this->getFieldForLang('getName', $lang);
-    }
-
-    public function getNameForOtherLang($lang) {
-        return $this->getArrayFieldForOtherLang('getName', $lang);
     }
 
     public function getDefinition() {
@@ -177,18 +177,6 @@ class Concept {
         $this->getAlternativeDefinitions()->add($definition);
     }
 
-    public function hasAlternativeDefinitionsForLang($lang) {
-        return $this->hasFieldForLang('getAlternativeDefinitions', $lang);
-    }
-
-    public function getAlternativeDefinitionsForLang($lang) {
-        return $this->getArrayFieldForLang('getAlternativeDefinitions', $lang);
-    }
-
-    public function getAlternativeDefinitionsForOtherLang($lang) {
-        return $this->getArrayFieldForOtherLang('getAlternativeDefinitions', $lang);
-    }
-
     public function getRelatedConcepts() {
         return $this->relatedConcepts;
     }
@@ -199,18 +187,6 @@ class Concept {
 
     public function addRelatedConcepts(Definition $definition) {
         $this->getRelatedConcepts()->add($definition);
-    }
-
-    public function hasRelatedConceptsForLang($lang) {
-        return $this->hasFieldForLang('getRelatedConcepts', $lang);
-    }
-
-    public function getRelatedConceptsForLang($lang) {
-        return $this->getFieldForLang('getRelatedConcepts', $lang);
-    }
-
-    public function getRelatedConceptsForOtherLang($lang) {
-        return $this->getArrayFieldForOtherLang('getAlternativeDefinitions', $lang);
     }
 
     public function getMedia() {
@@ -227,18 +203,6 @@ class Concept {
 
     public function removeMedia($media) {
         $this->getMedia()->removeElement($media);
-    }
-
-    public function hasMediaForLang($lang) {
-        return $this->hasFieldForLang('getMedia', $lang);
-    }
-
-    public function getMediaForLang($lang) {
-        return $this->getArrayFieldForLang('getMedia', $lang);
-    }
-
-    public function getMediaForOtherLang($lang) {
-        return $this->getArrayFieldForOtherLang('getMedia', $lang);
     }
 
     public function getComments() {

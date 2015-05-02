@@ -20,6 +20,7 @@ concept_library:
 
 concept:
   DEFINITION: ΟΡΙΣΜΟΣ
+  ALTERNATIVE_DEFINITIONS: ΕΝΑΛΛΑΚΤΙΚΟΙ ΟΡΙΣΜΟΙ
   RELATED_CONCEPTS: ΣΥΝΑΦΕΙΣ ΕΝΝΟΙΕΣ
   MEDIA: ΔΙΑΓΡΑΜΜΑ/ΧΑΡΤΗΣ/κλπ.
 
