@@ -3,7 +3,7 @@ namespace Vispanlab\UserBundle\Security;
 
 use FOS\UserBundle\Security\EmailUserProvider;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Core\User\User;
+use Vispanlab\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
