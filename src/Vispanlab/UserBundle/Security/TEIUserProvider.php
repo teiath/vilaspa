@@ -12,12 +12,12 @@ class TEIUserProvider extends EmailUserProvider
 {
     public function loadUserByUsernameAndPassword($username, $password) {
         $user = $this->findUser($username);
-        if ($user) {
+        if ($user && $user->getLoginSource() == User::LOGIN_SOURCE_LOCAL) {
             return $user;
         }
 
         $user = $this->findUserInTEI($username, $password);
-        if($user) {
+        if($user && $user->getLoginSource() == User::LOGIN_SOURCE_TEI) {
             return $user;
         }
 
