@@ -25,8 +25,7 @@ class TEIUserProvider extends EmailUserProvider
     }
 
     private function findUserInTEI($username, $password) {
-        return null;
-        $datauser = 'username='.$user->getUsername();   // testuser
+        $datauser = 'username='.$username;   // testuser
         $datauser .= '&password='.$password;
         $datauser .= '&m=N11050';
         $ch = curl_init();
@@ -42,11 +41,15 @@ class TEIUserProvider extends EmailUserProvider
         curl_close($ch);
         $i = json_decode($result, TRUE);
 
-        $user = new User();
-        $user->setUsername('ldap_'.$username);
-        $user->setEmail('ldap_'.$username.'@teiath.gr');
-        $user->setEnabled(true);
-        $user->setPassword(md5(rand(1, 100).'ldap_'.$username.'@teiath.gr'));
-        $user->addRole('ROLE_STUDENT');
+        if(isset($i[$username]) && isset($i[$username]['auth']) && $i[$username]['auth'] == 'yes') {
+            $user = new User();
+            $user->setUsername('ldap_'.$username);
+            $user->setEmail('ldap_'.$username.'@teiath.gr');
+            $user->setEnabled(true);
+            $user->setPassword(md5(rand(1, 100).'ldap_'.$username.'@teiath.gr'));
+            $user->addRole('ROLE_STUDENT');
+            return $user;
+        }
+        return null;
     }
 }

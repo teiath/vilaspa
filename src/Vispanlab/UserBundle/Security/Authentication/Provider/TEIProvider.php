@@ -74,9 +74,8 @@ class TEIProvider extends UserAuthenticationProvider
         }
     }
 
-    private function authApi($user, $password) {
-        return false;
-        $datauser = 'username='.$user->getUsername();   // testuser
+    private function authApi($username, $password) {
+        $datauser = 'username='.$username;   // testuser
         $datauser .= '&password='.$password;
         $datauser .= '&m=N11050';
         $ch = curl_init();
@@ -91,5 +90,11 @@ class TEIProvider extends UserAuthenticationProvider
         $result = curl_exec($ch);
         curl_close($ch);
         $i = json_decode($result, TRUE);
+
+        if(isset($i[$username]) && isset($i[$username]['auth']) && $i[$username]['auth'] == 'yes') {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
