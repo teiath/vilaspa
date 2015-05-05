@@ -36,6 +36,12 @@ class User extends BaseUser
      * @ORM\Column(name="surname", type="string", nullable=true)
      */
     protected $surname;
+    /**
+     * @ORM\Column(name="login_source", type="string", nullable=true)
+     */
+    protected $loginSource = self::LOGIN_SOURCE_LOCAL;
+    const LOGIN_SOURCE_LOCAL = 'LOCAL';
+    const LOGIN_SOURCE_TEI = 'TEI';
 
     public function getId() {
         return $this->id;
@@ -59,5 +65,13 @@ class User extends BaseUser
 
     public function setSurname($surname) {
         $this->surname = $surname;
+    }
+
+    public function getLoginSource() {
+        return $this->loginSource;
+    }
+
+    public function setLoginSource($loginSource) {
+        $this->loginSource = $loginSource;
     }
 }

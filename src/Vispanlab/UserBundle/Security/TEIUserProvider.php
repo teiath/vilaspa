@@ -42,12 +42,19 @@ class TEIUserProvider extends EmailUserProvider
         $i = json_decode($result, TRUE);
 
         if(isset($i[$username]) && isset($i[$username]['auth']) && $i[$username]['auth'] == 'yes') {
-            $user = new User();
-            $user->setUsername('ldap_'.$username);
-            $user->setEmail('ldap_'.$username.'@teiath.gr');
-            $user->setEnabled(true);
-            $user->setPassword(md5(rand(1, 100).'ldap_'.$username.'@teiath.gr'));
-            $user->addRole('ROLE_STUDENT');
+            $user = $this->userManager->findUserBy(array(
+                'username' => $username,
+                'loginSource' => User::LOGIN_SOURCE_TEI,
+            ));
+            if(!isset($user)) {
+                $user = new User();
+                $user->setUsername($username);
+                $user->setEmail($username.'@teiath.gr');
+                $user->setEnabled(true);
+                $user->setPassword(md5(rand(1, 100).$username.'@teiath.gr'));
+                $user->addRole('ROLE_STUDENT');
+                $user->setLoginSource(User::LOGIN_SOURCE_TEI);
+            }
             return $user;
         }
         return null;
