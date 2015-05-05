@@ -68,7 +68,7 @@ class TEIProvider extends UserAuthenticationProvider
                 throw new BadCredentialsException('The presented password cannot be empty.');
             }
 
-            if (!$this->authApi($user, $presentedPassword)) {
+            if (!$this->authApi($user->getUsername(), $presentedPassword)) {
                 throw new BadCredentialsException('The presented password is invalid.');
             }
         }
