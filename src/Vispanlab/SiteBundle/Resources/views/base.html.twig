@@ -9,7 +9,7 @@
             <img src="{{ asset(admin_pool.titlelogo) }}" alt="{{ admin_pool.title }}">
         {% endif %}
         {% if 'single_text' == admin_pool.getOption('title_mode') or 'both' == admin_pool.getOption('title_mode') %}
-            <span>{{ admin_pool.title }}</span>
+            <span style="font-size: 70%;">{{ admin_pool.title }}<br /><small style="font-size: 65%;">{{'common.title'|trans}}</small></span>
         {% endif %}
     </a>
     {% endspaceless %}

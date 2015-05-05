@@ -24,8 +24,15 @@
             {% for concept in area_of_expertise.sortedConcepts(app.request.locale) %}
                 {% set newLetter = concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|stripGrAccent|first %}
                 {% if newLetter != curLetter and newLetter not in displayedLetters %}
-                    <li class="alphabet-letter"><a href="#concept-glossary-letter-{{newLetter}}">{{newLetter}}</a></li>{% set curLetter = newLetter %}
                     {% set displayedLetters = displayedLetters|merge([newLetter]) %}
+                {% endif %}
+                {% set curLetter = newLetter %}
+            {% endfor %}
+            {% for newLetter in ['Α', 'Β', 'Γ', 'Δ', 'Ε', 'Ζ', 'Η', 'Θ', 'Ι', 'Κ', 'Λ', 'Μ', 'Ν', 'Ξ', 'Ο', 'Π', 'Ρ', 'Σ', 'Τ', 'Υ', 'Φ', 'Χ', 'Ψ', 'Ω'] %}
+                {% if newLetter in displayedLetters %}
+                    <li class="alphabet-letter"><a href="#concept-glossary-letter-{{newLetter}}">{{newLetter}}</a></li>
+                {% else %}
+                    <li class="alphabet-letter text-muted">{{newLetter}}</li>
                 {% endif %}
             {% endfor %}
             </ul>
