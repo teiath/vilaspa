@@ -20,10 +20,12 @@
         <div class="concept-glossary">
             <ul class="list-inline">
             {% set curLetter = null %}
+            {% set displayedLetters = [] %}
             {% for concept in area_of_expertise.sortedConcepts(app.request.locale) %}
                 {% set newLetter = concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|stripGrAccent|first %}
-                {% if newLetter != curLetter %}
+                {% if newLetter != curLetter and newLetter not in displayedLetters %}
                     <li class="alphabet-letter"><a href="#concept-glossary-letter-{{newLetter}}">{{newLetter}}</a></li>{% set curLetter = newLetter %}
+                    {% set displayedLetters = displayedLetters|merge([newLetter]) %}
                 {% endif %}
             {% endfor %}
             </ul>

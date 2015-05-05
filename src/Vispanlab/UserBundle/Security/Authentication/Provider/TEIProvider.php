@@ -42,7 +42,9 @@ class TEIProvider extends UserAuthenticationProvider
         } catch (UsernameNotFoundException $notFound) {
             throw $notFound;
         } catch (\Exception $repositoryProblem) {
-            throw new AuthenticationServiceException($repositoryProblem->getMessage(), $token, 0, $repositoryProblem);
+            $exception = new AuthenticationServiceException($repositoryProblem->getMessage(), 0, $repositoryProblem);
+            $exception->setToken($token);
+            throw $exception;
         }
     }
 
