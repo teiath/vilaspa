@@ -32,7 +32,10 @@ class SidebarMenuBuilder
 
         foreach($areasofexpertise as $curArea) {
             $areaMenu = $menu->addChild($curArea->getName($request->getLocale()), array('uri' => '#', 'attributes' => array('class' => 'home')));
-            $areaMenu->addChild('common.concept_library', array('route' => 'concept_library', 'routeParameters' => array('aoe' => $curArea->getUrl()), 'attributes' => array('class' => 'home')));
+            $libraryMenu = $areaMenu->addChild('common.concept_library', array('route' => 'concept_library', 'routeParameters' => array('aoe' => $curArea->getUrl()), 'attributes' => array('class' => 'home')));
+            foreach($curArea->getConcepts($request->getLocale()) as $curConcept) {
+                $libraryMenu->addChild($curConcept->getNameForLang($request->getLocale())->getText_formatted(), array('route' => 'concept', 'routeParameters' => array('concept' => $curConcept->getId()), 'attributes' => array('class' => 'home')));
+            }
             $areaMenu->addChild('common.virtual_assignments', array('route' => 'virtual_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl()), 'attributes' => array('class' => 'home')));
         }
 

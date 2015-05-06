@@ -15,6 +15,24 @@
     {% endspaceless %}
 {% endblock %}
 
+{% block sonata_breadcrumb %}
+    <ol class="nav navbar-top-links breadcrumb">
+        {%- for  menu in cnerta_breadcrumb_get('sidebar') %}
+            {% if not loop.last  %}
+                <li>
+                    {% if menu.uri is not empty %}
+                        <a href="{{ menu.uri != '#' ? menu.uri : path('home') }}">{{ menu.label|raw|trans }}</a>
+                    {% else %}
+                        {{ menu.label|trans }}
+                    {% endif %}
+                </li>
+            {% else %}
+                <li class="active"><span>{{ menu.label|trans }}</span></li>
+            {% endif %}
+        {%- endfor %}
+    </ol>
+{% endblock sonata_breadcrumb %}
+
 {% block sonata_left_side %}
 <aside class="left-side sidebar-offcanvas">
     <section class="sidebar">

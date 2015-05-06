@@ -57,8 +57,8 @@
     </div>
 </div>
 <div class="row text-center">
-    <div class="col-md-2 pull-left"><a href="{{path('concept', {'concept': prev.id})}}">&#10094; {{prev.nameForLang(app.request.locale).textFormatted|format_text(next.nameForLang(app.request.locale).format_type)|raw}}</a></div>
-    <div class="col-md-2 pull-right"><a href="{{path('concept', {'concept': next.id})}}">{{next.nameForLang(app.request.locale).textFormatted|format_text(next.nameForLang(app.request.locale).format_type)|raw}} &#10095;</a></div>
+    <div class="col-md-3 pull-left text-left"><a href="{{path('concept', {'concept': prev.id})}}">&#10094; {{prev.nameForLang(app.request.locale).textFormatted|format_text(next.nameForLang(app.request.locale).format_type)|raw}}</a></div>
+    <div class="col-md-3 pull-right text-right"><a href="{{path('concept', {'concept': next.id})}}">{{next.nameForLang(app.request.locale).textFormatted|format_text(next.nameForLang(app.request.locale).format_type)|raw}} &#10095;</a></div>
 </div>
 {% endblock %}
 
