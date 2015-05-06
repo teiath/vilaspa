@@ -28,6 +28,8 @@ class ConceptLibraryController extends Controller {
     public function concept(Concept $concept) {
         return $this->render('VispanlabSiteBundle:ConceptLibrary:concept.html.twig', array(
             'concept' => $concept,
+            'next' => $this->get('vispanlab.concept.service')->nextConcept($concept, $this->getRequest()->getLocale()),
+            'prev' => $this->get('vispanlab.concept.service')->prevConcept($concept, $this->getRequest()->getLocale()),
         ));
     }
 }
