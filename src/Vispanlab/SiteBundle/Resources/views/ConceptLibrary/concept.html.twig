@@ -43,15 +43,13 @@
                     'block_name' : ('concept.MEDIA'|trans),
                     'locale': app.request.locale,
                 } %}
-                {% if concept.comments|length > 0 %}
                 {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
                     'concept': concept,
                     'method': 'commentsAsDefinition',
-                    'block_name' : 'ΣΧΟΛΙΑ/ΠΑΡΑΔΕΙΓΜΑ',
+                    'block_name' : ('concept.COMMENTS'|trans),
                     'locale': app.request.locale,
                     'showFlags': false,
                 } %}
-                {% endif %}
             </div>
         </div>
     </div>

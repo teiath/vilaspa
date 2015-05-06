@@ -44,4 +44,8 @@
     color: #3C8DBC;
     cursor: pointer;
 }
+
+.concept-details .well h4.text-muted {
+    color: #999;
+}
 /* End Concept Details */

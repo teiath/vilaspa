@@ -8,10 +8,10 @@
         {% set defsInDefaultLangCount = defsInDefaultLangCount + 1 %}
     {% endfor %}
 {% else %}
-    {% set defsInDefaultLangCount = (content.locale == locale ? 1 : 0) %}
+    {% set defsInDefaultLangCount = (content.locale == locale ? ((content.textFormatted|trim|length) > 0 ? 1 : 0) : 0) %}
 {% endif %}
-<div class="well well-lg default-lang-{{langFlags[locale]}}{% if extraClasses is defined %} {{extraClasses}}{% endif %}" {% if (initialDisplay is defined and initialDisplay == 'none') or defsInDefaultLangCount <= 0 %}style="display: none"{% endif %} data-method="{{method is defined ? (method|md5) : (content|md5)}}">
-    <h4 data-toggle="collapse" data-target="#{{blockId}}">{{block_name}}</h4>
+<div class="well well-lg default-lang-{{langFlags[locale]}}{% if extraClasses is defined %} {{extraClasses}}{% endif %}" {% if (initialDisplay is defined and initialDisplay == 'none') %}{# or defsInDefaultLangCount <= 0 #}style="display: none"{% endif %} data-method="{{method is defined ? (method|md5) : (content|md5)}}">
+    <h4 {% if defsInDefaultLangCount <= 0 %}class="text-muted"{% else %}data-toggle="collapse" data-target="#{{blockId}}"{% endif %}>{{block_name}}</h4>
     <div id="{{blockId}}" class="concept-details-block collapse">
         {% if content is iterable %}
             {% set curLocale = null %}
@@ -47,5 +47,5 @@
         </div>
         {% endif %}
     </div>
-    <div data-toggle="collapse" data-target="#{{blockId}}" class="text-center collapse-arrows-wrapper" style="position: relative; bottom: -25px; cursor: pointer;"><i class="fa fa-angle-double-down"></i></div>
+    <div data-toggle="collapse" data-target="#{{blockId}}" class="text-center {% if defsInDefaultLangCount <= 0 %}text-muted{% else %}collapse-arrows-wrapper{% endif %}" style="position: relative; bottom: -25px; cursor: pointer;"><i class="fa fa-angle-double-down"></i></div>
 </div>
