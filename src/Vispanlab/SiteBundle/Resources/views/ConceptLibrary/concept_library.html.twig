@@ -1,13 +1,9 @@
 {% extends 'VispanlabSiteBundle::base.html.twig' %}
 
-{% block content %}
-<div class="row text-center concept-library">
-    <div class="col-md-12">
-        <h2 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)}}</h2>
-        <h4>{{'concept_library.heading'|trans}}<hr /></h4>
-        <div class="concept-search-form-wrapper">
-            <form action="#" method="GET" class="sidebar-form" role="search" onsubmit="return false;">
-                <div class="input-group concept-search-form">
+{% block sonata_top_nav_menu %}
+    <div class="navbar-left">
+            <form action="#" method="GET" class="sidebar-form concept-search-form" role="search" onsubmit="return false;">
+                <div class="input-group">
                     <input type="text" name="q" value="{{ app.request.get('q') }}" class="form-control" placeholder="{{ 'search_placeholder'|trans({}, 'SonataAdminBundle') }}" data-provide="typeahead" autocomplete="off">
                         <span class="input-group-btn">
                             <button class="btn btn-flat" type="submit">
@@ -16,7 +12,6 @@
                         </span>
                 </div>
             </form>
-        </div>
         <div class="concept-glossary">
             <ul class="list-inline">
             {% set curLetter = null %}
@@ -37,6 +32,14 @@
             {% endfor %}
             </ul>
         </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="row text-center concept-library">
+    <div class="col-md-12">
+        <h2 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)}}</h2>
+        <h4>{{'concept_library.heading'|trans}}<hr /></h4>
         <ul style="list-style-type: none; text-align: left;">
         {% set curLetter = null %}
         {% for concept in area_of_expertise.sortedConcepts(app.request.locale) %}

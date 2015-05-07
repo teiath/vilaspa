@@ -24,13 +24,38 @@
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-.concept-library .concept-search-form-wrapper {
+/*.concept-library .concept-search-form-wrapper {
     display: inline-block;
     width: 300px;
 }
 
 .concept-library .concept-search-form {
     border: 1px solid #eee;
+}*/
+
+.navbar-left .concept-search-form {
+    width: 300px;
+    margin: 0;
+    margin-top: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.concept-search-form .input-group {
+    border: 1px solid #eee;
+}
+
+.concept-glossary {
+    margin: 5px 0px 0px;
+    width: 250px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.concept-glossary .list-inline {
+    margin-left: 10px;
+    margin-bottom: 0;
 }
 /* End Concept Search */
 
