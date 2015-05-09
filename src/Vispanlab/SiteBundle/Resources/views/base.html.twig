@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block sonata_breadcrumb %}
-    <ol class="nav navbar-top-links breadcrumb">
+    <ol class="nav navbar-top-links breadcrumb hidden-xs">
         {%- for  menu in cnerta_breadcrumb_get('sidebar') %}
             {% if not loop.last  %}
                 <li>
