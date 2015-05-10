@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OrderBy;
 use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vispanlab\UserBundle\Security\Constraints\UniqueEntityInTEI;
 
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
@@ -19,6 +20,7 @@ use JMS\Serializer\Annotation\Accessor;
  * @ORM\Table(name="Users")
  * @ORM\Entity(repositoryClass="Vispanlab\UserBundle\Entity\Repositories\UserRepository")
  * @ExclusionPolicy("all")
+ * @UniqueEntityInTEI(fields={"username"}, message="User already exists in TEI")
  */
 class User extends BaseUser
 {

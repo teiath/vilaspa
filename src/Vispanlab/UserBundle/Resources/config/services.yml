@@ -1,4 +1,9 @@
 services:
+    tei.securiy.validator.unique:
+        class: Vispanlab\UserBundle\Security\Constraints\UniqueEntityInTEIValidator
+        arguments: ["@tei_user_provider"]
+        tags:
+            - { name: validator.constraint_validator, alias: tei_unique }
     tei.security.authentication.provider:
         class: Vispanlab\UserBundle\Security\Authentication\Provider\TEIProvider
         arguments: ["@security.user_checker", "", "@tei_user_provider", true]
