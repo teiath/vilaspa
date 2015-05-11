@@ -1,3 +1,28 @@
+@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,600,300italic,400italic,600italic&subset=latin,greek);
+
+/* Fonts */
+html,
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* H1 - H6 font */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: 'Open Sans', sans-serif;
+}
+/* End Fonts */
+
 .well h4 {
     margin-top: 0;
 }
@@ -56,6 +81,11 @@
 .concept-glossary .list-inline {
     margin-left: 10px;
     margin-bottom: 0;
+}
+
+.concept-library .alphabet-letter {
+    padding-top: 50px;
+    margin-top: -50px;
 }
 /* End Concept Search */
 

@@ -1,5 +1,5 @@
 common:
-  title: Εικονικό Εργαστήριο Χωρικής Ανάλυσης
+  title: Εικονικό Εργαστήριο<BR />Χωρικής Ανάλυσης
   areas_of_expertise: Γνωστικά Αντικείμενα
   login: Σύνδεση
   logout: Αποσύνδεση
@@ -22,8 +22,8 @@ concept:
   DEFINITION: ΟΡΙΣΜΟΣ
   ALTERNATIVE_DEFINITIONS: ΕΝΑΛΛΑΚΤΙΚΟΙ ΟΡΙΣΜΟΙ
   RELATED_CONCEPTS: ΣΥΝΑΦΕΙΣ ΕΝΝΟΙΕΣ
-  MEDIA: ΔΙΑΓΡΑΜΜΑ/ΧΑΡΤΗΣ/κλπ.
-  COMMENTS: ΣΧΟΛΙΑ/ΠΑΡΑΔΕΙΓΜΑ
+  MEDIA: ΕΙΚΟΝΙΚΗ ΑΝΑΠΑΡΑΣΤΑΣΗ
+  COMMENTS: ΠΑΡΑΤΗΡΗΣΕΙΣ
 
 # Admin
 Area Of Expertise List: Λίστα Γνωστικών Αντικειμένων
