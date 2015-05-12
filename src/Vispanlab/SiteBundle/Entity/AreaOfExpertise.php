@@ -99,7 +99,7 @@ class AreaOfExpertise {
             if($at == $bt) { return 0; }
             return ($at > $bt) ? 1 : -1;
         });
-        return new ArrayCollection(iterator_to_array($concepts));
+        return new ArrayCollection(array_values(iterator_to_array($concepts)));
     }
 
     private function stripGrAccent($tempName) {

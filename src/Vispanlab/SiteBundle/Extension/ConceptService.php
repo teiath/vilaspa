@@ -12,8 +12,12 @@ class ConceptService {
         $aoe = $concept->getAreaofexpertise();
         $allConcepts = $aoe->getSortedConcepts($locale);
         $index = $allConcepts->indexOf($concept);
-        if($index) {
-            $next = $allConcepts->get($index+1);
+        if($index !== false) {
+            if($index == $allConcepts->count() - 1) {
+                $next = $allConcepts->first();
+            } else {
+                $next = $allConcepts->get($index+1);
+            }
             if($next) { return $next; }
         }
         return null;
@@ -23,8 +27,12 @@ class ConceptService {
         $aoe = $concept->getAreaofexpertise();
         $allConcepts = $aoe->getSortedConcepts($locale);
         $index = $allConcepts->indexOf($concept);
-        if($index) {
-            $prev = $allConcepts->get($index-1);
+        if($index !== false) {
+            if($index == 0) {
+                $prev = $allConcepts->last();
+            } else {
+                $prev = $allConcepts->get($index-1);
+            }
             if($prev) { return $prev; }
         }
         return null;
