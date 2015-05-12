@@ -22,13 +22,21 @@
                 {% else %}
                         {% if not loop.first %}<hr style="border-color: #000;" />{% endif %}
                 {% endif %}
-                {{curContent.textFormatted|format_text(curContent.format_type)|raw}}
+                {% if links_convert is defined and links_convert != null %}
+                    {{curContent.textFormatted|format_text(curContent.format_type)|links_convert_filter(links_convert.separator, links_convert.locale, links_convert.route_name, links_convert.route_id_name)|raw}}
+                {% else %}
+                    {{curContent.textFormatted|format_text(curContent.format_type)|raw}}
+                {% endif %}
                 {% set curLocale = curContent.locale %}
             {% endfor %}
             {% if content|length > 0 %}</div>{% endif %}
         {% else %}
             <div style="display: {{content.locale == locale ? 'inline' : 'none'}}" class="lang-block lang-{{langFlags[content.locale]}}" data-lang="{{langFlags[content.locale]}}">
-                {{content.textFormatted|format_text(content.format_type)|raw}}
+                {% if links_convert is defined and links_convert != null %}
+                    {{content.textFormatted|format_text(content.format_type)|links_convert_filter(links_convert.separator, links_convert.locale, links_convert.route_name, links_convert.route_id_name)|raw}}
+                {% else %}
+                    {{content.textFormatted|format_text(content.format_type)|raw}}
+                {% endif %}
             </div>
         {% endif %}
         {% if showFlags is not defined or showFlags == true %}
