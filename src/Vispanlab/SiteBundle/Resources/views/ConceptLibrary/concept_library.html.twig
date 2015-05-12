@@ -25,7 +25,7 @@
             {% endfor %}
             {% for newLetter in ['Α', 'Β', 'Γ', 'Δ', 'Ε', 'Ζ', 'Η', 'Θ', 'Ι', 'Κ', 'Λ', 'Μ', 'Ν', 'Ξ', 'Ο', 'Π', 'Ρ', 'Σ', 'Τ', 'Υ', 'Φ', 'Χ', 'Ψ', 'Ω'] %}
                 {% if newLetter in displayedLetters %}
-                    <li class="alphabet-letter"><a href="#concept-glossary-letter-{{newLetter}}">{{newLetter}}</a></li>
+                    <li class="alphabet-letter"><a href="{% if app.request.get('_route') != 'concept_library' %}{{path('concept_library', {'aoe': area_of_expertise.url})}}{% endif %}#concept-glossary-letter-{{newLetter}}">{{newLetter}}</a></li>
                 {% else %}
                     <li class="alphabet-letter text-muted">{{newLetter}}</li>
                 {% endif %}
