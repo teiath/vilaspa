@@ -39,7 +39,7 @@
 {% block content %}
 <div class="row text-center concept-library">
     <div class="col-md-12">
-        <h2 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)}}</h2>
+        <h2 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)|raw|replace({'<BR />': ''})|raw}}</h2>
         <h4>{{'concept_library.heading'|trans}}<hr /></h4>
         <ul style="list-style-type: none; text-align: left;">
         {% set curLetter = null %}

@@ -88,8 +88,14 @@ class TwigExtension extends \Twig_Extension
 
   function stripGrAccent($tempName)
   {
-    $tempName = str_replace(str_split("ΆάΈέΉήΌόΎύΏώ"), str_split("ααεεηηοουυωω"), $tempName);
-    return str_replace(str_split("αβγδεζηθικλμνξοπρστυφχψως"), str_split("ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΣ"), $tempName);
+    $utf8_str_split = function($str='',$len=1){
+        preg_match_all("/./u", $str, $arr);
+        $arr = array_chunk($arr[0], $len);
+        $arr = array_map('implode', $arr);
+        return $arr;
+    };
+    $tempName = str_replace($utf8_str_split("ΆάΈέΉήΌόΎύΏώί"), $utf8_str_split("ααεεηηοουυωωι"), $tempName);
+    return str_replace($utf8_str_split("αβγδεζηθικλμνξοπρστυφχψως"), $utf8_str_split("ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΣ"), $tempName);
   }
 
   /**

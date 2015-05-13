@@ -102,9 +102,16 @@ class AreaOfExpertise {
         return new ArrayCollection(array_values(iterator_to_array($concepts)));
     }
 
-    private function stripGrAccent($tempName) {
-      $tempName = strtr($tempName, "ΆάΈέΉήΌόΎύΏώ", "ααεεηηοουυωω");
-      return strtr($tempName, "αβγδεζηθικλμνξοπρστυφχψως" , "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΣ");
+    function stripGrAccent($tempName)
+    {
+      $utf8_str_split = function($str='',$len=1){
+          preg_match_all("/./u", $str, $arr);
+          $arr = array_chunk($arr[0], $len);
+          $arr = array_map('implode', $arr);
+          return $arr;
+      };
+      $tempName = str_replace($utf8_str_split("ΆάΈέΉήΌόΎύΏώί"), $utf8_str_split("ααεεηηοουυωωι"), $tempName);
+      return str_replace($utf8_str_split("αβγδεζηθικλμνξοπρστυφχψως"), $utf8_str_split("ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΣ"), $tempName);
     }
 
     public function __toString() {
