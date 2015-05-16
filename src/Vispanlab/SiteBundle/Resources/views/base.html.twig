@@ -18,16 +18,17 @@
 {% block sonata_breadcrumb %}
     <ol class="nav navbar-top-links breadcrumb hidden-xs">
         {%- for  menu in cnerta_breadcrumb_get('sidebar') %}
+            {% set menuLabel = menu.label|replace({'<BR />': ' '})|trans %}
             {% if not loop.last  %}
                 <li>
                     {% if menu.uri is not empty %}
-                        <a href="{{ menu.uri != '#' ? menu.uri : path('home') }}">{{ menu.label|raw|trans }}</a>
+                        <a href="{{ menu.uri != '#' ? menu.uri : path('home') }}">{{ menuLabel|raw }}</a>
                     {% else %}
-                        {{ menu.label|trans }}
+                        {{ menuLabel|raw }}
                     {% endif %}
                 </li>
             {% else %}
-                <li class="active"><span>{{ menu.label|trans }}</span></li>
+                <li class="active"><span>{{ menuLabel|raw }}</span></li>
             {% endif %}
         {%- endfor %}
     </ol>

@@ -9,6 +9,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @author Dimosthenis Nikoudis <dnna@dnna.gr>
  * @ORM\Entity
+ * @ORM\Table(uniqueConstraints={
+ *  @ORM\UniqueConstraint(name="locale_concept_name_id", columns={"locale", "concept_name_id"}),
+ *  @ORM\UniqueConstraint(name="locale_concept_definition_id", columns={"locale", "concept_definition_id"}),
+ *  @ORM\UniqueConstraint(name="locale_concept_alternative_definition_id", columns={"locale", "concept_alternative_definition_id"}),
+ *  @ORM\UniqueConstraint(name="locale_concept_related_concept_id", columns={"locale", "concept_related_concept_id"}),
+ *  @ORM\UniqueConstraint(name="locale_concept_media_id", columns={"locale", "concept_media_id"}),
+ * })
  */
 class Definition {
     use TimestampableEntity;
