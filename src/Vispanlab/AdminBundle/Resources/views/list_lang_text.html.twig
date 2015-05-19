@@ -2,6 +2,6 @@
 
 {% block field%}
     {% for curValue in value %}
-        <div><i>{{curValue.locale}}</i>:{{curValue.text_formatted|raw}}</div>
+        <div><i>{{curValue.locale}}</i>:{{curValue.text_formatted|striptags|raw}}</div>
     {% endfor %}
 {% endblock %}

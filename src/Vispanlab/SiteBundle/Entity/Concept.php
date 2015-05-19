@@ -222,10 +222,10 @@ class Concept {
     }
 
     public function __toString() {
-        if(!isset($this->nameEl)) {
+        if($this->getNameForLang('el') == null) {
             return 'Νέα Έννοια';
         } else {
-            return $this->nameEl;
+            return strip_tags($this->getNameForLang('el')->getTextFormatted());
         }
     }
 }

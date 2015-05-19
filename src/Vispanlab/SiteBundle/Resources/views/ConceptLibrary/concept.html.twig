@@ -5,7 +5,7 @@
 {% block content %}
 <div class="row text-center">
     <div class="col-md-12 concept-details">
-        <h2 style="margin-top: 0;"><strong>{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|raw}}</strong><hr /></h2>
+        <h2 style="margin-top: 0;"><strong>{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}</strong><hr /></h2>
         <div class="row text-justify">
             <div class="col-md-6">
                 {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {

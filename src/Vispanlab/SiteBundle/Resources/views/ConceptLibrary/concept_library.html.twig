@@ -17,7 +17,7 @@
             {% set curLetter = null %}
             {% set displayedLetters = [] %}
             {% for concept in area_of_expertise.sortedConcepts(app.request.locale) %}
-                {% set newLetter = concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|stripGrAccent|first %}
+                {% set newLetter = concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|stripGrAccent|first %}
                 {% if newLetter != curLetter and newLetter not in displayedLetters %}
                     {% set displayedLetters = displayedLetters|merge([newLetter]) %}
                 {% endif %}
@@ -44,7 +44,7 @@
         <ul style="list-style-type: none; text-align: left;">
         {% set curLetter = null %}
         {% for concept in area_of_expertise.sortedConcepts(app.request.locale) %}
-            {% set newLetter = concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|stripGrAccent|first %}
+            {% set newLetter = concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|stripGrAccent|first %}
             {% if newLetter != curLetter %}
                 <li id="concept-glossary-letter-{{newLetter}}" class="alphabet-letter col-md-12"><h3>{{newLetter}}</h3></li>{% set curLetter = newLetter %}
             {% endif %}

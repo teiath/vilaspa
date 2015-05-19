@@ -115,10 +115,10 @@ class AreaOfExpertise {
     }
 
     public function __toString() {
-        if(!isset($this->name)) {
+        if(!isset($this->nameEl)) {
             return 'Νέο Γνωστικό Αντικείμενο';
         } else {
-            return $this->name;
+            return str_replace('<BR />', ' ', $this->nameEl);
         }
     }
 }

@@ -25,6 +25,7 @@ class DefinitionAdmin extends Admin
                 'source_field_options' => array('attr' => array('class' => 'span10', 'rows' => 20)),
                 'format_field'         => 'format_type',
                 'target_field'         => 'text_formatted',
+                'ckeditor_context'     => 'default',
                 'event_dispatcher'     => $formMapper->getFormBuilder()->getEventDispatcher(),
                 'listener'             => true,
             ))

@@ -64,7 +64,7 @@
         <div class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="{{path('home')}}">{{'common.title'|trans}}</a>
+                    <a class="navbar-brand" href="{{path('home')}}">{{'common.title'|trans|replace({'<BR />': ' '})|raw}}</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     {% if is_granted('ROLE_USER') %}

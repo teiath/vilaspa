@@ -49,8 +49,8 @@ class AreaOfExpertiseAdmin extends Admin
                     'delete' => array(),
             )))
             ->addIdentifier('url')
-            ->add('name')
-            ->add('concepts')
+            ->add('nameEl')
+            ->add('nameEn')
         ;
     }
 
@@ -62,7 +62,8 @@ class AreaOfExpertiseAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('name')
+            ->add('nameEl')
+            ->add('nameEn')
         ;
         parent::configureDatagridFilters($datagridMapper);
     }
