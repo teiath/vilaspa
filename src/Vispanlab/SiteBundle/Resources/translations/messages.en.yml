@@ -17,6 +17,7 @@ home:
 concept_library:
   heading: Library
   goto_concept: Go to
+  search_placeholder: Search Concept
 
 concept:
   DEFINITION: DEFINITION

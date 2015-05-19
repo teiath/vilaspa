@@ -1,10 +1,11 @@
 {% extends 'VispanlabSiteBundle::base.html.twig' %}
 
 {% block sonata_top_nav_menu %}
-    <div class="navbar-left hidden-xs hidden-sm">
+    {{parent()}}
+    <div class="navbar-right hidden-xs hidden-sm">
         <form action="#" method="GET" class="sidebar-form concept-search-form" role="search" onsubmit="return false;">
             <div class="input-group">
-                <input type="text" name="q" value="{{ app.request.get('q') }}" class="form-control" placeholder="{{ 'search_placeholder'|trans({}, 'SonataAdminBundle') }}" data-provide="typeahead" autocomplete="off">
+                <input type="text" name="q" value="{{ app.request.get('q') }}" class="form-control" placeholder="{{ 'concept_library.search_placeholder'|trans }}" data-provide="typeahead" autocomplete="off">
                     <span class="input-group-btn">
                         <button class="btn btn-flat" type="submit">
                             <i class="fa fa-search"></i>
@@ -12,35 +13,58 @@
                     </span>
             </div>
         </form>
-        <div class="concept-glossary hidden-xs hidden-sm hidden-md">
-            <ul class="list-inline">
-            {% set curLetter = null %}
-            {% set displayedLetters = [] %}
-            {% for concept in area_of_expertise.sortedConcepts(app.request.locale) %}
-                {% set newLetter = concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|stripGrAccent|first %}
-                {% if newLetter != curLetter and newLetter not in displayedLetters %}
-                    {% set displayedLetters = displayedLetters|merge([newLetter]) %}
-                {% endif %}
-                {% set curLetter = newLetter %}
-            {% endfor %}
-            {% for newLetter in ['Α', 'Β', 'Γ', 'Δ', 'Ε', 'Ζ', 'Η', 'Θ', 'Ι', 'Κ', 'Λ', 'Μ', 'Ν', 'Ξ', 'Ο', 'Π', 'Ρ', 'Σ', 'Τ', 'Υ', 'Φ', 'Χ', 'Ψ', 'Ω'] %}
-                {% if newLetter in displayedLetters %}
-                    <li class="alphabet-letter"><a href="{% if app.request.get('_route') != 'concept_library' %}{{path('concept_library', {'aoe': area_of_expertise.url})}}{% endif %}#concept-glossary-letter-{{newLetter}}">{{newLetter}}</a></li>
-                {% else %}
-                    <li class="alphabet-letter text-muted">{{newLetter}}</li>
-                {% endif %}
-            {% endfor %}
-            </ul>
-        </div>
     </div>
-    {{parent()}}
+{% endblock %}
+
+{% block glossary %}
+<div class="concept-glossary">
+    <ul class="list-inline">
+    {% set curLetter = null %}
+    {% set displayedLetters = [] %}
+    {% for concept in area_of_expertise.sortedConcepts(app.request.locale) %}
+        {% set newLetter = concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|stripGrAccent|first %}
+        {% if newLetter != curLetter and newLetter not in displayedLetters %}
+            {% set displayedLetters = displayedLetters|merge([newLetter]) %}
+        {% endif %}
+        {% set curLetter = newLetter %}
+    {% endfor %}
+    {% for newLetter in ['Α', 'Β', 'Γ', 'Δ', 'Ε', 'Ζ', 'Η', 'Θ', 'Ι', 'Κ', 'Λ', 'Μ', 'Ν', 'Ξ', 'Ο', 'Π', 'Ρ', 'Σ', 'Τ', 'Υ', 'Φ', 'Χ', 'Ψ', 'Ω'] %}
+        {% if newLetter in displayedLetters %}
+            <li class="alphabet-letter"><a href="#concept-glossary-letter-{{newLetter}}">{{newLetter}}</a></li>
+        {% else %}
+            <li class="alphabet-letter text-muted">{{newLetter}}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    <hr style="margin-top: 10px;" />
+</div>
+{% endblock %}
+
+{% block glossary_js %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        var theLoc = $('.concept-glossary').position().top;
+        $(window).scroll(function() {
+            if(theLoc >= $(window).scrollTop()) {
+                if($('.concept-glossary').hasClass('fixed')) {
+                    $('.concept-glossary').removeClass('fixed');
+                }
+            } else {
+                if(!$('.concept-glossary').hasClass('fixed')) {
+                    $('.concept-glossary').addClass('fixed');
+                }
+            }
+        });
+    });
+</script>
 {% endblock %}
 
 {% block content %}
 <div class="row text-center concept-library">
     <div class="col-md-12">
         <h2 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)|raw|replace({'<BR />': ' '})|raw}}</h2>
-        <h4>{{'concept_library.heading'|trans}}<hr /></h4>
+        <h4>{{'concept_library.heading'|trans}}<hr style="margin-bottom: 10px;" /></h4>
+        {{block('glossary')}}
         <ul style="list-style-type: none; text-align: left;">
         {% set curLetter = null %}
         {% for concept in area_of_expertise.sortedConcepts(app.request.locale) %}
@@ -82,8 +106,8 @@
                 }
             });
         };
-        $('.sidebar-form').submit(updateSearchResults)
-        $('.sidebar-form').focusout(updateSearchResults)
+        $('.sidebar-form').submit(updateSearchResults);
+        $('.sidebar-form').focusout(updateSearchResults);
         updateSearchResults();
 
         $('.concept-search-form input[type="text"]').typeahead({
@@ -94,7 +118,8 @@
         });
     });
     $(window).on("hashchange", function () {
-        window.scrollTo(window.scrollX, window.scrollY - 50);
+        window.scrollTo(window.scrollX, window.scrollY - 100);
     });
 </script>
+{{block('glossary_js')}}
 {% endblock %}

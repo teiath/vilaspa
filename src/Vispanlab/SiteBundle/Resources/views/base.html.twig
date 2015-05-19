@@ -18,7 +18,7 @@
 {% block sonata_breadcrumb %}
     <ol class="nav navbar-top-links breadcrumb hidden-xs">
         {%- for  menu in cnerta_breadcrumb_get('sidebar') %}
-            {% set menuLabel = menu.label|replace({'<BR />': ' '})|trans %}
+            {% set menuLabel = menu.label|replace({'<BR />': ' '})|striptags|trans %}
             {% if not loop.last  %}
                 <li>
                     {% if menu.uri is not empty %}

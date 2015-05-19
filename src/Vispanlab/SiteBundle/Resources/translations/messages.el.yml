@@ -17,6 +17,7 @@ home:
 concept_library:
   heading: Βιβλιοθήκη Εννοιών
   goto_concept: Μετάβαση
+  search_placeholder: Αναζήτηση Έννοιας
 
 concept:
   DEFINITION: ΟΡΙΣΜΟΣ

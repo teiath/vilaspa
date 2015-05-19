@@ -58,6 +58,10 @@ h6,
     border: 1px solid #eee;
 }*/
 
+.skin-black .sidebar-form.concept-search-form {
+    margin-top: 5px;
+}
+
 .navbar-left .concept-search-form {
     width: 300px;
     margin: 0;
@@ -70,7 +74,7 @@ h6,
     border: 1px solid #eee;
 }
 
-.concept-glossary {
+/*.concept-glossary {
     margin: 5px 0px 0px;
     width: 250px;
     font-size: 10px;
@@ -81,6 +85,17 @@ h6,
 .concept-glossary .list-inline {
     margin-left: 10px;
     margin-bottom: 0;
+}*/
+
+.concept-glossary.fixed {
+    margin-left: 220px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 50px;
+    background-color: #F9F9F9;
+    z-index: 1000;
+    padding-top: 10px;
 }
 /* End Concept Search */
 

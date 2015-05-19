@@ -94,6 +94,10 @@ ivory_ck_editor:
     default_config: default
     configs:
         default:
+            entities: false
+            basicEntities: false
+            entities_greek: false
+            entities_latin: false
             filebrowserBrowseRoute: admin_sonata_media_media_ckeditor_browser
             filebrowserImageBrowseRoute: admin_sonata_media_media_ckeditor_browser
             # Display images by default when clicking the image dialog browse button
