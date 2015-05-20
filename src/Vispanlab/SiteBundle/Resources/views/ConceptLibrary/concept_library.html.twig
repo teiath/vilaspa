@@ -3,7 +3,7 @@
 {% block sonata_top_nav_menu %}
     {{parent()}}
     <div class="navbar-right hidden-xs hidden-sm">
-        <form action="#" method="GET" class="sidebar-form concept-search-form" role="search" onsubmit="return false;">
+        <form action="{{path('concept_library', {'aoe': concept is defined ? concept.areaOfExpertise.url : area_of_expertise.url})}}#" method="GET" class="sidebar-form concept-search-form" role="search">
             <div class="input-group">
                 <input type="text" name="q" value="{{ app.request.get('q') }}" class="form-control" placeholder="{{ 'concept_library.search_placeholder'|trans }}" data-provide="typeahead" autocomplete="off">
                     <span class="input-group-btn">
@@ -43,18 +43,20 @@
 {% block glossary_js %}
 <script type="text/javascript">
     $(document).ready(function() {
-        var theLoc = $('.concept-glossary').position().top;
-        $(window).scroll(function() {
-            if(theLoc >= $(window).scrollTop()) {
-                if($('.concept-glossary').hasClass('fixed')) {
-                    $('.concept-glossary').removeClass('fixed');
+        if($('.concept-glossary').size() > 0) {
+            var theLoc = $('.concept-glossary').position().top;
+            $(window).scroll(function() {
+                if(theLoc >= $(window).scrollTop()) {
+                    if($('.concept-glossary').hasClass('fixed')) {
+                        $('.concept-glossary').removeClass('fixed');
+                    }
+                } else {
+                    if(!$('.concept-glossary').hasClass('fixed')) {
+                        $('.concept-glossary').addClass('fixed');
+                    }
                 }
-            } else {
-                if(!$('.concept-glossary').hasClass('fixed')) {
-                    $('.concept-glossary').addClass('fixed');
-                }
-            }
-        });
+            });
+        }
     });
 </script>
 {% endblock %}
@@ -90,8 +92,9 @@
 <script src="{{asset('js/vendor/uppercaser.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/vendor/bootstrap3-typeahead.js')}}" type="text/javascript"></script>
 <script type="text/javascript">
+    {% block search_js %}
     $(document).ready(function() {
-        var updateSearchResults = function() {
+        var updateSearchResults = function(e) {
             var $input = UpperCaser.toUpper($.trim($('.concept-search-form input[type="text"]').val()));
             if($input.length <= 0) {
                 $('.alphabet-letter').show();
@@ -105,6 +108,10 @@
                     $(this).hide();
                 }
             });
+            if(typeof e === 'object') {
+                e.preventDefault();
+                return false;
+            }
         };
         $('.sidebar-form').submit(updateSearchResults);
         $('.sidebar-form').focusout(updateSearchResults);
@@ -117,6 +124,7 @@
             afterSelect: updateSearchResults
         });
     });
+    {% endblock %}
     $(window).on("hashchange", function () {
         window.scrollTo(window.scrollX, window.scrollY - 100);
     });

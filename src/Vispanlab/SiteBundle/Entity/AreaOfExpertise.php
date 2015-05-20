@@ -94,8 +94,8 @@ class AreaOfExpertise {
     public function getSortedConcepts($locale) {
         $concepts = $this->getConcepts($locale)->getIterator();
         $concepts->uasort(function ($a, $b) use ($locale) {
-            $at = $this->stripGrAccent($a->getNameForLang($locale)->getText_formatted());
-            $bt = $this->stripGrAccent($b->getNameForLang($locale)->getText_formatted());
+            $at = $this->stripGrAccent(strip_tags($a->getNameForLang($locale)->getText_formatted()));
+            $bt = $this->stripGrAccent(strip_tags($b->getNameForLang($locale)->getText_formatted()));
             if($at == $bt) { return 0; }
             return ($at > $bt) ? 1 : -1;
         });

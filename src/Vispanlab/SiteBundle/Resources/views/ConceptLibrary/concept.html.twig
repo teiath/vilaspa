@@ -59,13 +59,15 @@
 </div>
 <div class="row text-center">
     {% if prev != null %}
-    <div class="col-md-3 pull-left text-left"><a href="{{path('concept', {'concept': prev.id})}}">&nbsp; {{'concept.PREVIOUS'|trans}}<BR />&#10094; {{prev.nameForLang(app.request.locale).textFormatted|format_text(prev.nameForLang(app.request.locale).format_type)|raw}}</a></div>
+    <div class="col-md-3 pull-left text-left"><a href="{{path('concept', {'concept': prev.id})}}">&nbsp; {{'concept.PREVIOUS'|trans}}<BR />< {{prev.nameForLang(app.request.locale).textFormatted|format_text(prev.nameForLang(app.request.locale).format_type)|raw}}</a></div>
     {% endif %}
     {% if next != null %}
-    <div class="col-md-3 pull-right text-right"><a href="{{path('concept', {'concept': next.id})}}">{{'concept.NEXT'|trans}} &nbsp;<BR />{{next.nameForLang(app.request.locale).textFormatted|format_text(next.nameForLang(app.request.locale).format_type)|raw}} &#10095;</a></div>
+    <div class="col-md-3 pull-right text-right"><a href="{{path('concept', {'concept': next.id})}}">{{'concept.NEXT'|trans}} &nbsp;<BR />{{next.nameForLang(app.request.locale).textFormatted|format_text(next.nameForLang(app.request.locale).format_type)|raw}} ></a></div>
     {% endif %}
 </div>
 {% endblock %}
+
+{% block search_js %}{% endblock %}
 
 {% block javascripts %}
 {{parent()}}
@@ -99,6 +101,24 @@
             }
             e.preventDefault();
             return false;
+        });
+    });
+    // Search
+    $(document).ready(function() {
+        var updateSearchResults = function() {
+            var $input = UpperCaser.toUpper($.trim($('.concept-search-form input[type="text"]').val()));
+            if($input.length > 0) {
+                $('.concept-search-form').off('submit');
+                $('.concept-search-form').submit();
+            }
+        };
+        $('.sidebar-form').submit(updateSearchResults);
+
+        $('.concept-search-form input[type="text"]').typeahead({
+            source: [
+                {% for concept in concept.areaOfExpertise.sortedConcepts(app.request.locale) %}"{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|replace({'&amp;': '&'})|e('js')|raw}}"{% if not loop.last %},{% endif %}{% endfor %}
+            ],
+            afterSelect: updateSearchResults
         });
     });
 </script>
