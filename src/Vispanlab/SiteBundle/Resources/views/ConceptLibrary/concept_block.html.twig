@@ -1,5 +1,4 @@
 {% import _self as macros %}
-{% set langFlags = { 'en': 'gb', 'el': 'gr', 'fr': 'fr', 'de': 'de' } %}
 {% set blockId = ((method is defined ? method : (content.textFormatted|md5))~'_'~(locale is defined ? locale : '')) %}
 {% set content = method is defined ? attribute(concept, method, [locale is defined ? locale : null]) : content %}
 {% set defsInDefaultLangCount = 0 %}
@@ -45,11 +44,11 @@
                 {% if content is iterable %}
                     {% set localesAlreadyDisplayed = [] %}
                     {% for curContent in content if curContent.locale not in localesAlreadyDisplayed %}
-                        <li><a href="#" class="switch-lang flag-icon flag-icon-square flag-icon-{{langFlags[curContent.locale]}}" data-lang="{{langFlags[curContent.locale]}}">&nbsp;</a></li>
+                        <li {% if curContent.locale == app.request.locale %}style="display: none;"{% endif %}><a href="#" class="switch-lang flag-icon flag-icon-square flag-icon-{{langFlags[curContent.locale]}}" data-lang="{{langFlags[curContent.locale]}}">&nbsp;</a></li>
                         {% set localesAlreadyDisplayed = localesAlreadyDisplayed|merge([curContent.locale]) %}
                     {% endfor %}
                 {% else %}
-                    <li><a href="#" class="switch-lang flag-icon flag-icon-square flag-icon-{{langFlags[content.locale]}}" data-lang="{{langFlags[content.locale]}}">&nbsp;</a></li>
+                    <li {% if content.locale == app.request.locale %}style="display: none;"{% endif %}><a href="#" class="switch-lang flag-icon flag-icon-square flag-icon-{{langFlags[content.locale]}}" data-lang="{{langFlags[content.locale]}}">&nbsp;</a></li>
                 {% endif %}
             </ul>
         </div>

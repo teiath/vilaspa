@@ -87,6 +87,18 @@
             var curLang = $(this).parent().parent().parent().parent().find('.lang-block:visible').attr('data-lang');
             var curMethod = $(this).parent().parent().parent().parent().parent().attr('data-method');
             var newLang = $(this).attr('data-lang');
+            // 1. Show all flags, 2. Hide the clicked flag, 3. Show the current locale flag
+            if($('.default-lang-'+newLang+'.linked[data-method="'+curMethod+'"]').size() <= 0) {
+                var $defaultLocaleFlag = $(this).parent().parent().find('.switch-lang.flag-icon-{{langFlags[app.request.locale]}}').parent();
+                $(this).parent().parent().find('li').show();
+                $(this).parent().hide();
+                if($(this).parent().is($defaultLocaleFlag)) {
+                    $defaultLocaleFlag.hide();
+                } else {
+                    $defaultLocaleFlag.show();
+                }
+            }
+            // Handle the language switch
             if(curLang !== newLang && $('.default-lang-'+newLang+'.linked[data-method="'+curMethod+'"]').size() > 0) {
                 if($('.default-lang-'+newLang+'.linked[data-method="'+curMethod+'"]').is(':visible')) {
                     $('.default-lang-'+newLang+'.linked[data-method="'+curMethod+'"]').fadeOut();

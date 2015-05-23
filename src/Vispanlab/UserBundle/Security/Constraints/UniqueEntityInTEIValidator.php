@@ -49,7 +49,7 @@ class UniqueEntityInTEIValidator extends ConstraintValidator
             throw new ConstraintDefinitionException('At least one field has to be specified.');
         }
 
-        try {
+        /*try {
             $password = $entity->getPlainPassword();
             foreach($fields as $curField) {
                 $method = 'get'.ucfirst($curField);
@@ -57,6 +57,10 @@ class UniqueEntityInTEIValidator extends ConstraintValidator
             }
         } catch(UsernameNotFoundException $e) {
             return;
+        }*/
+        foreach($fields as $curField) {
+            $method = 'get'.ucfirst($curField);
+            if(!$this->userProvider->userExistsInTEI($entity->$method())) { return; }
         }
 
         $errorPath = null !== $constraint->errorPath ? $constraint->errorPath : $fields[0];

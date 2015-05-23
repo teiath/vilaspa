@@ -20,6 +20,17 @@ class TwigExtension extends \Twig_Extension
     );
   }
 
+  public function getGlobals() {
+      return array(
+        'langFlags' => array(
+            'en' => 'gb',
+            'el' => 'gr',
+            'fr' => 'fr',
+            'de' => 'de',
+        ),
+      );
+  }
+
   function linksConvertFilter($content, $separator, $locale, $routeName, $routeIdName)
   {
       $strippedContent = strip_tags($content);
