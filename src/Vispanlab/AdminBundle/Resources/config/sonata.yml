@@ -50,6 +50,7 @@ sonata_doctrine_orm_admin:
         list:
           media: VispanlabAdminBundle::list_media.html.twig
           langtext: VispanlabAdminBundle::list_lang_text.html.twig
+          user_roles: VispanlabAdminBundle::list_user_roles.html.twig
         show: ~
 
 sonata_formatter:

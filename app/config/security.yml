@@ -18,8 +18,7 @@ security:
         ROLE_USER:      ROLE_USER
         ROLE_STUDENT:     ROLE_USER
         ROLE_CIVILIAN:     ROLE_USER
-        ROLE_AREA_ADMIN:     ROLE_STUDENT
-        ROLE_ADMIN:     ROLE_AREA_ADMIN
+        ROLE_ADMIN:     ROLE_STUDENT
 
     providers:
       fos_userbundle:
@@ -39,4 +38,4 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_AREA_ADMIN }
+        - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_AREA_ADMIN] }

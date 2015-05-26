@@ -76,4 +76,12 @@ class User extends BaseUser
     public function setLoginSource($loginSource) {
         $this->loginSource = $loginSource;
     }
+
+    public function getRoles() {
+        $roles = parent::getRoles();
+        foreach($roles as $curRole) {
+            if(strpos($curRole, 'ROLE_AREA_ADMIN') !== false) { $roles[] = 'ROLE_AREA_ADMIN'; break; }
+        }
+        return $roles;
+    }
 }
