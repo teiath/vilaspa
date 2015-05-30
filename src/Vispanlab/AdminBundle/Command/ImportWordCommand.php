@@ -23,26 +23,27 @@ class ImportWordCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Starting ImportWord process');
-        $htmlStr = file_get_contents('C:\Users\Niral\Desktop\topografia\yliko\html\p5_2.html');
+        $htmlStr = file_get_contents('C:\Users\Niral\Desktop\topografia\yliko\html\p5_2_kthm.html');
         $dom = HtmlDomParser::str_get_html( $htmlStr );
 
         // TODO fetch actual gnwstiko antikeimno instead of default
-        //$poleodomia = $this->getContainer()->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\AreaOfExpertise')->find(1);
+        $poleodomia = $this->getContainer()->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\AreaOfExpertise')->find(3);
 
         foreach($dom->find('table') as $curTable) {
             $concept = new Concept();
-            //$concept->setAreaofexpertise($poleodomia); // Moved to LinkConceptsToAreasCommand
+            $concept->getAreasofexpertise()->add($poleodomia); // Moved to LinkConceptsToAreasCommand
             // TR Structure:
             // 0 is GR Name
             // 1 is Alternative Names (EN, FR, DE)
             // 2 is Empty
             $this->parseTitle($curTable->find('tr', 0)->plaintext, $concept, 'el');
+            if($concept->getNameForLang('el') == null) { continue; }
             // Ensure concept doesn't exist already
             $existingConcept = $this->getContainer()->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\Definition')->findOneBy(array(
-                'text' => $concept->getNameForLang('el'),
+                'text' => $concept->getNameForLang('el')->getText(),
             ));
             if(isset($existingConcept)) {
-                $output->writeln('Skipped concept: '.$concept->getNameForLang('el'));
+                $output->writeln('Skipped concept: '.$concept->getNameForLang('el')->getTextFormatted());
                 continue;
             }
             // End existing check
@@ -50,25 +51,31 @@ class ImportWordCommand extends ContainerAwareCommand
             $this->parseTitle($curTable->find('tr', 1)->find('td', 1)->plaintext, $concept, 'fr');
             $this->parseTitle($curTable->find('tr', 1)->find('td', 2)->plaintext, $concept, 'de');
             $i = 0;
+
+            $this->parseDefinition($curTable->find('tr', 2)->find('td', 0)->innertext, $concept, 'el');
+            $this->parseDefinition($curTable->find('tr', 3)->find('td', 0)->innertext, $concept, 'en');
+            $this->parseAlternativeDefinition($curTable->find('tr', 4)->find('td', 0)->innertext, $concept, 'el');
+            $this->parseRelatedConcepts($curTable->find('tr', 5)->find('td', 0)->innertext, $concept, 'el');
+            $this->parseComments($curTable->find('tr', 7)->find('td', 0)->innertext, $concept, 'el');
             foreach($curTable->find('tr') as $curTr) {
-                if($i++ < 2) { continue; }
+                if($i++ < 8) { continue; }
                 $type = $this->detectType($curTr);
                 if($type['type'] == 'ignore') { continue; }
                 if($type['type'] == 'definition') {
-                    if(!$concept->hasDefinitionForLang($type['locale'])) {
+                    /*if(!$concept->hasDefinitionForLang($type['locale'])) {
                         $this->parseDefinition($type['text'], $concept, $type['locale']);
                     } else {
                         $this->parseAlternativeDefinition($type['text'], $concept, $type['locale']);
-                    }
+                    }*/
                 } else if($type['type'] == 'relatedConcept') {
-                    $this->parseRelatedConcepts($type['text'], $concept, $type['locale']);
+                    //$this->parseRelatedConcepts($type['text'], $concept, $type['locale']);
                 } else if($type['type'] == 'comments') {
-                    $this->parseComments(strip_tags($type['text']), $concept);
+                    //$this->parseComments(strip_tags($type['text']), $concept);
                 }
             }
             $this->getContainer()->get('doctrine')->getManager()->persist($concept);
             $this->getContainer()->get('doctrine')->getManager()->flush($concept);
-            $output->writeln('Added concept: '.$concept->getNameForLang('el'));
+            $output->writeln('Added concept: '.$concept->getNameForLang('el')->getTextFormatted());
         }
 
         // Remove multiple spcaes
@@ -80,6 +87,7 @@ class ImportWordCommand extends ContainerAwareCommand
 
     private function parseTitle($domPlainText, Concept &$concept, $locale) {
         // Remove EN: etc
+        if($locale == 'el') { $pos = strpos($domPlainText, '.'); $domPlainText = substr($domPlainText, $pos+1); }
         $domPlainText = str_replace(strtoupper($locale).':', '', $domPlainText);
         $domPlainText = $this->mb_trim($domPlainText, ' '.PHP_EOL);
         if(mb_strlen($domPlainText) <= 0) { return; }
@@ -96,7 +104,7 @@ class ImportWordCommand extends ContainerAwareCommand
         $domPlainText = $this->mb_trim($domPlainText, ' '.PHP_EOL);
         if(mb_strlen($domPlainText) <= 0) { return; }
         $definition = new Definition();
-        $definition->setFormat_type('raw');
+        $definition->setFormat_type('rawhtml');
         $definition->setLocale($locale);
         $definition->setConceptAsDefinition($concept);
         $definition->setText($domPlainText);
@@ -108,7 +116,7 @@ class ImportWordCommand extends ContainerAwareCommand
         $domPlainText = $this->mb_trim($domPlainText, ' '.PHP_EOL);
         if(mb_strlen($domPlainText) <= 0) { return; }
         $definition = new Definition();
-        $definition->setFormat_type('raw');
+        $definition->setFormat_type('rawhtml');
         $definition->setLocale($locale);
         $definition->setConceptAsAlternativeDefinition($concept);
         $definition->setText($domPlainText);
@@ -120,7 +128,7 @@ class ImportWordCommand extends ContainerAwareCommand
         $domPlainText = $this->mb_trim($domPlainText, ' '.PHP_EOL);
         if(mb_strlen($domPlainText) <= 0) { return; }
         $definition = new Definition();
-        $definition->setFormat_type('raw');
+        $definition->setFormat_type('rawhtml');
         $definition->setLocale($locale);
         $definition->setConceptAsRelatedConcept($concept);
         $definition->setText($domPlainText);
