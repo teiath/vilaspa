@@ -23,7 +23,7 @@ class LinkConceptsToAreasCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Starting LinkConceptsToAreasCommand process');
-        $htmlStr = file_get_contents('C:\Users\Niral\Desktop\topografia\yliko\html\concepts_to_areas.html');
+        $htmlStr = file_get_contents('C:\Users\Niral\Desktop\topografia\yliko\html\concepts_to_areas_kthm.html');
         $dom = HtmlDomParser::str_get_html( $htmlStr );
 
         // TODO fetch actual gnwstiko antikeimno instead of default
@@ -45,29 +45,32 @@ class LinkConceptsToAreasCommand extends ContainerAwareCommand
             $inXorotaxia = mb_strlen($this->mb_trim($curTr->find('td', 3)->plaintext, ' '.PHP_EOL)) > 0;
             $inKtimatologio = mb_strlen($this->mb_trim($curTr->find('td', 4)->plaintext, ' '.PHP_EOL)) > 0;
             if($inPoleodomia) {
-                if($concept->getAreaofexpertise() == $poleodomia) { $output->writeln('Concept '.$concept->getNameForLang('el').' already in correct area of expertise'); } else {
-                    $concept = $this->setSafeAreaofexpertise($concept, $poleodomia);
+                if($concept->getAreasofexpertise()->contains($poleodomia)) { $output->writeln('Concept '.$concept->getNameForLang('el')->getTextFormatted().' already in correct area of expertise'); } else {
+                    //$concept = $this->setSafeAreaofexpertise($concept, $poleodomia);
+                    $concept->getAreasofexpertise()->add($poleodomia);
                 }
             }
             if($inXorotaxia) {
-                if($concept->getAreaofexpertise() == $xorotaxia) { $output->writeln('Concept '.$concept->getNameForLang('el').' already in correct area of expertise'); } else {
-                    $concept = $this->setSafeAreaofexpertise($concept, $xorotaxia);
+                if($concept->getAreasofexpertise()->contains($xorotaxia)) { $output->writeln('Concept '.$concept->getNameForLang('el')->getTextFormatted().' already in correct area of expertise'); } else {
+                    //$concept = $this->setSafeAreaofexpertise($concept, $xorotaxia);
+                    $concept->getAreasofexpertise()->add($xorotaxia);
                 }
             }
             if($inKtimatologio) {
-                if($concept->getAreaofexpertise() == $ktimatologio) { $output->writeln('Concept '.$concept->getNameForLang('el').' already in correct area of expertise'); } else {
-                    $concept = $this->setSafeAreaofexpertise($concept, $ktimatologio);
+                if($concept->getAreasofexpertise()->contains($ktimatologio)) { $output->writeln('Concept '.$concept->getNameForLang('el')->getTextFormatted().' already in correct area of expertise'); } else {
+                    //$concept = $this->setSafeAreaofexpertise($concept, $ktimatologio);
+                    $concept->getAreasofexpertise()->add($ktimatologio);
                 }
             }
             //$concept->setAreaofexpertise($poleodomia);
             $this->getContainer()->get('doctrine')->getManager()->persist($concept);
             $this->getContainer()->get('doctrine')->getManager()->flush($concept);
-            $output->writeln('Linked concept: '.$concept->getNameForLang('el'));
+            $output->writeln('Linked concept: '.$concept->getNameForLang('el')->getTextFormatted());
         }
         $output->writeln('Completed LinkConceptsToAreasCommand process');
     }
 
-    private function setSafeAreaofexpertise(Concept &$concept, AreaOfExpertise &$areaofexpertise) {
+    /*private function setSafeAreaofexpertise(Concept &$concept, AreaOfExpertise &$areaofexpertise) {
         if($concept->getAreaofexpertise() == null) {
             $concept->setAreaofexpertise($areaofexpertise);
             return $concept;
@@ -100,7 +103,7 @@ class LinkConceptsToAreasCommand extends ContainerAwareCommand
             }
             return $newConcept;
         }
-    }
+    }*/
 
     // Util functions
     private function mb_trim ($string, $charlist = null) {
