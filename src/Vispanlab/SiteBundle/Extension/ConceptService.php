@@ -8,8 +8,7 @@ class ConceptService {
         $this->em = $em;
     }
 
-    public function nextConcept($concept, $locale) {
-        $aoe = $concept->getAreaofexpertise();
+    public function nextConcept($concept, $aoe, $locale) {
         $allConcepts = $aoe->getSortedConcepts($locale);
         $index = $allConcepts->indexOf($concept);
         if($index !== false) {
@@ -23,8 +22,7 @@ class ConceptService {
         return null;
     }
 
-    public function prevConcept($concept, $locale) {
-        $aoe = $concept->getAreaofexpertise();
+    public function prevConcept($concept, $aoe, $locale) {
         $allConcepts = $aoe->getSortedConcepts($locale);
         $index = $allConcepts->indexOf($concept);
         if($index !== false) {

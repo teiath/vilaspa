@@ -15,7 +15,7 @@ class ConceptAdmin extends Admin
         '_sort_order' => 'DESC', // Descendant ordering (default = 'ASC')
         '_sort_by' => 'id' // name of the ordered field (default = the model id
     );
-    protected $parentAssociationMapping = 'areaofexpertise';
+    protected $parentAssociationMapping = 'areasofexpertise';
 
     private $securityContext = null;
 
@@ -37,7 +37,7 @@ class ConceptAdmin extends Admin
     {
         $user = $this->securityContext->getToken()->getUser();
         if($user->hasRole('ROLE_ADMIN')) {
-            $formMapper->add('areaofexpertise', null, array('required' => true));
+            $formMapper->add('areasofexpertise', null, array('required' => true));
         }
         $formMapper
             ->add('name', 'sonata_type_collection', array(), array('edit' => 'inline', 'inline' => 'table'))
@@ -67,7 +67,7 @@ class ConceptAdmin extends Admin
             )))
             ->addIdentifier('id');
         if($user->hasRole('ROLE_ADMIN')) {
-            $listMapper->add('areaofexpertise');
+            $listMapper->add('areasofexpertise');
         }
         $listMapper
             ->add('name', 'langtext')
@@ -88,7 +88,7 @@ class ConceptAdmin extends Admin
     {
         $user = $this->securityContext->getToken()->getUser();
         if($user->hasRole('ROLE_ADMIN')) {
-            $datagridMapper->add('areaofexpertise');
+            $datagridMapper->add('areasofexpertise');
         }
         parent::configureDatagridFilters($datagridMapper);
     }
@@ -98,7 +98,7 @@ class ConceptAdmin extends Admin
         $proxyQuery = parent::createQuery($context);
         $user = $this->securityContext->getToken()->getUser();
         if(!$user->hasRole('ROLE_ADMIN') && $user->hasRole('ROLE_AREA_ADMIN')) {
-            $proxyQuery->join($proxyQuery->getRootAlias().'.areaofexpertise', 'aoe');
+            $proxyQuery->join($proxyQuery->getRootAlias().'.areasofexpertise', 'aoe');
             foreach($user->getRoles() as $curRole) {
                 if(strpos($curRole, 'ROLE_AREA_ADMIN') === false) { continue; }
                 $aoe = substr($curRole, strlen('ROLE_AREA_ADMIN')+1);

@@ -23,14 +23,15 @@ class ConceptLibraryController extends Controller {
 
     /**
      * @Route("/cl/{aoe}/concept/{concept}", name="concept")
+     * @ParamConverter("aoe", class="Vispanlab\SiteBundle\Entity\AreaOfExpertise", options={"repository_method" = "findOneByUrl"})
      * @Secure(roles="ROLE_USER")
      */
     public function concept(AreaOfExpertise $aoe, Concept $concept) {
         return $this->render('VispanlabSiteBundle:ConceptLibrary:concept.html.twig', array(
             'area_of_expertise' => $aoe,
             'concept' => $concept,
-            'next' => $this->get('vispanlab.concept.service')->nextConcept($concept, $this->getRequest()->getLocale()),
-            'prev' => $this->get('vispanlab.concept.service')->prevConcept($concept, $this->getRequest()->getLocale()),
+            'next' => $this->get('vispanlab.concept.service')->nextConcept($concept, $aoe, $this->getRequest()->getLocale()),
+            'prev' => $this->get('vispanlab.concept.service')->prevConcept($concept, $aoe, $this->getRequest()->getLocale()),
         ));
     }
 }

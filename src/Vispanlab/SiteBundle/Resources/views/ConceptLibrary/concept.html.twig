@@ -1,7 +1,5 @@
 {% extends 'VispanlabSiteBundle:ConceptLibrary:concept_library.html.twig' %}
 
-{% set area_of_expertise = concept.areaOfExpertise %}
-
 {% block content %}
 <div class="row text-center">
     <div class="col-md-12 concept-details">
@@ -128,7 +126,7 @@
 
         $('.concept-search-form input[type="text"]').typeahead({
             source: [
-                {% for concept in concept.areaOfExpertise.sortedConcepts(app.request.locale) %}"{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|replace({'&amp;': '&'})|e('js')|raw}}"{% if not loop.last %},{% endif %}{% endfor %}
+                {% for concept in area_of_expertise.sortedConcepts(app.request.locale) %}"{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|replace({'&amp;': '&'})|e('js')|raw}}"{% if not loop.last %},{% endif %}{% endfor %}
             ],
             afterSelect: updateSearchResults
         });

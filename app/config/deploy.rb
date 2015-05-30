@@ -1,6 +1,6 @@
 set :application, "vispanlab"
 set :user,        "vispanlab"
-set :domain,      "vispanlab.dnna.gr"
+set :domain,      "83.212.116.74"
 set :deploy_to,   "/home/vispanlab/capifony"
 set :app_path,    "app"
 
