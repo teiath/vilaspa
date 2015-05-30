@@ -22,7 +22,7 @@
                     'concept': concept,
                     'method': 'relatedConcepts',
                     'block_name' : ('concept.RELATED_CONCEPTS'|trans),
-                    'links_convert': { 'separator': '/', 'locale': app.request.locale, 'route_name': 'concept', 'route_id_name': 'concept' },
+                    'links_convert': { 'separator': '/', 'locale': app.request.locale, 'route_name': 'concept', 'route_id_name': 'concept', 'extra_params': {'aoe': area_of_expertise} },
                     'locale': app.request.locale,
                 } %}
             </div>

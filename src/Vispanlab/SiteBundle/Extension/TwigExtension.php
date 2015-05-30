@@ -31,7 +31,7 @@ class TwigExtension extends \Twig_Extension
       );
   }
 
-  function linksConvertFilter($content, $separator, $locale, $routeName, $routeIdName)
+  function linksConvertFilter($content, $separator, $locale, $routeName, $routeIdName, $extraParams)
   {
       $strippedContent = strip_tags($content);
       $links = array_filter(array_map('trim', explode($separator, $strippedContent)));
@@ -52,7 +52,7 @@ class TwigExtension extends \Twig_Extension
           $query->setParameter('curLinkFront', '%'.$curLink);
           $query->setParameter('locale', $locale);
           foreach($query->getResult() as $curResult) {
-              $curLink = '<a href="'.$this->container->get('router')->generate($routeName, array($routeIdName => $curResult->getId())).'">'.$curLink.'</a>';
+              $curLink = '<a href="'.$this->container->get('router')->generate($routeName, array_merge($extraParams, array($routeIdName => $curResult->getId()))).'">'.$curLink.'</a>';
               break;
           }
       }
