@@ -22,11 +22,19 @@ class Concept {
      */
     protected $id;
     /**
-     * @ORM\ManyToOne(targetEntity="AreaOfExpertise", inversedBy="concepts")
+     * @ORM\ManyToOne(targetEntity="AreaOfExpertise")
      * @ORM\JoinColumn(name="areaofexpertise_id", referencedColumnName="id", onDelete="CASCADE")
      * @var AreaOfExpertise
      */
-    protected $areaofexpertise;
+    protected $areaofexpertise; // DEPRECTED - TO REMOVE
+    /**
+     * @ORM\ManyToMany(targetEntity="AreaOfExpertise", inversedBy="concepts")
+     * @ORM\JoinTable(name="concepts_areas",
+     *      joinColumns={@ORM\JoinColumn(name="concept_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="aoe_id", referencedColumnName="id")}
+     *      )
+     */
+    protected $areasofexpertise;
     /**
      * @ORM\OneToMany(targetEntity="Definition", mappedBy="conceptAsName", cascade={"persist"}, orphanRemoval=true, fetch="EAGER")
      */
@@ -57,6 +65,7 @@ class Concept {
     protected $comments;
 
     public function __construct() {
+        $this->areasofexpertise = new ArrayCollection();
         $this->name = new ArrayCollection();
         $this->definition = new ArrayCollection();
         $this->alternativeDefinitions = new ArrayCollection();
@@ -72,12 +81,12 @@ class Concept {
         $this->id = $id;
     }
 
-    public function getAreaofexpertise() {
-        return $this->areaofexpertise;
+    public function getAreasofexpertise() {
+        return $this->areasofexpertise;
     }
 
-    public function setAreaofexpertise(AreaOfExpertise $areaofexpertise) {
-        $this->areaofexpertise = $areaofexpertise;
+    public function setAreasofexpertise($areasofexpertise) {
+        $this->areasofexpertise = $areasofexpertise;
     }
 
     public function getName() {

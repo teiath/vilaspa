@@ -22,11 +22,12 @@ class ConceptLibraryController extends Controller {
     }
 
     /**
-     * @Route("/concept/{concept}", name="concept")
+     * @Route("/cl/{aoe}/concept/{concept}", name="concept")
      * @Secure(roles="ROLE_USER")
      */
-    public function concept(Concept $concept) {
+    public function concept(AreaOfExpertise $aoe, Concept $concept) {
         return $this->render('VispanlabSiteBundle:ConceptLibrary:concept.html.twig', array(
+            'area_of_expertise' => $aoe,
             'concept' => $concept,
             'next' => $this->get('vispanlab.concept.service')->nextConcept($concept, $this->getRequest()->getLocale()),
             'prev' => $this->get('vispanlab.concept.service')->prevConcept($concept, $this->getRequest()->getLocale()),

@@ -3,7 +3,7 @@
 {% block sonata_top_nav_menu %}
     {{parent()}}
     <div class="navbar-right hidden-xs hidden-sm">
-        <form action="{{path('concept_library', {'aoe': concept is defined ? concept.areaOfExpertise.url : area_of_expertise.url})}}#" method="GET" class="sidebar-form concept-search-form" role="search">
+        <form action="{{path('concept_library', {'aoe': area_of_expertise.url})}}#" method="GET" class="sidebar-form concept-search-form" role="search">
             <div class="input-group">
                 <input type="text" name="q" value="{{ app.request.get('q') }}" class="form-control" placeholder="{{ 'concept_library.search_placeholder'|trans }}" data-provide="typeahead" autocomplete="off">
                     <span class="input-group-btn">
@@ -75,7 +75,7 @@
                 <li id="concept-glossary-letter-{{newLetter}}" class="alphabet-letter col-md-12"><h3>{{newLetter}}</h3></li>{% set curLetter = newLetter %}
             {% endif %}
             <li class="concept-search-result col-md-12" style="vertical-align: bottom;" data-name="{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}">
-                <a href="{{path('concept', {'concept': concept.id})}}">
+                <a href="{{path('concept', {'aoe': area_of_expertise.url, 'concept': concept.id})}}">
                     {{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}
                 </a>
             </li>

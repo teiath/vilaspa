@@ -33,7 +33,7 @@ class AreaOfExpertise {
      */
     protected $nameEn;
     /**
-     * @ORM\OneToMany(targetEntity="Concept", mappedBy="areaofexpertise")
+     * @ORM\ManyToMany(targetEntity="Concept", mappedBy="areasofexpertise")
      */
     protected $concepts;
 
