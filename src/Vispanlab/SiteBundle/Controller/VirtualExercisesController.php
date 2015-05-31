@@ -15,7 +15,7 @@ class VirtualExercisesController extends Controller {
      * @Secure(roles="ROLE_USER")
      */
     public function conceptLibrary(AreaOfExpertise $aoe) {
-        return $this->render('VispanlabSiteBundle:ConceptLibrary:concept_library.html.twig', array(
+        return $this->render('VispanlabSiteBundle:ConceptLibrary:virtual_exercises.html.twig', array(
             'area_of_expertise' => $aoe,
         ));
     }

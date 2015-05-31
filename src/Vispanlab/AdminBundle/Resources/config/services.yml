@@ -38,6 +38,17 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Διαχείριση Χρηστών, label: Χρήστες }
         arguments: [null, Vispanlab\UserBundle\Entity\User, SonataAdminBundle:CRUD]
+    subjectarea.admin:
+        class: Vispanlab\AdminBundle\Admin\SubjectAreaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Θεματικές Ενότητες }
+        arguments: [null, Vispanlab\SiteBundle\Entity\SubjectArea, SonataAdminBundle:CRUD]
+    # Exercises
+    multiplechoice.admin:
+        class: Vispanlab\AdminBundle\Admin\Exercise\MultipleChoiceAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Πολλαπλής Επιλογής }
+        arguments: [null, Vispanlab\SiteBundle\Entity\Exercise\MultipleChoice, SonataAdminBundle:CRUD]
     # Disable gallery
     sonata.media.admin.gallery:
         class: %sonata.media.admin.gallery.class%

@@ -35,6 +35,8 @@ url_help: Αλφαριθμητικό που εμφανίζεται στο URL κ
 Locale: Γλώσσα
 Text: Κείμενο
 Name: Όνομα
+Name El: Όνομα (Ελληνικά)
+Name En: Όνομα (Αγγλικά)
 Definition: Ορισμός
 Alternative Defintions: Εναλλακτικοί Ορισμοί
 Related Concepts: Συναφείς Έννοιες
@@ -44,7 +46,10 @@ Comments: Σχόλια
 comments_placeholder: Λοιπά στοιχεία ή/και σχόλια (μαθηματική σχέση υπολογισμού, αν υπάρχει, μονάδες μέτρησης (αν συνάδουν), οι συνήθεις τιμές (και το εύρος διακύμανσης, αν είναι διαθέσιμο)) κλπ.
 Concepts: Έννοιες
 Concept List: Λίστα Εννοιών
+Areaofexpertise: Γνωστικό Αντικείμενο
 Areasofexpertise: Γνωστικό Αντικείμενο
+Subjectarea: Θεματική Ενότητα
+Subject Area List: Λίστα Θεματικών Ενοτήτων
 Users: Χρήστες
 User List: Λίστα Χρηστών
 Roles: Ρόλοι
@@ -52,3 +57,9 @@ Last Login: Τελευταία Σύνδεση
 Action: Ενέργεια
 Surname: Επώνυμο
 Media: Εικονική Αναπαράσταση
+# Exercise Admin
+Multiple Choice List: Λίστα Ερωτήσεων Πολλαπλής Επιλογής
+Question: Ερώτηση
+Answers: Απαντήσεις
+Correct Answer: Σωστή Απάντηση
+correct_answer_help: Εισάγετε τον αριθμό της σωστής απάντησης. Η αρίθμηση των απαντήσεων αρχίζει από το 1.
