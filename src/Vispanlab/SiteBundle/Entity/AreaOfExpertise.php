@@ -36,9 +36,14 @@ class AreaOfExpertise {
      * @ORM\ManyToMany(targetEntity="Concept", mappedBy="areasofexpertise")
      */
     protected $concepts;
+    /**
+     * @ORM\OneToMany(targetEntity="SubjectArea", mappedBy="areaofexpertise")
+     */
+    protected $subjectAreas;
 
     public function __construct() {
-        $this->name = new ArrayCollection();
+        $this->concepts = new ArrayCollection();
+        $this->subjectAreas = new ArrayCollection();
     }
 
     public function getId() {
@@ -100,6 +105,14 @@ class AreaOfExpertise {
             return ($at > $bt) ? 1 : -1;
         });
         return new ArrayCollection(array_values(iterator_to_array($concepts)));
+    }
+
+    public function getSubjectAreas() {
+        return $this->subjectAreas;
+    }
+
+    public function setSubjectAreas($subjectAreas) {
+        $this->subjectAreas = $subjectAreas;
     }
 
     function stripGrAccent($tempName)

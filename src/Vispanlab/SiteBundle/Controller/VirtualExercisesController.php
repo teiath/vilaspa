@@ -10,13 +10,30 @@ use Vispanlab\SiteBundle\Entity\AreaOfExpertise;
 
 class VirtualExercisesController extends Controller {
     /**
-     * @Route("/cl/{aoe}", name="virtual_exercises")
+     * @Route("/ve/{aoe}", name="virtual_exercises")
      * @ParamConverter("aoe", class="Vispanlab\SiteBundle\Entity\AreaOfExpertise", options={"repository_method" = "findOneByUrl"})
      * @Secure(roles="ROLE_USER")
      */
-    public function conceptLibrary(AreaOfExpertise $aoe) {
-        return $this->render('VispanlabSiteBundle:ConceptLibrary:virtual_exercises.html.twig', array(
+    public function virtualExercises(AreaOfExpertise $aoe) {
+        return $this->render('VispanlabSiteBundle:VirtualExercises:virtual_exercises.html.twig', array(
             'area_of_expertise' => $aoe,
+        ));
+    }
+
+    /**
+     * @Route("/ve/{aoe}/{sa}/{type}", name="show_exercises")
+     * @ParamConverter("aoe", class="Vispanlab\SiteBundle\Entity\AreaOfExpertise", options={"repository_method" = "findOneByUrl"})
+     * @ParamConverter("sa", class="Vispanlab\SiteBundle\Entity\AreaOfExpertise", options={"repository_method" = "findOneByUrl"})
+     * @Secure(roles="ROLE_USER")
+     */
+    public function showExercises(AreaOfExpertise $aoe, SubjectArea $sa, $type) {
+        $exercises = $this->container->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\Exercise\\'.$type)->findBy(array(
+            'subjectarea' => $sa,
+        ));
+        return $this->render('VispanlabSiteBundle:VirtualExercises:show_exercises.html.twig', array(
+            'area_of_expertise' => $aoe,
+            'subject_area' => $sa,
+            'exercises' => $exercises,
         ));
     }
 }

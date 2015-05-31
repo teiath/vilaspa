@@ -31,7 +31,7 @@ abstract class BaseExercise {
      */
     protected $id;
     /**
-     * @ORM\ManyToOne(targetEntity="Vispanlab\SiteBundle\Entity\SubjectArea")
+     * @ORM\ManyToOne(targetEntity="Vispanlab\SiteBundle\Entity\SubjectArea", inversedBy="exercises")
      * @ORM\JoinColumn(name="subjectarea_id", referencedColumnName="id", onDelete="CASCADE")
      * @var SubjectArea
      */

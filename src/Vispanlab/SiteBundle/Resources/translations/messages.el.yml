@@ -28,6 +28,13 @@ concept:
   PREVIOUS: "ΠΡΟΗΓΟΥΜΕΝΟ:"
   NEXT: "ΕΠΟΜΕΝΟ:"
 
+virtual_exercises:
+  heading: Εικονικές Ασκήσεις
+  multiple_choice: Πολλαπλής Επιλογής
+  on_off: Σωστό/Λάθος
+  solved: Λυμένες
+  matching: Αντιστοίχισης
+
 # Admin
 Area Of Expertise List: Λίστα Γνωστικών Αντικειμένων
 Url: Μοναδικό URL

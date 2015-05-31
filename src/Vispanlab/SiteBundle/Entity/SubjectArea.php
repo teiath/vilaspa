@@ -21,7 +21,7 @@ class SubjectArea {
      */
     protected $id;
     /**
-     * @ORM\ManyToOne(targetEntity="AreaOfExpertise")
+     * @ORM\ManyToOne(targetEntity="AreaOfExpertise", inversedBy="subjectAreas")
      * @ORM\JoinColumn(name="areaofexpertise_id", referencedColumnName="id", onDelete="CASCADE")
      * @var AreaOfExpertise
      */
@@ -38,9 +38,13 @@ class SubjectArea {
      * @ORM\Column (name="name_en", type="string")
      */
     protected $nameEn;
+    /**
+     * @ORM\OneToMany(targetEntity="Vispanlab\SiteBundle\Entity\Exercise\BaseExercise", mappedBy="subjectarea")
+     */
+    protected $exercises;
 
     public function __construct() {
-        $this->name = new ArrayCollection();
+        $this->exercises = new ArrayCollection();
     }
 
     public function getId() {
@@ -86,6 +90,21 @@ class SubjectArea {
     public function getName($locale) {
         if($locale == 'el') { return $this->nameEl; }
         else return $this->nameEn;
+    }
+
+    public function getExercises() {
+        return $this->exercises;
+    }
+
+    public function setExercises($exercises) {
+        $this->exercises = $exercises;
+    }
+
+    public function getExercisesByClass($class) {
+        return $this->exercises->filter(function($e) use ($class) {
+            $classname = basename(str_replace('\\', '/', get_class($e)));
+            return $classname == $class;
+        });
     }
 
     function stripGrAccent($tempName)
