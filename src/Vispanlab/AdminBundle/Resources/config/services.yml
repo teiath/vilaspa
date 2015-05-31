@@ -49,6 +49,11 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Πολλαπλής Επιλογής }
         arguments: [null, Vispanlab\SiteBundle\Entity\Exercise\MultipleChoice, SonataAdminBundle:CRUD]
+    onoff.admin:
+        class: Vispanlab\AdminBundle\Admin\Exercise\OnOffAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Σωστό/Λάθος }
+        arguments: [null, Vispanlab\SiteBundle\Entity\Exercise\OnOff, SonataAdminBundle:CRUD]
     # Disable gallery
     sonata.media.admin.gallery:
         class: %sonata.media.admin.gallery.class%

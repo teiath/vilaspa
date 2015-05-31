@@ -15,7 +15,8 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
- *  "multiple_choice" = "MultipleChoice"
+ *  "multiple_choice" = "MultipleChoice",
+ *  "on_off" = "OnOff",
  * })
  */
 abstract class BaseExercise {
