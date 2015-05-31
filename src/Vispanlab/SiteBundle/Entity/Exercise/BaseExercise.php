@@ -17,7 +17,8 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * @ORM\DiscriminatorMap({
  *  "multiple_choice" = "MultipleChoice",
  *  "on_off" = "OnOff",
- *  "solved" = "Solved"
+ *  "solved" = "Solved",
+ *  "matching" = "Matching"
  * })
  */
 abstract class BaseExercise {

@@ -48,6 +48,7 @@ sonata_doctrine_orm_admin:
     templates:
       types:
         list:
+          matches_array: VispanlabAdminBundle::list_matches_array.html.twig
           answers_array: VispanlabAdminBundle::list_answers_array.html.twig
           media: VispanlabAdminBundle::list_media.html.twig
           langtext: VispanlabAdminBundle::list_lang_text.html.twig

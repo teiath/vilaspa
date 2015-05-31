@@ -14,7 +14,7 @@ file that was distributed with this source code.
 {% block field %}
 <ol>
     {% for key, val in value %}
-        <li>{% if val.is_correct is defined and val.is_correct == true %}[x] {% endif %}{{ val.answer|trans }}</li>
+        <li>{{ val.answer|trans }} ({{val.matches}})</li>
     {% endfor %}
 </ol>
 {% endblock %}
