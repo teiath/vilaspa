@@ -34,44 +34,16 @@ h6,
 }
 
 /* Concept Search */
-.concept-library .sidebar-form input:focus {
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  border-color: transparent!important;
+.slimScrollDiv {
+    overflow: visible !important;
 }
 
-.skin-black .sidebar-form input[type="text"]:focus {
-  background-color: rgba(255, 255, 255, 0.1);
+.sidebar {
+    overflow: visible !important;
 }
 
-.sidebar-form input[type="text"]:focus + .input-group-btn .btn {
-  background-color: rgba(255, 255, 255, 0.1) !important;
-}
-
-/*.concept-library .concept-search-form-wrapper {
-    display: inline-block;
-    width: 300px;
-}
-
-.concept-library .concept-search-form {
-    border: 1px solid #eee;
-}*/
-
-.skin-black .sidebar-form.concept-search-form {
-    margin-top: 5px;
-}
-
-.navbar-left .concept-search-form {
-    width: 300px;
-    margin: 0;
-    margin-top: 5px;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.concept-search-form .input-group {
-    border: 1px solid #eee;
+.skin-black .sidebar .dropdown-menu a {
+    color: #333;
 }
 
 /*.concept-glossary {
