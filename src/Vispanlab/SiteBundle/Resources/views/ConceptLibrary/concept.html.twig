@@ -63,6 +63,15 @@
     <div class="col-md-6 pull-right text-right"><a href="{{path('concept', {'aoe': area_of_expertise.url, 'concept': next.id})}}">{{'concept.NEXT'|trans}} &nbsp;<BR />{{next.nameForLang(app.request.locale).textFormatted|format_text(next.nameForLang(app.request.locale).format_type)|raw}} ></a></div>
     {% endif %}
 </div>
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <img src="" id="imagepreview">
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block search_js %}{% endblock %}
@@ -122,6 +131,12 @@
             tint:true,
             tintColour:'#CCC',
             tintOpacity:0.5
+        });
+        $("[data-method='media'] img").on("click", function(e) {
+           $('#imagepreview').attr('src', $(this).parent().attr('href')); // here asign the image to the modal when the user click the enlarge link
+           $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+           e.preventDefault();
+           return false;
         });
     });
     // Search
