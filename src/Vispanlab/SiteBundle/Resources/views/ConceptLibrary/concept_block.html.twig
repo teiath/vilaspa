@@ -11,7 +11,7 @@
 {% endif %}
 <div class="well well-lg default-lang-{{langFlags[locale]}}{% if extraClasses is defined %} {{extraClasses}}{% endif %}" {% if (initialDisplay is defined and initialDisplay == 'none') %}{# or defsInDefaultLangCount <= 0 #}style="display: none"{% endif %} data-method="{{method is defined ? (method|md5) : (content|md5)}}">
     <h4 {% if defsInDefaultLangCount <= 0 %}class="text-muted"{% else %}data-toggle="collapse" data-target="#{{blockId}}"{% endif %}>{{block_name}}</h4>
-    <div id="{{blockId}}" class="concept-details-block collapse">
+    <div id="{{blockId}}" {% if method is defined %}data-method="{{method}}"{% endif %} class="concept-details-block collapse">
         {% if content is iterable %}
             {% set curLocale = null %}
             {% for curContent in content %}
