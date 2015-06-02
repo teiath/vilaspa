@@ -125,6 +125,10 @@ fos_user:
 services:
     cache:
         class: Doctrine\Common\Cache\ApcCache
+    vispanlab.twig.extension.array:
+        class: Twig_Extensions_Extension_Array
+        tags:
+             - { name: 'twig.extension' }
     vispanlab.paginator.extension:
         class: Vispanlab\CommonBundle\Extension\PaginatorExtension
         tags:
