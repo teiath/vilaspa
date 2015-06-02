@@ -1,7 +1,85 @@
-<?php
-/* 
-* To change this template, choose Tools | Templates
-* and open the template in the editor.
-*/
+{% extends 'VispanlabSiteBundle::base.html.twig' %}
 
-?>
+{% import _self as exercisestwig %}
+
+{% block content %}
+<div class="row text-center virtual-exercises">
+    <div class="col-md-12">
+        <h2 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)|raw|replace({'<BR />': ' '})|raw}}</h2>
+        <h4>{{subject_area.name(app.request.locale)}}</h4>
+        <h4>{{('virtual_exercises.'~type)|trans}}<hr style="margin-bottom: 10px;" /></h4>
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <form>
+                    <table class="table table-bordered ve-table">
+                    {% for exercise in exercises %}
+                        <tr><td>{{exercisestwig.displayExercise(exercise)}}</td></tr>
+                    {% endfor %}
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% macro displayExercise(exercise) %}
+    {% import _self as exercisestwig %}
+    {% if (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\MultipleChoice' or (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\OnOff' %}
+        {{exercisestwig.displayMultipleChoice(exercise)}}
+    {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Solved' %}
+        {{exercisestwig.displaySolved(exercise)}}
+    {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Matching' %}
+        {{exercisestwig.displayMatching(exercise)}}
+    {% endif %}
+{% endmacro %}
+
+{% macro displayMultipleChoice(exercise) %}
+    <div>
+        <h4>{{exercise.question}}</h4>
+        <ul>
+        {% for answer in exercise.answers %}
+            <li><input type="radio" name="{{exercise.id}}" value="{{answer.answer}}" />{{answer.answer|trans}}</li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endmacro %}
+
+{% macro displaySolved(exercise) %}
+    <div>
+        <div>
+            <h4>{{exercise.question}}</h4>
+        </div>
+        <hr />
+        <div>
+            <h4>{{'Data'|trans}}</h4>
+            {{exercise.data}}
+        </div>
+        <hr />
+        <div>
+            <h4>{{'Requested'|trans}}</h4>
+            {{exercise.requested}}
+        </div>
+        <hr />
+        <div>
+            <h4>{{'Methodology'|trans}}</h4>
+            {{exercise.methodology}}
+        </div>
+        <hr />
+        <div>
+            <h4>{{'Solution'|trans}}</h4>
+            {{exercise.solution}}
+        </div>
+        <hr />
+        <div>
+            <h4>{{'Result'|trans}}</h4>
+            {{exercise.result}}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro displayMatching(exercise) %}
+    <div>
+
+    </div>
+{% endmacro %}

@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use Vispanlab\SiteBundle\Entity\AreaOfExpertise;
+use Vispanlab\SiteBundle\Entity\SubjectArea;
 
 class VirtualExercisesController extends Controller {
     /**
@@ -23,7 +24,7 @@ class VirtualExercisesController extends Controller {
     /**
      * @Route("/ve/{aoe}/{sa}/{type}", name="show_exercises")
      * @ParamConverter("aoe", class="Vispanlab\SiteBundle\Entity\AreaOfExpertise", options={"repository_method" = "findOneByUrl"})
-     * @ParamConverter("sa", class="Vispanlab\SiteBundle\Entity\AreaOfExpertise", options={"repository_method" = "findOneByUrl"})
+     * @ParamConverter("sa", class="Vispanlab\SiteBundle\Entity\SubjectArea", options={"repository_method" = "findOneByUrl"})
      * @Secure(roles="ROLE_USER")
      */
     public function showExercises(AreaOfExpertise $aoe, SubjectArea $sa, $type) {
@@ -34,6 +35,7 @@ class VirtualExercisesController extends Controller {
             'area_of_expertise' => $aoe,
             'subject_area' => $sa,
             'exercises' => $exercises,
+            'type' => $type,
         ));
     }
 }

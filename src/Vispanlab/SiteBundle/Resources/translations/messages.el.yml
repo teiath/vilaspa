@@ -30,10 +30,10 @@ concept:
 
 virtual_exercises:
   heading: Εικονικές Ασκήσεις
-  multiple_choice: Πολλαπλής Επιλογής
-  on_off: Σωστό/Λάθος
-  solved: Λυμένες
-  matching: Αντιστοίχισης
+  MultipleChoice: Πολλαπλής Επιλογής
+  OnOff: Σωστό/Λάθος
+  Solved: Λυμένες
+  Matching: Αντιστοίχισης
 
 # Admin
 Area Of Expertise List: Λίστα Γνωστικών Αντικειμένων

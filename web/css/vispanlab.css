@@ -86,3 +86,9 @@ h6,
     color: #999;
 }
 /* End Concept Details */
+
+/* Virtual Exercises */
+.ve-table ul {
+    list-style: none;
+    padding-left:0;
+}

@@ -20,6 +20,7 @@ class TwigExtension extends \Twig_Extension
         'roman_numeral' => new \Twig_Filter_Method($this, 'romanNumeral'),
         'md5' => new \Twig_Filter_Method($this, 'md5'),
         'stripGrAccent' => new \Twig_Filter_Method($this, 'stripGrAccent'),
+        'get_class' => new \Twig_Filter_Method($this, 'getClass'),
     );
   }
 
@@ -96,6 +97,10 @@ class TwigExtension extends \Twig_Extension
     };
     $tempName = str_replace($utf8_str_split("ΆάΈέΉήΌόΎύΏώί"), $utf8_str_split("ααεεηηοουυωωι"), $tempName);
     return str_replace($utf8_str_split("αβγδεζηθικλμνξοπρστυφχψως"), $utf8_str_split("ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΣ"), $tempName);
+  }
+
+  function getClass($obj) {
+      return get_class($obj);
   }
 
   /**
