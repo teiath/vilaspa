@@ -35,19 +35,19 @@
 {% endmacro %}
 
 {% macro displayMultipleChoice(exercise) %}
-    <div>
+    <div class="multiple-choice">
         <h4>{{exercise.question}}</h4>
         <hr />
         <ul>
         {% for answer in (exercise.answers|shuffle) %}
-            <li><input type="radio" name="{{exercise.id}}" value="{{answer.answer}}" />{{answer.answer|trans}}</li>
+            <li><input type="radio" name="mc-{{exercise.id}}" value="{{answer.answer}}" data-iscorrect="{{answer.is_correct is defined and answer.is_correct ? 'true' : 'false'}}" />{{answer.answer|trans}}</li>
         {% endfor %}
         </ul>
     </div>
 {% endmacro %}
 
 {% macro displaySolved(exercise) %}
-    <div>
+    <div class="solved">
         <div>
             <h4>{{exercise.question}}</h4>
         </div>
@@ -80,7 +80,7 @@
 {% endmacro %}
 
 {% macro displayMatching(exercise) %}
-    <div class="row">
+    <div class="row matching">
         <h4>{{exercise.question}}</h4>
         <hr />
         <div class="col-md-6" style="border-right: 1px #CCC solid;">
@@ -99,3 +99,39 @@
         </div>
     </div>
 {% endmacro %}
+
+{% block javascripts %}
+{{parent()}}
+<script type="text/javascript">
+var cloneExercise = function($exercise) {
+    var $table = $exercise.parents('.ve-table');
+    var $clone = $exercise.parent().parent().clone(true, true); // Clone the td and tr of the exercise
+    jQuery("input[type='checkbox']:not('label.btn>input'), input[type='radio']:not('label.btn>input')", $clone).prop('checked', false);
+    if (window.SONATA_CONFIG && window.SONATA_CONFIG.USE_ICHECK) {
+        jQuery("input[type='checkbox']:not('label.btn>input'), input[type='radio']:not('label.btn>input')", $clone).iCheck('destroy');
+        jQuery("input[type='checkbox']:not('label.btn>input'), input[type='radio']:not('label.btn>input')", $clone).iCheck({
+            checkboxClass: 'icheckbox_minimal',
+            radioClass: 'iradio_minimal'
+        });
+    }
+    $table.append($clone);
+    initMultipleChoice($clone.find('td > div'));
+};
+var initMultipleChoice = function($this) {
+    $this.find("input:radio").on('ifChecked', function () {
+        if($(this).attr('data-iscorrect') === 'true') {
+            // Correct
+            $(this).parent().parent().prepend('<i class="fa fa-check" style="color: green;"></i>');
+        } else {
+            // Wrong
+            cloneExercise($this);
+            $(this).parent().parent().prepend('<i class="fa fa-times" style="color: red;"></i>');
+        }
+        $this.find("input:radio").iCheck('disable');
+    });
+};
+$(document).ready(function() {
+    $('.multiple-choice').each(function() { initMultipleChoice($(this)); });
+});
+</script>
+{% endblock %}
