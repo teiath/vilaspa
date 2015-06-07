@@ -74,4 +74,28 @@ class MultipleChoiceAdmin extends Admin
         ;
         parent::configureDatagridFilters($datagridMapper);
     }
+
+    private $securityContext = null;
+
+    public function setSecurityContext($securityContext) {
+        $this->securityContext = $securityContext;
+    }
+
+    public function createQuery($context = 'list')
+    {
+        $proxyQuery = parent::createQuery($context);
+        $user = $this->securityContext->getToken()->getUser();
+        if(!$user->hasRole('ROLE_ADMIN') && $user->hasRole('ROLE_AREA_ADMIN')) {
+            $proxyQuery->join($proxyQuery->getRootAlias().'.subjectarea', 'sa');
+            $proxyQuery->join('sa.areaofexpertise', 'aoe');
+            foreach($user->getRoles() as $curRole) {
+                if(strpos($curRole, 'ROLE_AREA_ADMIN') === false) { continue; }
+                $aoe = substr($curRole, strlen('ROLE_AREA_ADMIN')+1);
+                $proxyQuery->andWhere('aoe.url = :aoe'.strtolower($aoe));
+                $proxyQuery->setParameter('aoe'.strtolower($aoe), strtolower($aoe));
+                break;
+            }
+        }
+        return $proxyQuery;
+    }
 }

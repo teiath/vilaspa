@@ -43,12 +43,16 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Θεματικές Ενότητες }
         arguments: [null, Vispanlab\SiteBundle\Entity\SubjectArea, SonataAdminBundle:CRUD]
+        calls:
+            - [ setSecurityContext, ["@security.context"] ]
     # Exercises
     multiplechoice.admin:
         class: Vispanlab\AdminBundle\Admin\Exercise\MultipleChoiceAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Πολλαπλής Επιλογής }
         arguments: [null, Vispanlab\SiteBundle\Entity\Exercise\MultipleChoice, SonataAdminBundle:CRUD]
+        calls:
+            - [ setSecurityContext, ["@security.context"] ]
     onoff.admin:
         class: Vispanlab\AdminBundle\Admin\Exercise\OnOffAdmin
         tags:
@@ -59,11 +63,15 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Λυμένες }
         arguments: [null, Vispanlab\SiteBundle\Entity\Exercise\Solved, SonataAdminBundle:CRUD]
+        calls:
+            - [ setSecurityContext, ["@security.context"] ]
     matching.admin:
         class: Vispanlab\AdminBundle\Admin\Exercise\MatchingAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Αντιστοίχισης }
         arguments: [null, Vispanlab\SiteBundle\Entity\Exercise\Matching, SonataAdminBundle:CRUD]
+        calls:
+            - [ setSecurityContext, ["@security.context"] ]
     # Disable gallery
     sonata.media.admin.gallery:
         class: %sonata.media.admin.gallery.class%
