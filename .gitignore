@@ -4,7 +4,7 @@ app/bootstrap.php.cache
 app/cache/*
 app/logs/*
 build/
-vendor
+/vendor
 composer.phar
 *parameters.yml*
 /nbproject/private/

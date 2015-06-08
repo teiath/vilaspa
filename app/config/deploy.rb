@@ -1,7 +1,7 @@
 set :application, "vispanlab"
-set :user,        "vispanlab"
-set :domain,      "83.212.116.74"
-set :deploy_to,   "/home/vispanlab/capifony"
+set :user,        "root"
+set :domain,      "spatial.lab.teiath.gr"
+set :deploy_to,   "/var/www/capifony"
 set :app_path,    "app"
 
 set :repository,  "git@github.com:teiath/vispanlab.git"
