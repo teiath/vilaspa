@@ -3,6 +3,11 @@
 {% import _self as exercisestwig %}
 
 {% block content %}
+<style>
+.select2-no-results {
+    display: none !important;
+}
+</style>
 <div class="row text-center virtual-exercises">
     <div class="col-md-12">
         <h2 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)|raw|replace({'<BR />': ' '})|raw}}</h2>
@@ -86,7 +91,13 @@
         <div class="col-md-6" style="border-right: 1px #CCC solid;">
             <ul>
             {% for answer in (exercise.leftAnswers|shuffle) %}
-                <li>{{answer.answer}}</li>
+                <li>{{answer.answer}} 
+                    <select class="matching-token-input" multiple="multiple" data-matches="{{answer.matches}}" style="width: 100px;">
+                        {% for answer in exercise.rightAnswers %}
+                            <option value="{{loop.index}}">{{loop.index}}</option>
+                        {% endfor %}
+                    </select>
+                </li>
             {% endfor %}
             </ul>
         </div>
@@ -97,15 +108,30 @@
             {% endfor %}
             </ol>
         </div>
+        <div style="clear: both;">
+            <hr />
+            <input type="button" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" />
+        </div>
     </div>
 {% endmacro %}
 
 {% block javascripts %}
 {{parent()}}
 <script type="text/javascript">
-var cloneExercise = function($exercise) {
+var arr_diff = function(a1, a2) {
+  var a=[], diff=[];
+  for(var i=0;i<a1.length;i++)
+    a[a1[i]]=true;
+  for(var i=0;i<a2.length;i++)
+    if(a[a2[i]]) delete a[a2[i]];
+    else a[a2[i]]=true;
+  for(var k in a)
+    diff.push(k);
+  return diff;
+};
+var cloneExercise = function($exercise, type, deep) {
     var $table = $exercise.parents('.ve-table');
-    var $clone = $exercise.parent().parent().clone(true, true); // Clone the td and tr of the exercise
+    var $clone = $exercise.parent().parent().clone(deep, deep); // Clone the td and tr of the exercise
     jQuery("input[type='checkbox']:not('label.btn>input'), input[type='radio']:not('label.btn>input')", $clone).prop('checked', false);
     if (window.SONATA_CONFIG && window.SONATA_CONFIG.USE_ICHECK) {
         jQuery("input[type='checkbox']:not('label.btn>input'), input[type='radio']:not('label.btn>input')", $clone).iCheck('destroy');
@@ -115,7 +141,13 @@ var cloneExercise = function($exercise) {
         });
     }
     $table.append($clone);
-    initMultipleChoice($clone.find('td > div'));
+    if(type === 'multiple_choice') {
+        initMultipleChoice($clone.find('td > div'));
+    } else if(type === 'matching') {
+        initMatching($clone.find('td > div'));
+    } else {
+        alert('Error: Unknown exercise type. Please report this.');
+    }
 };
 var initMultipleChoice = function($this) {
     $this.find("input:radio").on('ifChecked', function () {
@@ -124,14 +156,62 @@ var initMultipleChoice = function($this) {
             $(this).parent().parent().prepend('<i class="fa fa-check" style="color: green;"></i>');
         } else {
             // Wrong
-            cloneExercise($this);
+            cloneExercise($this, 'multiple_choice', true);
             $(this).parent().parent().prepend('<i class="fa fa-times" style="color: red;"></i>');
         }
         $this.find("input:radio").iCheck('disable');
     });
+    $this.find("input:radio").iCheck('enable');
+};
+var initMatching = function($this) {
+    var select2Options = {};
+    $this.find('.matching-token-input').val('');
+    $this.find('.matching-token-input').each(function() {
+        $(this).find("option").removeAttr('disabled');
+        $(this).select2(select2Options);
+        $(this).select2('enable');
+    });
+    // Constraints
+    var $selects = $this.find('.matching-token-input');
+    $selects.on('change', function(e) {
+        var selectedValues = $(this).select2('val');
+        for (var i = 0; i < selectedValues.length; i++) {
+            $selects.not(this).find("option[value='" + selectedValues[i] + "']").attr('disabled', true);
+        }
+    });
+    $selects.on('select2-removed', function(e) {
+        $selects.find("option[value='" + e.val + "']").attr('disabled', false);
+    });
+    // End constraints
+    // Validation
+    $this.find('.matching-check').on('click', function() {
+        var $submit = $(this);
+        var correct = true;
+        $this.find('select.matching-token-input').each(function() {
+            var correctMatches = $(this).attr('data-matches').split(',');
+            var selectedMatches = $(this).select2('val');
+            var diff = arr_diff(correctMatches, selectedMatches);
+            if(diff.length > 0) {
+                // Wrong
+                correct = false;
+            }
+        });
+        if(correct) {
+            $submit.parent().append('<i class="fa fa-check" style="color: green;"></i>');
+            $this.find('.matching-token-input').each(function() { $(this).select2('disable'); });
+        } else {
+            $this.find('.matching-token-input').each(function() { $(this).select2('destroy'); });
+            cloneExercise($this, 'matching', false);
+            $this.find('.matching-token-input').each(function() { $(this).select2(select2Options); $(this).select2('disable'); });
+            $submit.parent().append('<i class="fa fa-times" style="color: red;"></i>');
+        }
+        $submit.hide();
+    });
+    // End validation
 };
 $(document).ready(function() {
     $('.multiple-choice').each(function() { initMultipleChoice($(this)); });
+    $('.matching').each(function() { initMatching($(this)); });
 });
 </script>
 {% endblock %}
