@@ -94,7 +94,7 @@
     <div class="row matching" style="margin-left: 0; margin-right: 0;">
         <h4>{{exercise.question}}</h4>
         <hr />
-        <div class="col-md-6" style="border-right: 1px #CCC solid;">
+        <div class="col-md-6 matching-left" style="border-right: 1px #CCC solid;">
             <ul>
             {% for answer in (exercise.leftAnswers) %}
                 <li>
@@ -114,7 +114,7 @@
             {% endfor %}
             </ul>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 matching-right">
             <ol>
             {% for answer in (exercise.rightAnswers|shuffle) %}
                 <li>{{answer.answer}}</li>
@@ -177,7 +177,9 @@ var initMultipleChoice = function($this) {
     $this.find("input:radio").iCheck('enable');
 };
 var initMatching = function($this) {
-    var select2Options = {};
+    var select2Options = {
+        maximumSelectionLength: Math.ceil($this.find('.matching-right').size()/$this.find('.matching-left').size())
+    };
     $this.find('.matching-token-input').val('');
     $this.find('.matching-token-input').each(function() {
         $(this).find("option").removeAttr('disabled');
