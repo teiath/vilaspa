@@ -16,11 +16,9 @@
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
                 <form>
-                    <table class="table table-bordered ve-table">
                     {% for exercise in (exercises|shuffle) %}
-                        <tr><td>{{exercisestwig.displayExercise(exercise)}}</td></tr>
+                        {{exercisestwig.displayExercise(exercise)}}
                     {% endfor %}
-                    </table>
                 </form>
             </div>
         </div>
@@ -30,13 +28,17 @@
 
 {% macro displayExercise(exercise) %}
     {% import _self as exercisestwig %}
-    {% if (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\MultipleChoice' or (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\OnOff' %}
-        {{exercisestwig.displayMultipleChoice(exercise)}}
-    {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Solved' %}
-        {{exercisestwig.displaySolved(exercise)}}
-    {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Matching' %}
-        {{exercisestwig.displayMatching(exercise)}}
-    {% endif %}
+    <table class="table table-bordered ve-table">
+        <tr><td>
+        {% if (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\MultipleChoice' or (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\OnOff' %}
+            {{exercisestwig.displayMultipleChoice(exercise)}}
+        {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Solved' %}
+            {{exercisestwig.displaySolved(exercise)}}
+        {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Matching' %}
+            {{exercisestwig.displayMatching(exercise)}}
+        {% endif %}
+        </td></tr>
+    </table>
 {% endmacro %}
 
 {% macro displayMultipleChoice(exercise) %}
@@ -45,7 +47,11 @@
         <hr />
         <ul>
         {% for answer in (exercise.answers|shuffle) %}
-            <li><input type="radio" name="mc-{{exercise.id}}" value="{{answer.answer}}" data-iscorrect="{{answer.is_correct is defined and answer.is_correct ? 'true' : 'false'}}" />{{answer.answer|trans}}</li>
+            <li>
+                <div class="row">
+                    <div class="col-md-1"><input type="radio" id="mc-{{exercise.id}}-{{loop.index}}" name="mc-{{exercise.id}}" value="{{answer.answer}}" data-iscorrect="{{answer.is_correct is defined and answer.is_correct ? 'true' : 'false'}}" /></div><div class="col-md-11"><label style="font-weight: normal;" for="mc-{{exercise.id}}-{{loop.index}}">{{answer.answer|trans}}</label></div>
+                </div>
+            </li>
         {% endfor %}
         </ul>
     </div>
@@ -85,18 +91,25 @@
 {% endmacro %}
 
 {% macro displayMatching(exercise) %}
-    <div class="row matching">
+    <div class="row matching" style="margin-left: 0; margin-right: 0;">
         <h4>{{exercise.question}}</h4>
         <hr />
         <div class="col-md-6" style="border-right: 1px #CCC solid;">
             <ul>
-            {% for answer in (exercise.leftAnswers|shuffle) %}
-                <li>{{answer.answer}} 
-                    <select class="matching-token-input" multiple="multiple" data-matches="{{answer.matches}}" style="width: 100px;">
-                        {% for answer in exercise.rightAnswers %}
-                            <option value="{{loop.index}}">{{loop.index}}</option>
-                        {% endfor %}
-                    </select>
+            {% for answer in (exercise.leftAnswers) %}
+                <li>
+                    <div class="row">
+                        <div class="col-md-8">
+                            {{answer.answer}}
+                        </div>
+                        <div class="col-md-3">
+                            <select class="matching-token-input" multiple="multiple" data-matches="{{answer.matches}}" style="width: 100%;">
+                                {% for answer in exercise.rightAnswers %}
+                                    <option value="{{loop.index}}">{{loop.index}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
                 </li>
             {% endfor %}
             </ul>
