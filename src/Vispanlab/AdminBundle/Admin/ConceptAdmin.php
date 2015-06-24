@@ -73,7 +73,7 @@ class ConceptAdmin extends Admin
             ->add('name', 'langtext')
             ->add('definition', 'langtext')
             ->add('alternativeDefinitions', 'langtext')
-            ->add('relatedConcepts', 'langtext')
+            //->add('relatedConcepts', 'langtext')
             //->add('media', 'langtext')
             //->add('comments')
         ;
