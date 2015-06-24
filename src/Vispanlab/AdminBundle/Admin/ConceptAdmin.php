@@ -74,8 +74,8 @@ class ConceptAdmin extends Admin
             ->add('definition', 'langtext')
             ->add('alternativeDefinitions', 'langtext')
             ->add('relatedConcepts', 'langtext')
-            ->add('media', 'langtext')
-            ->add('comments')
+            //->add('media', 'langtext')
+            //->add('comments')
         ;
     }
 
@@ -89,6 +89,7 @@ class ConceptAdmin extends Admin
         $user = $this->securityContext->getToken()->getUser();
         $datagridMapper->add('id');
         if($user->hasRole('ROLE_ADMIN')) {
+            $datagridMapper->add('name.text');
             $datagridMapper->add('areasofexpertise');
         }
         parent::configureDatagridFilters($datagridMapper);
