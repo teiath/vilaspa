@@ -87,6 +87,7 @@ class ConceptAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $user = $this->securityContext->getToken()->getUser();
+        $datagridMapper->add('id');
         if($user->hasRole('ROLE_ADMIN')) {
             $datagridMapper->add('areasofexpertise');
         }
