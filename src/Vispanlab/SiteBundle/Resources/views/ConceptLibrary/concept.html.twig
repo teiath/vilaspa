@@ -3,6 +3,15 @@
 {% block content %}
 <div class="row text-center">
     <div class="col-md-12 concept-details">
+        <div class="row text-center">
+            {% if prev != null %}
+            <div class="col-md-6 pull-left text-left" style="border-right: 1px #000 dotted;"><a href="{{path('concept', {'aoe': area_of_expertise.url, 'concept': prev.id})}}">&nbsp; {{'concept.PREVIOUS'|trans}}<BR />< {{prev.nameForLang(app.request.locale).textFormatted|format_text(prev.nameForLang(app.request.locale).format_type)|raw}}</a></div>
+            {% endif %}
+            {% if next != null %}
+            <div class="col-md-6 pull-right text-right"><a href="{{path('concept', {'aoe': area_of_expertise.url, 'concept': next.id})}}">{{'concept.NEXT'|trans}} &nbsp;<BR />{{next.nameForLang(app.request.locale).textFormatted|format_text(next.nameForLang(app.request.locale).format_type)|raw}} ></a></div>
+            {% endif %}
+        </div>
+        <hr />
         <h2 style="margin-top: 0;"><strong>{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}</strong><hr /></h2>
         <div class="row text-justify">
             <div class="col-md-6">
@@ -54,14 +63,6 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row text-center">
-    {% if prev != null %}
-    <div class="col-md-6 pull-left text-left" style="border-right: 1px #000 dotted;"><a href="{{path('concept', {'aoe': area_of_expertise.url, 'concept': prev.id})}}">&nbsp; {{'concept.PREVIOUS'|trans}}<BR />< {{prev.nameForLang(app.request.locale).textFormatted|format_text(prev.nameForLang(app.request.locale).format_type)|raw}}</a></div>
-    {% endif %}
-    {% if next != null %}
-    <div class="col-md-6 pull-right text-right"><a href="{{path('concept', {'aoe': area_of_expertise.url, 'concept': next.id})}}">{{'concept.NEXT'|trans}} &nbsp;<BR />{{next.nameForLang(app.request.locale).textFormatted|format_text(next.nameForLang(app.request.locale).format_type)|raw}} ></a></div>
-    {% endif %}
 </div>
 <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
