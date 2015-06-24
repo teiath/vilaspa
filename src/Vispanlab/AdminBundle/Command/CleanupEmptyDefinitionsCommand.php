@@ -19,10 +19,18 @@ class CleanupEmptyDefinitionsCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Starting CleanupEmptyDefinitions process');
+        //$q = $this->getContainer()->get('doctrine')->getManager()->createQuery("SELECT u FROM Vispanlab\SiteBundle\Entity\Definition u JOIN u.conceptAsAlternativeDefinition c WHERE c.id = 732");
         $q = $this->getContainer()->get('doctrine')->getManager()->createQuery("SELECT u FROM Vispanlab\SiteBundle\Entity\Definition u");
         $iterableResult = $q->iterate();
         while (($row = $iterableResult->next()) !== false) {
-            if(strlen(trim(strip_tags($row[0]->getText_formatted()))) < 3) {
+            //var_dump(str_replace(' ', '', strip_tags($row[0]->getText_formatted())));
+            if(strlen(str_replace(' ', '', strip_tags($row[0]->getText_formatted()))) < 3 ||
+                str_replace(' ', '', strip_tags($row[0]->getText_formatted())) == 'ΕΝΑΛΛΑΚΤΙΚΟΣ/ΟΙΟΡΙΣΜΟΣ/ΟΙΠΗΓΗ:' ||
+                str_replace(' ', '', strip_tags($row[0]->getText_formatted())) == 'DEFINITIONSOURCE:' ||
+                str_replace(' ', '', strip_tags($row[0]->getText_formatted())) == 'ΣΥΝΑΦΕΙΣΕΝΝΟΙΕΣ:' ||
+                str_replace(' ', '', strip_tags($row[0]->getText_formatted())) == 'ΕΙΚΟΝΙΚΗ ΑΝΑΠΑΡΑΣΤΑΣΗ' ||
+                str_replace(' ', '', strip_tags($row[0]->getText_formatted())) == 'ΕΙΚΟΝΙΚΗ ΑΝΑΠΑΡΑΣΤΑΣΗΟΧΙ' ||
+                str_replace(' ', '', strip_tags($row[0]->getText_formatted())) == 'ΠΑΡΑΤΗΡΗΣΕΙΣ') {
                 $output->writeln("Removing ".$row[0]->getId().' '.trim(strip_tags($row[0]->getText_formatted())));
                 $this->getContainer()->get('doctrine')->getManager()->remove($row[0]);
                 $this->getContainer()->get('doctrine')->getManager()->flush($row[0]);
