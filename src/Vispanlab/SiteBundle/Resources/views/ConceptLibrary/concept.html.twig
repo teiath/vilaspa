@@ -152,6 +152,10 @@
         });
         $("[data-method='media'] img").on("click", function(e) {
            $('#imagepreview').attr('src', $(this).parent().attr('href')); // here asign the image to the modal when the user click the enlarge link
+           $('#imagemodal').on('shown.bs.modal', function () {
+                $(this).find('.modal-dialog').css({width:($('#imagemodal').find('img').width()+43),
+                                          'max-height':'100%'});
+           });
            $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
            e.preventDefault();
            return false;
