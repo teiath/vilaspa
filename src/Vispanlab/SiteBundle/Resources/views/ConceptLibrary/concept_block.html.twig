@@ -2,15 +2,21 @@
 {% set blockId = ((method is defined ? method : (content.textFormatted|md5))~'_'~(locale is defined ? locale : '')) %}
 {% set content = method is defined ? attribute(concept, method, [locale is defined ? locale : null]) : content %}
 {% set defsInDefaultLangCount = 0 %}
+{% set defsInOtherLangCount = 0 %}
 {% if content is iterable %}
-    {% for curContent in content if curContent.locale == locale %}
-        {% set defsInDefaultLangCount = defsInDefaultLangCount + 1 %}
+    {% for curContent in content %}
+        {% if curContent.locale == locale %}
+            {% set defsInDefaultLangCount = defsInDefaultLangCount + 1 %}
+        {% else %}
+            {% set defsInOtherLangCount = defsInOtherLangCount + 1 %}
+        {% endif %}
     {% endfor %}
 {% else %}
     {% set defsInDefaultLangCount = (content.locale == locale ? ((content.textFormatted|trim|length) > 0 ? 1 : 0) : 0) %}
+    {% set defsInOtherLangCount = (content.locale != locale ? ((content.textFormatted|trim|length) > 0 ? 1 : 0) : 0) %}
 {% endif %}
 <div class="well well-lg default-lang-{{langFlags[locale]}}{% if extraClasses is defined %} {{extraClasses}}{% endif %}" {% if (initialDisplay is defined and initialDisplay == 'none') %}{# or defsInDefaultLangCount <= 0 #}style="display: none"{% endif %} data-method="{{method is defined ? (method|md5) : (content|md5)}}">
-    <h4 {% if defsInDefaultLangCount <= 0 %}class="text-muted"{% else %}data-toggle="collapse" data-target="#{{blockId}}"{% endif %}>{{block_name}}</h4>
+    <h4 {% if defsInDefaultLangCount <= 0 and defsInOtherLangCount <= 0 %}class="text-muted"{% else %}data-toggle="collapse" data-target="#{{blockId}}"{% endif %}>{{block_name}}</h4>
     <div id="{{blockId}}" {% if method is defined %}data-method="{{method}}"{% endif %} class="concept-details-block collapse">
         {% if content is iterable %}
             {% set curLocale = null %}
@@ -54,5 +60,5 @@
         </div>
         {% endif %}
     </div>
-    <div data-toggle="collapse" data-target="#{{blockId}}" class="text-center {% if defsInDefaultLangCount <= 0 %}text-muted{% else %}collapse-arrows-wrapper{% endif %}" style="position: relative; bottom: -25px; cursor: pointer;"><i class="fa fa-angle-double-down"></i></div>
+    <div data-toggle="collapse" data-target="#{{blockId}}" class="text-center {% if defsInDefaultLangCount <= 0 and defsInOtherLangCount <= 0 %}text-muted{% else %}collapse-arrows-wrapper{% endif %}" style="position: relative; bottom: -25px; cursor: pointer;"><i class="fa fa-angle-double-down"></i></div>
 </div>
