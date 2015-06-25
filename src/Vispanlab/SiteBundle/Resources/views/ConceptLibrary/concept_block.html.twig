@@ -61,7 +61,7 @@
                     <li {% if content.locale == app.request.locale %}style="display: none;"{% endif %}><a href="#" class="switch-lang flag-icon flag-icon-square flag-icon-{{langFlags[content.locale]}}" data-lang="{{langFlags[content.locale]}}">&nbsp;</a></li>
                     {% set localesAlreadyDisplayed = localesAlreadyDisplayed|merge([content.locale]) %}
                 {% endif %}
-                {% for curLocale in extraLocales if curLocale not in localesAlreadyDisplayed %}
+                {% for curLocale in extraLocales if curLocale not in localesAlreadyDisplayed and curLocale != app.request.locale %}
                     <li><a href="#" class="switch-lang flag-icon flag-icon-square flag-icon-{{langFlags[curLocale]}}" data-lang="{{langFlags[curLocale]}}">&nbsp;</a></li>
                     {% set localesAlreadyDisplayed = localesAlreadyDisplayed|merge([curLocale]) %}
                 {% endfor %}
