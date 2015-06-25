@@ -20,6 +20,7 @@
                     'method': 'definition',
                     'block_name' : ('concept.DEFINITION'|trans),
                     'locale': app.request.locale,
+                    'extraLocales': concept.nameLangs,
                 } %}
                 {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
                     'concept': concept,
@@ -36,6 +37,7 @@
                 } %}
             </div>
             <div class="col-md-6">
+                {% set addedDefs = [] %}
                 {% for def in concept.getDefinitionForOtherLang(app.request.locale) %}
                     {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
                         'concept': concept,
@@ -46,7 +48,22 @@
                         'extraClasses': 'linked',
                         'initialDisplay': 'none',
                     } %}
+                    {% set addedDefs = addedDefs|merge([def.locale]) %}
                 {% endfor %}
+                {# Hack to add names for Concepts without definition in that language #}
+                {% for def in concept.getNameForOtherLang(app.request.locale) if def.locale not in addedDefs %}
+                    {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
+                        'concept': concept,
+                        'method': 'name',
+                        'fakeMethod': 'definition',
+                        'block_name' : (concept.nameForLang(def.locale).textFormatted|format_text(concept.nameForLang(def.locale).format_type)|striptags),
+                        'locale': def.locale,
+                        'showFlags': false,
+                        'extraClasses': 'linked',
+                        'initialDisplay': 'none',
+                    } %}
+                {% endfor %}
+                {# END Hack to add names for Concepts without definition in that language #}
                 {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
                     'concept': concept,
                     'method': 'media',

@@ -150,6 +150,18 @@ class Concept {
         return $this->getFieldForLang('getName', $lang);
     }
 
+    public function getNameLangs() {
+        $langs = array();
+        foreach($this->name as $curName) {
+            $langs[] = $curName->getLocale();
+        }
+        return $langs;
+    }
+
+    public function getNameForOtherLang($lang) {
+        return $this->getArrayFieldForOtherLang('getName', $lang);
+    }
+
     public function getDefinition() {
         return $this->definition;
     }

@@ -1,6 +1,10 @@
 {% import _self as macros %}
 {% set blockId = ((method is defined ? method : (content.textFormatted|md5))~'_'~(locale is defined ? locale : '')) %}
 {% set content = method is defined ? attribute(concept, method, [locale is defined ? locale : null]) : content %}
+{% if method is defined %}
+    {% set fakeMethod = fakeMethod is defined ? fakeMethod : method %}
+{% endif %}
+{% set extraLocales = extraLocales is defined ? extraLocales : [] %}
 {% set defsInDefaultLangCount = 0 %}
 {% set defsInOtherLangCount = 0 %}
 {% if content is iterable %}
@@ -15,9 +19,9 @@
     {% set defsInDefaultLangCount = (content.locale == locale ? ((content.textFormatted|trim|length) > 0 ? 1 : 0) : 0) %}
     {% set defsInOtherLangCount = (content.locale != locale ? ((content.textFormatted|trim|length) > 0 ? 1 : 0) : 0) %}
 {% endif %}
-<div class="well well-lg default-lang-{{langFlags[locale]}}{% if extraClasses is defined %} {{extraClasses}}{% endif %}" {% if (initialDisplay is defined and initialDisplay == 'none') %}{# or defsInDefaultLangCount <= 0 #}style="display: none"{% endif %} data-method="{{method is defined ? (method|md5) : (content|md5)}}">
+<div class="well well-lg default-lang-{{langFlags[locale]}}{% if extraClasses is defined %} {{extraClasses}}{% endif %}" {% if (initialDisplay is defined and initialDisplay == 'none') %}{# or defsInDefaultLangCount <= 0 #}style="display: none"{% endif %} data-method="{{fakeMethod is defined ? (fakeMethod|md5) : (content|md5)}}">
     <h4 {% if defsInDefaultLangCount <= 0 and defsInOtherLangCount <= 0 %}class="text-muted"{% else %}data-toggle="collapse" data-target="#{{blockId}}"{% endif %}>{{block_name}}</h4>
-    <div id="{{blockId}}" {% if method is defined %}data-method="{{method}}"{% endif %} class="concept-details-block collapse">
+    <div id="{{blockId}}" {% if fakeMethod is defined %}data-method="{{fakeMethod}}"{% endif %} class="concept-details-block collapse">
         {% if content is iterable %}
             {% set curLocale = null %}
             {% for curContent in content %}
@@ -55,7 +59,12 @@
                     {% endfor %}
                 {% else %}
                     <li {% if content.locale == app.request.locale %}style="display: none;"{% endif %}><a href="#" class="switch-lang flag-icon flag-icon-square flag-icon-{{langFlags[content.locale]}}" data-lang="{{langFlags[content.locale]}}">&nbsp;</a></li>
+                    {% set localesAlreadyDisplayed = localesAlreadyDisplayed|merge([content.locale]) %}
                 {% endif %}
+                {% for curLocale in extraLocales if curLocale not in localesAlreadyDisplayed %}
+                    <li><a href="#" class="switch-lang flag-icon flag-icon-square flag-icon-{{langFlags[curLocale]}}" data-lang="{{langFlags[curLocale]}}">&nbsp;</a></li>
+                    {% set localesAlreadyDisplayed = localesAlreadyDisplayed|merge([curLocale]) %}
+                {% endfor %}
             </ul>
         </div>
         {% endif %}
