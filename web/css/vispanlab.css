@@ -69,6 +69,12 @@ h6,
     z-index: 1000;
     padding-top: 10px;
 }
+
+.skin-black .concept-search-form {
+    padding-top: 15px;
+    margin-left: 0;
+    margin-right: 0;
+}
 /* End Concept Search */
 
 /* Concept Details */

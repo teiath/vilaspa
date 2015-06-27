@@ -45,12 +45,7 @@ class SidebarMenuBuilder
             }
         }
 
-        return $menu;
-    }
-
-    public function createBottomMenu(Request $request)
-    {
-        $menu = $this->factory->createItem('root');
+        $menu->addChild('common.user_guide', array('uri' => '#docs', 'attributes' => array('class' => 'home')));
         if($this->securityContext->isGranted('ROLE_ADMIN') || $this->securityContext->isGranted('ROLE_AREA_ADMIN')) {
             if(strpos($request->getRequestUri(), 'admin') === false) {
                 $menu->addChild('common.admin_env_link', array('route' => 'sonata_admin_dashboard', 'attributes' => array('class' => 'home')));
@@ -58,7 +53,21 @@ class SidebarMenuBuilder
                 $menu->addChild('common.user_env_link', array('route' => 'home', 'attributes' => array('class' => 'home')));
             }
         }
-        $menu->addChild('common.user_guide', array('uri' => '#docs', 'attributes' => array('class' => 'home')));
+
+        return $menu;
+    }
+
+    public function createBottomMenu(Request $request)
+    {
+        $menu = $this->factory->createItem('root');
+        /*if($this->securityContext->isGranted('ROLE_ADMIN') || $this->securityContext->isGranted('ROLE_AREA_ADMIN')) {
+            if(strpos($request->getRequestUri(), 'admin') === false) {
+                $menu->addChild('common.admin_env_link', array('route' => 'sonata_admin_dashboard', 'attributes' => array('class' => 'home')));
+            } else {
+                $menu->addChild('common.user_env_link', array('route' => 'home', 'attributes' => array('class' => 'home')));
+            }
+        }
+        $menu->addChild('common.user_guide', array('uri' => '#docs', 'attributes' => array('class' => 'home')));*/
 
         return $menu;
     }

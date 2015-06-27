@@ -1,8 +1,9 @@
 {% extends 'VispanlabSiteBundle::base.html.twig' %}
 
 {% block content %}
-<div class="row text-center">
-    <div class="col-md-12">
+<div class="row text-center index-logged-in" style="min-height: 500px;">
+    <div class="col-md-12" style="position: relative;">
+        <img src="{{asset('img/tei_logo_background.gif')}}" alt="TEI Logo" style="opacity: 0.1; position: absolute; margin-left: -150px;" />
         <h2>{{'home.welcome'|trans({'%user%': app.user.name})}}</h2>
         <p>{{'home.text1'|trans}}</p>
     </div>
