@@ -26,7 +26,7 @@ class TwigExtension extends \Twig_Extension
             // Languages
             'en' => 'gb',
             'el' => 'gr',
-            'uk' => 'gb',
+            'uk' => 'ua',
             'da' => 'dk',
             // Countries
             'ad' => 'ad',
