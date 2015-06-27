@@ -28,10 +28,12 @@
 
 {% macro displayExercise(exercise) %}
     {% import _self as exercisestwig %}
-    <table class="table table-bordered ve-table">
+    <table class="table table-bordered ve-table text-left">
         <tr><td>
-        {% if (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\MultipleChoice' or (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\OnOff' %}
+        {% if (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\MultipleChoice' %}
             {{exercisestwig.displayMultipleChoice(exercise)}}
+        {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\OnOff' %}
+            {{exercisestwig.displayOnOff(exercise)}}
         {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Solved' %}
             {{exercisestwig.displaySolved(exercise)}}
         {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Matching' %}
@@ -43,7 +45,7 @@
 
 {% macro displayMultipleChoice(exercise) %}
     <div class="multiple-choice">
-        <h4>{{exercise.question}}</h4>
+        <h4 class="text-center">{{exercise.question}}</h4>
         <hr />
         <ul>
         {% for answer in (exercise.answers|shuffle) %}
@@ -57,34 +59,48 @@
     </div>
 {% endmacro %}
 
+{% macro displayOnOff(exercise) %}
+    <div class="multiple-choice">
+        <h4 class="text-center">{{exercise.question}}</h4>
+        <hr />
+        <div class="row">
+        {% for answer in (exercise.answers|shuffle) %}
+            <div class="col-md-6 text-center">
+                    <input type="radio" id="mc-{{exercise.id}}-{{loop.index}}" name="mc-{{exercise.id}}" value="{{answer.answer}}" data-iscorrect="{{answer.is_correct is defined and answer.is_correct ? 'true' : 'false'}}" /> <label style="font-weight: normal;" for="mc-{{exercise.id}}-{{loop.index}}">{{answer.answer|trans}}</label>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
 {% macro displaySolved(exercise) %}
     <div class="solved">
         <div>
-            <h4>{{exercise.question}}</h4>
+            <h4 class="text-center">{{exercise.question}}</h4>
         </div>
         <hr />
         <div>
-            <h4>{{'Data'|trans}}</h4>
+            <h4 class="text-center">{{'Data'|trans}}</h4>
             {{exercise.data}}
         </div>
         <hr />
         <div>
-            <h4>{{'Requested'|trans}}</h4>
+            <h4 class="text-center">{{'Requested'|trans}}</h4>
             {{exercise.requested}}
         </div>
         <hr />
         <div>
-            <h4>{{'Methodology'|trans}}</h4>
+            <h4 class="text-center">{{'Methodology'|trans}}</h4>
             {{exercise.methodology}}
         </div>
         <hr />
         <div>
-            <h4>{{'Solution'|trans}}</h4>
+            <h4 class="text-center">{{'Solution'|trans}}</h4>
             {{exercise.solution}}
         </div>
         <hr />
         <div>
-            <h4>{{'Result'|trans}}</h4>
+            <h4 class="text-center">{{'Result'|trans}}</h4>
             {{exercise.result}}
         </div>
     </div>
@@ -92,7 +108,7 @@
 
 {% macro displayMatching(exercise) %}
     <div class="row matching" style="margin-left: 0; margin-right: 0;">
-        <h4>{{exercise.question}}</h4>
+        <h4 class="text-center">{{exercise.question}}</h4>
         <hr />
         <div class="col-md-6 matching-left" style="border-right: 1px #CCC solid;">
             <ul>
@@ -142,7 +158,7 @@ var arr_diff = function(a1, a2) {
     diff.push(k);
   return diff;
 };
-var cloneExercise = function($exercise, type, deep) {
+/*var cloneExercise = function($exercise, type, deep) {
     var $table = $exercise.parents('.ve-table');
     var $clone = $exercise.parent().parent().clone(deep, deep); // Clone the td and tr of the exercise
     jQuery("input[type='checkbox']:not('label.btn>input'), input[type='radio']:not('label.btn>input')", $clone).prop('checked', false);
@@ -161,16 +177,18 @@ var cloneExercise = function($exercise, type, deep) {
     } else {
         alert('Error: Unknown exercise type. Please report this.');
     }
-};
+};*/
 var initMultipleChoice = function($this) {
     $this.find("input:radio").on('ifChecked', function () {
         if($(this).attr('data-iscorrect') === 'true') {
             // Correct
             $(this).parent().parent().prepend('<i class="fa fa-check" style="color: green;"></i>');
+            $(this).parents('.ve-table').addClass('ve-correct');
         } else {
             // Wrong
-            cloneExercise($this, 'multiple_choice', true);
+            //cloneExercise($this, 'multiple_choice', true);
             $(this).parent().parent().prepend('<i class="fa fa-times" style="color: red;"></i>');
+            $(this).parents('.ve-table').addClass('ve-wrong');
         }
         $this.find("input:radio").iCheck('disable');
     });
@@ -213,12 +231,14 @@ var initMatching = function($this) {
         });
         if(correct) {
             $submit.parent().append('<i class="fa fa-check" style="color: green;"></i>');
+            $submit.parents('.ve-table').addClass('ve-correct');
             $this.find('.matching-token-input').each(function() { $(this).select2('disable'); });
         } else {
             $this.find('.matching-token-input').each(function() { $(this).select2('destroy'); });
-            cloneExercise($this, 'matching', false);
+            //cloneExercise($this, 'matching', false);
             $this.find('.matching-token-input').each(function() { $(this).select2(select2Options); $(this).select2('disable'); });
             $submit.parent().append('<i class="fa fa-times" style="color: red;"></i>');
+            $submit.parents('.ve-table').addClass('ve-wrong');
         }
         $submit.hide();
     });

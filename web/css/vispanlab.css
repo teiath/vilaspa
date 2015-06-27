@@ -94,7 +94,27 @@ h6,
 /* End Concept Details */
 
 /* Virtual Exercises */
+.ve-table {
+    background-color: #fff;
+}
+
 .ve-table ul {
     list-style: none;
     padding-left:0;
+}
+
+.ve-correct {
+    background-color: lightgreen;
+}
+
+.ve-correct .icheckbox_minimal, .ve-correct .iradio_minimal {
+    background-color: lightgreen;
+}
+
+.ve-wrong {
+    background-color: lightpink;
+}
+
+.ve-wrong .icheckbox_minimal, .ve-wrong .iradio_minimal {
+    background-color: lightpink;
 }
