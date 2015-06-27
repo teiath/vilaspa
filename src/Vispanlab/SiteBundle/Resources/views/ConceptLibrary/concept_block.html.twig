@@ -54,15 +54,15 @@
                 {% if content is iterable %}
                     {% set localesAlreadyDisplayed = [] %}
                     {% for curContent in content if curContent.locale not in localesAlreadyDisplayed %}
-                        <li {% if curContent.locale == app.request.locale %}style="display: none;"{% endif %}><a href="#" class="switch-lang flag-icon flag-icon-square flag-icon-{{langFlags[curContent.locale]}}" data-lang="{{langFlags[curContent.locale]}}">&nbsp;</a></li>
+                        <li {% if curContent.locale == app.request.locale %}style="display: none;"{% endif %}><a href="#" class="switch-lang" data-lang="{{langFlags[curContent.locale]}}"><span class="flag-icon flag-icon-square flag-icon-{{langFlags[curContent.locale]}}">&nbsp;</span><BR /><small>{{curContent.locale}}</small></a></li>
                         {% set localesAlreadyDisplayed = localesAlreadyDisplayed|merge([curContent.locale]) %}
                     {% endfor %}
                 {% else %}
-                    <li {% if content.locale == app.request.locale %}style="display: none;"{% endif %}><a href="#" class="switch-lang flag-icon flag-icon-square flag-icon-{{langFlags[content.locale]}}" data-lang="{{langFlags[content.locale]}}">&nbsp;</a></li>
+                    <li {% if content.locale == app.request.locale %}style="display: none;"{% endif %}><a href="#" class="switch-lang" data-lang="{{langFlags[content.locale]}}"><span class="flag-icon flag-icon-square flag-icon-{{langFlags[content.locale]}}">&nbsp;</span><BR /><small>{{content.locale}}</small></a></li>
                     {% set localesAlreadyDisplayed = localesAlreadyDisplayed|merge([content.locale]) %}
                 {% endif %}
                 {% for curLocale in extraLocales if curLocale not in localesAlreadyDisplayed and curLocale != app.request.locale %}
-                    <li><a href="#" class="switch-lang flag-icon flag-icon-square flag-icon-{{langFlags[curLocale]}}" data-lang="{{langFlags[curLocale]}}">&nbsp;</a></li>
+                    <li><a href="#" class="switch-lang" data-lang="{{langFlags[curLocale]}}"><span class="flag-icon flag-icon-square flag-icon-{{langFlags[curLocale]}}">&nbsp;</span><BR /><small>{{curLocale}}</small></a></li>
                     {% set localesAlreadyDisplayed = localesAlreadyDisplayed|merge([curLocale]) %}
                 {% endfor %}
             </ul>
