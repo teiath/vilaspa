@@ -18,7 +18,8 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  *  "multiple_choice" = "MultipleChoice",
  *  "on_off" = "OnOff",
  *  "solved" = "Solved",
- *  "matching" = "Matching"
+ *  "matching" = "Matching",
+ *  "exam_paper" = "ExamPaper"
  * })
  */
 abstract class BaseExercise {

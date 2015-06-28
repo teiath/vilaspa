@@ -74,6 +74,13 @@ services:
         arguments: [null, Vispanlab\SiteBundle\Entity\Exercise\Matching, SonataAdminBundle:CRUD]
         calls:
             - [ setSecurityContext, ["@security.context"] ]
+    exam_paper.admin:
+        class: Vispanlab\AdminBundle\Admin\Exercise\ExamPaperAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Παλαιά Θέματα }
+        arguments: [null, Vispanlab\SiteBundle\Entity\Exercise\ExamPaper, SonataAdminBundle:CRUD]
+        calls:
+            - [ setSecurityContext, ["@security.context"] ]
     # Disable gallery
     sonata.media.admin.gallery:
         class: %sonata.media.admin.gallery.class%
