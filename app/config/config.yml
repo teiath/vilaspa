@@ -180,3 +180,7 @@ stof_doctrine_extensions:
             blameable: true
             loggable: true
             uploadable: true
+
+knp_paginator:
+    template:
+        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig

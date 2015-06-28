@@ -5,24 +5,65 @@
     <div class="col-md-12">
         <h2 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)|raw|replace({'<BR />': ' '})|raw}}</h2>
         <h4>{{'virtual_exercises.heading'|trans}}<hr style="margin-bottom: 10px;" /></h4>
+        {% set linkClass = 'btn btn-primary col-md-2' %}
+        {% set subLinkClass = 'btn btn-default col-md-1 col-md-offset-1' %}
+        {% set subStyleClass = 'width: inherit !important;' %}
         <table class="table table-bordered">
             <tr class="info">
-                <td>&nbsp;</td>
-                <td><strong>{{'virtual_exercises.MultipleChoice'|trans}}</strong></td>
-                <td><strong>{{'virtual_exercises.OnOff'|trans}}</strong></td>
-                <td><strong>{{'virtual_exercises.Solved'|trans}}</strong></td>
-                <td><strong>{{'virtual_exercises.Matching'|trans}}</strong></td>
+                <td>
+                    <a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'MultipleChoice', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.MultipleChoice'|trans}}</a>
+                {% if (area_of_expertise.getSubjectAreasWithExerciseType('MultipleChoice')|length) > 1 %}
+                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('MultipleChoice') %}
+                        <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'MultipleChoice', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
+                    {% endfor %}
+                {% endif %}
+                </td>
             </tr>
-            {% for sa in area_of_expertise.subjectAreas %}
-            <tr>
-                <td>{{sa.name(app.request.locale)}}</td>
-                {% set linkClass = 'btn btn-primary' %}
-                <td>{% if sa.exercisesByClass('MultipleChoice')|length > 0 %}<a class="{{linkClass}}" href="{{path('show_exercises', {'aoe': area_of_expertise.url, 'sa': sa.url, 'type': 'MultipleChoice'})}}">Μετάβαση</a>{% else %}<a href="#" class="{{linkClass}} disabled">Μετάβαση</a>{% endif %}</td>
-                <td>{% if sa.exercisesByClass('OnOff')|length > 0 %}<a class="{{linkClass}}" href="{{path('show_exercises', {'aoe': area_of_expertise.url, 'sa': sa.url, 'type': 'OnOff'})}}">Μετάβαση</a>{% else %}<a href="#" class="{{linkClass}} disabled">Μετάβαση</a>{% endif %}</td>
-                <td>{% if sa.exercisesByClass('Solved')|length > 0 %}<a class="{{linkClass}}" href="{{path('show_exercises', {'aoe': area_of_expertise.url, 'sa': sa.url, 'type': 'Solved'})}}">Μετάβαση</a>{% else %}<a href="#" class="{{linkClass}} disabled">Μετάβαση</a>{% endif %}</td>
-                <td>{% if sa.exercisesByClass('Matching')|length > 0 %}<a class="{{linkClass}}" href="{{path('show_exercises', {'aoe': area_of_expertise.url, 'sa': sa.url, 'type': 'Matching'})}}">Μετάβαση</a>{% else %}<a href="#" class="{{linkClass}} disabled">Μετάβαση</a>{% endif %}</td>
+            <tr class="info">
+                <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'OnOff', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.OnOff'|trans}}</a>
+                {% if (area_of_expertise.getSubjectAreasWithExerciseType('OnOff')|length) > 1 %}
+                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('OnOff') %}
+                        <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'OnOff', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
+                    {% endfor %}
+                {% endif %}
+                </td>
             </tr>
-            {% endfor %}
+            <tr class="info">
+                <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'Solved', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.Solved'|trans}}</a>
+                {% if (area_of_expertise.getSubjectAreasWithExerciseType('Solved')|length) > 1 %}
+                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('Solved') %}
+                        <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'Solved', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
+                    {% endfor %}
+                {% endif %}
+                </td>
+            </tr>
+            <tr class="info">
+                <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'Matching', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.Matching'|trans}}</a>
+                {% if (area_of_expertise.getSubjectAreasWithExerciseType('Matching')|length) > 1 %}
+                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('Matching') %}
+                        <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'Matching', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
+                    {% endfor %}
+                {% endif %}
+                </td>
+            </tr>
+            <tr class="info">
+                <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'ExamPaper', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.ExamPaper'|trans}}</a>
+                {% if (area_of_expertise.getSubjectAreasWithExerciseType('ExamPaper')|length) > 1 %}
+                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('ExamPaper') %}
+                        <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'ExamPaper', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
+                    {% endfor %}
+                {% endif %}
+                </td>
+            </tr>
+            <tr class="info">
+                <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'EvaluationTest', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.EvaluationTest'|trans}}</a>
+                {% if (area_of_expertise.getSubjectAreasWithExerciseType('EvaluationTest')|length) > 1 %}
+                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('EvaluationTest') %}
+                        <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'EvaluationTest', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
+                    {% endfor %}
+                {% endif %}
+                </td>
+            </tr>
         </table>
     </div>
 </div>

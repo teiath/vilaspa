@@ -30,6 +30,8 @@ class AppKernel extends Kernel
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             new JMS\TranslationBundle\JMSTranslationBundle(),
+            // KNP
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             // Doctrine Extensions
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             // Sonata
@@ -48,7 +50,7 @@ class AppKernel extends Kernel
 
             // Media
             new Sonata\MediaBundle\SonataMediaBundle(),
-                new Sonata\IntlBundle\SonataIntlBundle(),
+            new Sonata\IntlBundle\SonataIntlBundle(),
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
         );

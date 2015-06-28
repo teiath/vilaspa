@@ -115,6 +115,16 @@ class AreaOfExpertise {
         $this->subjectAreas = $subjectAreas;
     }
 
+    public function getSubjectAreasWithExerciseType($exerciseType) {
+        $result = array();
+        foreach($this->getSubjectAreas() as $curSubjectArea) {
+            if($curSubjectArea->getExercisesByClass($exerciseType)->count() > 0) {
+                $result[] = $curSubjectArea;
+            }
+        }
+        return $result;
+    }
+
     function stripGrAccent($tempName)
     {
       $utf8_str_split = function($str='',$len=1){

@@ -22,15 +22,32 @@ class VirtualExercisesController extends Controller {
     }
 
     /**
-     * @Route("/ve/{aoe}/{sa}/{type}", name="show_exercises")
+     * @Route("/ve/{aoe}/{type}/{sa}", name="show_exercises", defaults={"sa" = null})
      * @ParamConverter("aoe", class="Vispanlab\SiteBundle\Entity\AreaOfExpertise", options={"repository_method" = "findOneByUrl"})
      * @ParamConverter("sa", class="Vispanlab\SiteBundle\Entity\SubjectArea", options={"repository_method" = "findOneByUrl"})
      * @Secure(roles="ROLE_USER")
      */
-    public function showExercises(AreaOfExpertise $aoe, SubjectArea $sa, $type) {
-        $exercises = $this->container->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\Exercise\\'.$type)->findBy(array(
-            'subjectarea' => $sa,
-        ));
+    public function showExercises(AreaOfExpertise $aoe, $type, SubjectArea $sa = null) {
+        if($sa != null) {
+            $exercises = $this->container->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\Exercise\\'.$type)->findBy(array(
+                'subjectarea' => $sa,
+            ));
+        } else {
+            $exercises = array();
+            foreach($aoe->getSubjectAreas() as $curSa) {
+                $exercises = array_merge($exercises, $this->container->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\Exercise\\'.$type)->findBy(array(
+                    'subjectarea' => $curSa,
+                )));
+            }
+        }
+        // Pagination
+        $paginator  = $this->get('knp_paginator');
+        $exercises = $paginator->paginate(
+            $exercises,
+            $this->getRequest()->query->getInt('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
+        // End pagination
         return $this->render('VispanlabSiteBundle:VirtualExercises:show_exercises.html.twig', array(
             'area_of_expertise' => $aoe,
             'subject_area' => $sa,

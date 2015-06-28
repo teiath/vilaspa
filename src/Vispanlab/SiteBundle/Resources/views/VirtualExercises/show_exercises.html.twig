@@ -11,7 +11,7 @@
 <div class="row text-center virtual-exercises">
     <div class="col-md-12">
         <h2 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)|raw|replace({'<BR />': ' '})|raw}}</h2>
-        <h4>{{subject_area.name(app.request.locale)}}</h4>
+        {% if subject_area != null %}<h4>{{subject_area.name(app.request.locale)}}</h4>{% endif %}
         <h4>{{('virtual_exercises.'~type)|trans}}<hr style="margin-bottom: 10px;" /></h4>
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
@@ -22,6 +22,7 @@
                 </form>
             </div>
         </div>
+        {{ knp_pagination_render(exercises) }}
     </div>
 </div>
 {% endblock %}
@@ -38,6 +39,8 @@
             {{exercisestwig.displaySolved(exercise)}}
         {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Matching' %}
             {{exercisestwig.displayMatching(exercise)}}
+        {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\ExamPaper' %}
+            {{exercisestwig.displayExamPaper(exercise)}}
         {% endif %}
         </td></tr>
     </table>
@@ -140,6 +143,16 @@
         <div style="clear: both;">
             <hr />
             <input type="button" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" />
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro displayExamPaper(exercise) %}
+    <div class="exam-paper">
+        {#<h4 class="text-center">{{exercise.date|format_date()}}</h4>
+        <hr />#}
+        <div>
+        {{exercise.textFormatted|format_text(exercise.format_type)|raw}}
         </div>
     </div>
 {% endmacro %}
