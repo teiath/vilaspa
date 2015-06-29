@@ -58,6 +58,16 @@
                     </span>
             </div>
         </form>#}
+        <form action="{{path('concept_library', {'aoe': area_of_expertise.url})}}#" method="GET" class="sidebar-form concept-search-form" role="search">
+            <div class="input-group">
+                <input type="text" name="q" value="{{ app.request.get('q') }}" class="form-control" placeholder="{{ 'concept_library.search_placeholder'|trans }}" data-provide="typeahead" autocomplete="off">
+                    <span class="input-group-btn">
+                        <button class="btn btn-flat" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+            </div>
+        </form>
         {% endblock %}
 
         <ul class="sidebar-menu" style="margin-top: 20px;">
@@ -70,3 +80,52 @@
     </section>
 </aside>
 {% endblock %}
+
+{% block javascripts %}
+{{parent()}}
+<script src="{{asset('js/vendor/uppercaser.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/vendor/bootstrap3-typeahead.js')}}" type="text/javascript"></script>
+{% block search_js %}{% endblock %}
+{% endblock %}
+
+{% macro search_js_outside_library(concepts, includeAreaOfExpertise) %}
+{% if includeAreaOfExpertise == null %}{% set includeAreaOfExpertise = false %}{% endif %}
+<script type="text/javascript">
+    // Search
+    $(document).ready(function() {
+        var aoe_matches = {};
+        var updateSearchResults = function() {
+            var $input = UpperCaser.toUpper($.trim($('.concept-search-form input[type="text"]').val()));
+            if($input.length > 0) {
+                $('.concept-search-form').off('submit');
+                if(typeof aoe_matches[$.trim($('.concept-search-form input[type="text"]').val())] != 'undefined') {
+                    $('.concept-search-form').attr('action', $('.concept-search-form').attr('data-origaction').replace('REPLACE', aoe_matches[$.trim($('.concept-search-form input[type="text"]').val())]));
+                }
+                $('.concept-search-form').submit();
+            }
+        };
+        $('.sidebar-form').submit(updateSearchResults);
+
+        $('.concept-search-form input[type="text"]').typeahead({
+            {% if includeAreaOfExpertise == true %}
+            minLength: 3,
+            source: function (query, process) {
+                return $.getJSON("{{path('search_concepts')}}", { q: query }, function (data) {
+                    var results = [];
+                    $.each(data, function(index, value) {
+                        aoe_matches[$.trim(value.value)] = value.url;
+                        results.push(value.value);
+                    });
+                    return process(results);
+                });
+            },
+            {% else %}
+            source: [
+                {% for concept in concepts %}"{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|replace({'&amp;': '&'})|e('js')|raw}}"{% if not loop.last %},{% endif %}{% endfor %}
+            ],
+            {% endif %}
+            afterSelect: updateSearchResults
+        });
+    });
+</script>
+{% endmacro %}

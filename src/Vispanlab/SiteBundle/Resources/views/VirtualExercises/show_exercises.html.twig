@@ -263,3 +263,8 @@ $(document).ready(function() {
 });
 </script>
 {% endblock %}
+
+{% block search_js %}
+{% import "VispanlabSiteBundle::base.html.twig" as baseMacros %}
+{{baseMacros.search_js_outside_library(area_of_expertise.sortedConcepts(app.request.locale))}}
+{% endblock %}

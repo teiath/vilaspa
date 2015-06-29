@@ -1,4 +1,4 @@
-{% extends 'VispanlabSiteBundle:ConceptLibrary:concept_library.html.twig' %}
+{% extends 'VispanlabSiteBundle::base.html.twig' %}
 
 {% block content %}
 <div class="row text-center">
@@ -92,8 +92,6 @@
 </div>
 {% endblock %}
 
-{% block search_js %}{% endblock %}
-
 {% block javascripts %}
 {{parent()}}
 <script src="{{asset('bundles/sonataadmin/vendor/bootstrap/js/transition.js')}}"></script>
@@ -161,23 +159,9 @@
            return false;
         });
     });
-    // Search
-    $(document).ready(function() {
-        var updateSearchResults = function() {
-            var $input = UpperCaser.toUpper($.trim($('.concept-search-form input[type="text"]').val()));
-            if($input.length > 0) {
-                $('.concept-search-form').off('submit');
-                $('.concept-search-form').submit();
-            }
-        };
-        $('.sidebar-form').submit(updateSearchResults);
-
-        $('.concept-search-form input[type="text"]').typeahead({
-            source: [
-                {% for concept in area_of_expertise.sortedConcepts(app.request.locale) %}"{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|replace({'&amp;': '&'})|e('js')|raw}}"{% if not loop.last %},{% endif %}{% endfor %}
-            ],
-            afterSelect: updateSearchResults
-        });
-    });
 </script>
+{% block search_js %}
+{% import "VispanlabSiteBundle::base.html.twig" as baseMacros %}
+{{baseMacros.search_js_outside_library(area_of_expertise.sortedConcepts(app.request.locale))}}
+{% endblock %}
 {% endblock %}
