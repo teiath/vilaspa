@@ -1,6 +1,7 @@
 <?php
 namespace Vispanlab\AdminBundle\Admin\Exercise;
 
+use Vispanlab\SiteBundle\Entity\Exercise\BaseExercise;
 use Vispanlab\SiteBundle\Form\Type\MultipleChoiceAnswerType;
 use Vispanlab\SiteBundle\Form\Type\MatchingAnswerType;
 
@@ -43,6 +44,7 @@ class MatchingAdmin extends Admin
                 'allow_add' => true,
                 'allow_delete' => true,
             ))
+            ->add('showInEvaluationTest', 'choice', array('choices' => BaseExercise::getShowInEvaluationTestChoices()))
         ;
         parent::configureFormFields($formMapper);
     }
@@ -65,6 +67,7 @@ class MatchingAdmin extends Admin
             ->add('question')
             ->add('leftAnswers', 'matches_array')
             ->add('rightAnswers', 'answers_array')
+            ->add('showInEvaluationTest')
         ;
     }
 
@@ -77,6 +80,7 @@ class MatchingAdmin extends Admin
     {
         $datagridMapper
             ->add('subjectarea')
+            ->add('showInEvaluationTest', null, array(), 'choice', array('choices' => BaseExercise::getShowInEvaluationTestChoices()))
         ;
         parent::configureDatagridFilters($datagridMapper);
     }

@@ -20,6 +20,10 @@ class Matching extends BaseExercise {
      * @ORM\Column (name="right_answers", type="json")
      */
     protected $rightAnswers = array();
+    /**
+     * @ORM\Column (name="show_in_evaluation_test", type="integer")
+     */
+    protected $showInEvaluationTest;
 
     public function getQuestion() {
         return $this->question;
@@ -51,6 +55,14 @@ class Matching extends BaseExercise {
                 if(!isset($this->rightAnswers[$i])) { echo 'Η απάντηση δεν υπάρχει στο δεξί μέρος'; die(); }
             }
         }
+    }
+
+    public function getShowInEvaluationTest() {
+        return $this->showInEvaluationTest;
+    }
+
+    public function setShowInEvaluationTest($showInEvaluationTest) {
+        $this->showInEvaluationTest = $showInEvaluationTest;
     }
 }
 ?>

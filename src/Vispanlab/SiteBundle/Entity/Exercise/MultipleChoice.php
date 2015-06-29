@@ -16,6 +16,10 @@ class MultipleChoice extends BaseExercise {
      * @ORM\Column (name="answers", type="json")
      */
     protected $answers = array();
+    /**
+     * @ORM\Column (name="show_in_evaluation_test", type="integer")
+     */
+    protected $showInEvaluationTest;
 
     public function getQuestion() {
         return $this->question;
@@ -48,6 +52,14 @@ class MultipleChoice extends BaseExercise {
         }
         if(!isset($this->answers[$i])) { echo 'Ο αριθμός της σωστής απάντησης δεν υπάρχει'; die(); }
         $this->answers[$i]['is_correct'] = true;
+    }
+
+    public function getShowInEvaluationTest() {
+        return $this->showInEvaluationTest;
+    }
+
+    public function setShowInEvaluationTest($showInEvaluationTest) {
+        $this->showInEvaluationTest = $showInEvaluationTest;
     }
 }
 ?>

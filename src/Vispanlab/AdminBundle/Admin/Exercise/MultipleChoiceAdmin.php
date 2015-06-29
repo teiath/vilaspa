@@ -1,6 +1,7 @@
 <?php
 namespace Vispanlab\AdminBundle\Admin\Exercise;
 
+use Vispanlab\SiteBundle\Entity\Exercise\BaseExercise;
 use Vispanlab\SiteBundle\Form\Type\MultipleChoiceAnswerType;
 
 use Sonata\AdminBundle\Admin\Admin;
@@ -38,6 +39,7 @@ class MultipleChoiceAdmin extends Admin
                 'allow_delete' => true,
             ))
             ->add('correctAnswer', 'integer', array('help' => 'correct_answer_help'))
+            ->add('showInEvaluationTest', 'choice', array('choices' => BaseExercise::getShowInEvaluationTestChoices()))
         ;
         parent::configureFormFields($formMapper);
     }
@@ -59,6 +61,7 @@ class MultipleChoiceAdmin extends Admin
             ->add('subjectarea')
             ->add('question')
             ->add('answers', 'answers_array')
+            ->add('showInEvaluationTest')
         ;
     }
 
@@ -71,6 +74,7 @@ class MultipleChoiceAdmin extends Admin
     {
         $datagridMapper
             ->add('subjectarea')
+            ->add('showInEvaluationTest', null, array(), 'choice', array('choices' => BaseExercise::getShowInEvaluationTestChoices()))
         ;
         parent::configureDatagridFilters($datagridMapper);
     }

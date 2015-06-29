@@ -54,6 +54,14 @@ abstract class BaseExercise {
         $this->subjectarea = $subjectarea;
     }
 
+    public static function getShowInEvaluationTestChoices() {
+        return array(
+            0 => 'Μόνο σε απλές ασκήσεις',
+            1 => 'Μόνο σε test αξιολόγησης',
+            2 => 'Και στα δύο',
+        );
+    }
+
     public function __toString() {
         if(!isset($this->question)) {
             return 'Νέα Ερώτηση';
