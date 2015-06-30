@@ -80,5 +80,7 @@ class Solved extends BaseExercise {
     public function setResult($result) {
         $this->result = $result;
     }
+
+    public function isAnswerCorrect($answer) { return true; }
 }
 ?>

@@ -37,6 +37,9 @@ abstract class BaseExercise {
      * @var SubjectArea
      */
     protected $subjectarea;
+    const SIMPLE_EXERCISE = 1;
+    const EVALUATION_TEST_EXERCISE = 2;
+    const BOTH_EXERCISE = 3;
 
     public function getId() {
         return $this->id;
@@ -56,11 +59,13 @@ abstract class BaseExercise {
 
     public static function getShowInEvaluationTestChoices() {
         return array(
-            1 => 'Μόνο σε απλές ασκήσεις',
-            2 => 'Μόνο σε test αξιολόγησης',
-            3 => 'Και στα δύο',
+            self::SIMPLE_EXERCISE => 'Μόνο σε απλές ασκήσεις',
+            self::EVALUATION_TEST_EXERCISE => 'Μόνο σε test αξιολόγησης',
+            self::BOTH_EXERCISE => 'Και στα δύο',
         );
     }
+
+    public abstract function isAnswerCorrect($answer);
 
     public function __toString() {
         if(!isset($this->question)) {

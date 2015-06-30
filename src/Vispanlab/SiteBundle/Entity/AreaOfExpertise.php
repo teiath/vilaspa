@@ -125,6 +125,16 @@ class AreaOfExpertise {
         return $result;
     }
 
+    public function getSubjectAreasForEvaluationTest() {
+        $result = array();
+        foreach($this->getSubjectAreas() as $curSubjectArea) {
+            if($curSubjectArea->getExercisesForEvaluationTest()->count() > 0) {
+                $result[] = $curSubjectArea;
+            }
+        }
+        return $result;
+    }
+
     function stripGrAccent($tempName)
     {
       $utf8_str_split = function($str='',$len=1){

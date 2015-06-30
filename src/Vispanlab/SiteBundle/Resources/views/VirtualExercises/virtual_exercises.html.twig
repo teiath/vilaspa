@@ -57,8 +57,8 @@
             </tr>
             <tr class="info">
                 <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'EvaluationTest', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.EvaluationTest'|trans}}</a>
-                {% if (area_of_expertise.getSubjectAreasWithExerciseType('EvaluationTest')|length) > 1 %}
-                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('EvaluationTest') %}
+                {% if (area_of_expertise.getSubjectAreasForEvaluationTest()|length) > 1 %}
+                    {% for sa in area_of_expertise.getSubjectAreasForEvaluationTest %}
                         <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'EvaluationTest', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
                     {% endfor %}
                 {% endif %}

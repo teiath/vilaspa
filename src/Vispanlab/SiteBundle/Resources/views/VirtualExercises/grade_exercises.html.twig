@@ -1,0 +1,21 @@
+{% extends 'VispanlabSiteBundle::base.html.twig' %}
+
+{% block content %}
+<div class="row text-center virtual-exercises">
+    <div class="col-md-12">
+        <h2 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)|raw|replace({'<BR />': ' '})|raw}}</h2>
+        {% if subject_area != null %}<h4>{{subject_area.name(app.request.locale)}}</h4>{% endif %}
+        <h4>{{('virtual_exercises.'~type)|trans}}<hr style="margin-bottom: 10px;" /></h4>
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <strong>Βαθμός: {{correct_exercises|length}}/{{(correct_exercises|length)+(wrong_exercises|length)}}</strong>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block search_js %}
+{% import "VispanlabSiteBundle::base.html.twig" as baseMacros %}
+{{baseMacros.search_js_outside_library(area_of_expertise.sortedConcepts(app.request.locale))}}
+{% endblock %}

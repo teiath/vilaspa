@@ -1,6 +1,8 @@
 <?php
 namespace Vispanlab\SiteBundle\Entity;
 
+use Vispanlab\SiteBundle\Entity\Exercise\BaseExercise;
+
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -104,6 +106,12 @@ class SubjectArea {
         return $this->exercises->filter(function($e) use ($class) {
             $classname = basename(str_replace('\\', '/', get_class($e)));
             return $classname == $class;
+        });
+    }
+
+    public function getExercisesForEvaluationTest() {
+        return $this->exercises->filter(function($e) {
+            return (method_exists($e, 'getShowInEvaluationTest') && ($e->getShowInEvaluationTest() == BaseExercise::EVALUATION_TEST_EXERCISE || $e->getShowInEvaluationTest() == BaseExercise::BOTH_EXERCISE));
         });
     }
 

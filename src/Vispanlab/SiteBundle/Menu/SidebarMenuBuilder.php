@@ -37,11 +37,14 @@ class SidebarMenuBuilder
                 $libraryMenu->addChild($curConcept->getNameForLang($request->getLocale())->getText_formatted(), array('route' => 'concept', 'routeParameters' => array('aoe' => $curArea->getUrl(), 'concept' => $curConcept->getId()), 'attributes' => array('class' => 'home')));
             }
             $veMenu = $areaMenu->addChild('common.virtual_assignments', array('route' => 'virtual_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl()), 'attributes' => array('class' => 'home')));
+            $exerciseTypes = array('MultipleChoice', 'OnOff', 'Solved', 'Matching', 'ExamPaper', 'EvaluationTest');
+            foreach($exerciseTypes as $curExerciseType) {
+                $veMenu->addChild($curExerciseType.'null_subject_area', array('label' => 'virtual_exercises.'.$curExerciseType, 'route' => 'show_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl(), 'type' => $curExerciseType), 'attributes' => array('class' => 'home')));
+            }
             foreach($curArea->getSubjectAreas($request->getLocale()) as $curSubjectArea) {
-                $veMenu->addChild('MultipleChoice'.$curSubjectArea->getUrl(), array('label' => 'virtual_exercises.MultipleChoice', 'route' => 'show_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl(), 'sa' => $curSubjectArea->getUrl(), 'type' => 'MultipleChoice'), 'attributes' => array('class' => 'home')));
-                $veMenu->addChild('OnOff'.$curSubjectArea->getUrl(), array('label' => 'virtual_exercises.OnOff', 'route' => 'show_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl(), 'sa' => $curSubjectArea->getUrl(), 'type' => 'OnOff'), 'attributes' => array('class' => 'home')));
-                $veMenu->addChild('Solved'.$curSubjectArea->getUrl(), array('label' => 'virtual_exercises.Solved', 'route' => 'show_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl(), 'sa' => $curSubjectArea->getUrl(), 'type' => 'Solved'), 'attributes' => array('class' => 'home')));
-                $veMenu->addChild('Matching'.$curSubjectArea->getUrl(), array('label' => 'virtual_exercises.Matching', 'route' => 'show_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl(), 'sa' => $curSubjectArea->getUrl(), 'type' => 'Matching'), 'attributes' => array('class' => 'home')));
+                foreach($exerciseTypes as $curExerciseType) {
+                    $veMenu->addChild($curExerciseType.$curSubjectArea->getUrl(), array('label' => 'virtual_exercises.'.$curExerciseType, 'route' => 'show_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl(), 'sa' => $curSubjectArea->getUrl(), 'type' => $curExerciseType), 'attributes' => array('class' => 'home')));
+                }
             }
         }
 

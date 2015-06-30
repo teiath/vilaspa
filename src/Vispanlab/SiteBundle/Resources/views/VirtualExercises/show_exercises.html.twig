@@ -15,10 +15,15 @@
         <h4>{{('virtual_exercises.'~type)|trans}}<hr style="margin-bottom: 10px;" /></h4>
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
-                <form>
+                <form action="{{path('grade_exercises', {'aoe': area_of_expertise.url, 'type': type, 'sa': (subject_area != null ? subject_area.url : null)})}}" method="POST">
                     {% for exercise in (exercises|shuffle) %}
-                        {{exercisestwig.displayExercise(exercise)}}
+                        {{exercisestwig.displayExercise(exercise, type)}}
                     {% endfor %}
+                    {% if type == 'EvaluationTest' %}
+                        <div style="clear: both;">
+                            <input type="submit" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" />
+                        </div>
+                    {% endif %}
                 </form>
             </div>
         </div>
@@ -27,26 +32,26 @@
 </div>
 {% endblock %}
 
-{% macro displayExercise(exercise) %}
+{% macro displayExercise(exercise, type) %}
     {% import _self as exercisestwig %}
     <table class="table table-bordered ve-table text-left">
         <tr><td>
         {% if (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\MultipleChoice' %}
-            {{exercisestwig.displayMultipleChoice(exercise)}}
+            {{exercisestwig.displayMultipleChoice(exercise, type)}}
         {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\OnOff' %}
-            {{exercisestwig.displayOnOff(exercise)}}
+            {{exercisestwig.displayOnOff(exercise, type)}}
         {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Solved' %}
-            {{exercisestwig.displaySolved(exercise)}}
+            {{exercisestwig.displaySolved(exercise, type)}}
         {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Matching' %}
-            {{exercisestwig.displayMatching(exercise)}}
+            {{exercisestwig.displayMatching(exercise, type)}}
         {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\ExamPaper' %}
-            {{exercisestwig.displayExamPaper(exercise)}}
+            {{exercisestwig.displayExamPaper(exercise, type)}}
         {% endif %}
         </td></tr>
     </table>
 {% endmacro %}
 
-{% macro displayMultipleChoice(exercise) %}
+{% macro displayMultipleChoice(exercise, type) %}
     <div class="multiple-choice">
         <h4 class="text-center">{{exercise.question}}</h4>
         <hr />
@@ -62,7 +67,7 @@
     </div>
 {% endmacro %}
 
-{% macro displayOnOff(exercise) %}
+{% macro displayOnOff(exercise, type) %}
     <div class="multiple-choice">
         <h4 class="text-center">{{exercise.question}}</h4>
         <hr />
@@ -76,7 +81,7 @@
     </div>
 {% endmacro %}
 
-{% macro displaySolved(exercise) %}
+{% macro displaySolved(exercise, type) %}
     <div class="solved">
         <div>
             <h4 class="text-center">{{exercise.question}}</h4>
@@ -109,20 +114,20 @@
     </div>
 {% endmacro %}
 
-{% macro displayMatching(exercise) %}
+{% macro displayMatching(exercise, type) %}
     <div class="row matching" style="margin-left: 0; margin-right: 0;">
         <h4 class="text-center">{{exercise.question}}</h4>
         <hr />
         <div class="col-md-6 matching-left" style="border-right: 1px #CCC solid;">
             <ul>
-            {% for answer in (exercise.leftAnswers) %}
+            {% for inc,answer in (exercise.leftAnswers) %}
                 <li>
                     <div class="row">
                         <div class="col-md-8">
                             {{answer.answer}}
                         </div>
                         <div class="col-md-3">
-                            <select class="matching-token-input" multiple="multiple" data-matches="{{answer.matches}}" style="width: 100%;">
+                            <select class="matching-token-input" multiple="multiple" name="mc-{{exercise.id}}[{{inc}}]" data-matches="{{answer.matches}}" style="width: 100%;">
                                 {% for answer in exercise.rightAnswers %}
                                     <option value="{{loop.index}}">{{loop.index}}</option>
                                 {% endfor %}
@@ -140,14 +145,16 @@
             {% endfor %}
             </ol>
         </div>
-        <div style="clear: both;">
-            <hr />
-            <input type="button" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" />
-        </div>
+        {% if type != 'EvaluationTest' %}
+            <div style="clear: both;">
+                <hr />
+                <input type="button" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" />
+            </div>
+        {% endif %}
     </div>
 {% endmacro %}
 
-{% macro displayExamPaper(exercise) %}
+{% macro displayExamPaper(exercise, type) %}
     <div class="exam-paper">
         {#<h4 class="text-center">{{exercise.date|format_date()}}</h4>
         <hr />#}
@@ -160,6 +167,7 @@
 {% block javascripts %}
 {{parent()}}
 <script type="text/javascript">
+var isEvaluationTest = {{type == 'EvaluationTest' ? true : false}};
 var arr_diff = function(a1, a2) {
   var a=[], diff=[];
   for(var i=0;i<a1.length;i++)
@@ -192,19 +200,21 @@ var arr_diff = function(a1, a2) {
     }
 };*/
 var initMultipleChoice = function($this) {
-    $this.find("input:radio").on('ifChecked', function () {
-        if($(this).attr('data-iscorrect') === 'true') {
-            // Correct
-            $(this).parent().parent().prepend('<i class="fa fa-check" style="color: green;"></i>');
-            $(this).parents('.ve-table').addClass('ve-correct');
-        } else {
-            // Wrong
-            //cloneExercise($this, 'multiple_choice', true);
-            $(this).parent().parent().prepend('<i class="fa fa-times" style="color: red;"></i>');
-            $(this).parents('.ve-table').addClass('ve-wrong');
-        }
-        $this.find("input:radio").iCheck('disable');
-    });
+    if(!isEvaluationTest) {
+        $this.find("input:radio").on('ifChecked', function () {
+            if($(this).attr('data-iscorrect') === 'true') {
+                // Correct
+                $(this).parent().parent().prepend('<i class="fa fa-check" style="color: green;"></i>');
+                $(this).parents('.ve-table').addClass('ve-correct');
+            } else {
+                // Wrong
+                //cloneExercise($this, 'multiple_choice', true);
+                $(this).parent().parent().prepend('<i class="fa fa-times" style="color: red;"></i>');
+                $(this).parents('.ve-table').addClass('ve-wrong');
+            }
+            $this.find("input:radio").iCheck('disable');
+        });
+    }
     $this.find("input:radio").iCheck('enable');
 };
 var initMatching = function($this) {
@@ -230,7 +240,8 @@ var initMatching = function($this) {
     });
     // End constraints
     // Validation
-    $this.find('.matching-check').on('click', function() {
+    if(!isEvaluationTest) {
+        $this.find('.matching-check').on('click', function() {
         var $submit = $(this);
         var correct = true;
         $this.find('select.matching-token-input').each(function() {
@@ -255,6 +266,7 @@ var initMatching = function($this) {
         }
         $submit.hide();
     });
+    }
     // End validation
 };
 $(document).ready(function() {

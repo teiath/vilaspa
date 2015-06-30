@@ -68,5 +68,18 @@ class OnOff extends BaseExercise {
     public function setShowInEvaluationTest($showInEvaluationTest) {
         $this->showInEvaluationTest = $showInEvaluationTest;
     }
+
+    public function isAnswerCorrect($answer) {
+        foreach($this->getAnswers() as $curAnswer) {
+            if($curAnswer['answer'] == $answer) {
+                if(isset($curAnswer['is_correct']) && $curAnswer['is_correct'] == true) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
 }
 ?>
