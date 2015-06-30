@@ -16,7 +16,7 @@ class OnOffAdmin extends MultipleChoiceAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('subjectarea', null, array('required' => true))
+            ->add('subjectarea', null, array('required' => true, 'group_by' => 'areaofexpertise',))
             ->add('question')
             ->add('correctAnswer', 'integer', array('help' => 'on_off_correct_answer_help'))
             ->add('showInEvaluationTest', 'choice', array('choices' => BaseExercise::getShowInEvaluationTestChoices()))

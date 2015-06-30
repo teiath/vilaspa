@@ -30,7 +30,7 @@ class ExamPaperAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('subjectarea', null, array('required' => true))
+            ->add('subjectarea', null, array('required' => true, 'group_by' => 'areaofexpertise',))
             ->add('date', null, array('required' => true))
             ->add('text', 'sonata_formatter_type', array(
                 'source_field'         => 'text',

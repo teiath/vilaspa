@@ -31,7 +31,7 @@ class MultipleChoiceAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('subjectarea', null, array('required' => true))
+            ->add('subjectarea', null, array('required' => true, 'group_by' => 'areaofexpertise',))
             ->add('question')
             ->add('answers', 'collection', array(
                 'type' => new MultipleChoiceAnswerType(),

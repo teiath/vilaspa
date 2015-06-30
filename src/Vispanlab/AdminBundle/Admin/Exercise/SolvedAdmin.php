@@ -30,7 +30,7 @@ class SolvedAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('subjectarea', null, array('required' => true))
+            ->add('subjectarea', null, array('required' => true, 'group_by' => 'areaofexpertise',))
             ->add('question')
             ->add('data')
             ->add('requested')
