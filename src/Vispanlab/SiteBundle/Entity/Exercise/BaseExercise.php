@@ -56,9 +56,9 @@ abstract class BaseExercise {
 
     public static function getShowInEvaluationTestChoices() {
         return array(
-            0 => 'Μόνο σε απλές ασκήσεις',
-            1 => 'Μόνο σε test αξιολόγησης',
-            2 => 'Και στα δύο',
+            1 => 'Μόνο σε απλές ασκήσεις',
+            2 => 'Μόνο σε test αξιολόγησης',
+            3 => 'Και στα δύο',
         );
     }
 

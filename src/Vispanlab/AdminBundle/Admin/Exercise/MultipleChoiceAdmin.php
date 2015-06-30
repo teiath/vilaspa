@@ -61,7 +61,7 @@ class MultipleChoiceAdmin extends Admin
             ->add('subjectarea')
             ->add('question')
             ->add('answers', 'answers_array')
-            ->add('showInEvaluationTest')
+            ->add('showInEvaluationTest', 'choice', array('choices' => BaseExercise::getShowInEvaluationTestChoices()))
         ;
     }
 

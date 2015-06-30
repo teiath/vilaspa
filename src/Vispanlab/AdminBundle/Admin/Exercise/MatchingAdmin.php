@@ -67,7 +67,7 @@ class MatchingAdmin extends Admin
             ->add('question')
             ->add('leftAnswers', 'matches_array')
             ->add('rightAnswers', 'answers_array')
-            ->add('showInEvaluationTest')
+            ->add('showInEvaluationTest', 'choice', array('choices' => BaseExercise::getShowInEvaluationTestChoices()))
         ;
     }
 
