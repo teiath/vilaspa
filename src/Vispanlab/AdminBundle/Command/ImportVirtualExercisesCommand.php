@@ -58,9 +58,9 @@ class ImportVirtualExercisesCommand extends ContainerAwareCommand
         }
         // Πολλαπλής
         $xls = $this->parseCSV('C:\Users\Niral\Desktop\topografia\yliko\EEXA_01.07.2015,askPOLEO.xlsx', 1);
-        $headersRow = $xls->getRowIterator(2)->current();
+        $headersRow = $xls->getRowIterator(1)->current();
         $headers = $this->parseHeadersToArray($headersRow);
-        foreach ($xls->getRowIterator(3) as $row) {
+        foreach ($xls->getRowIterator(2) as $row) {
             $fields = $this->parseRowToArray($row, $headers);
             if(!isset($fields['ΕΡΩΤΗΣΗ'])) { $output->writeln('Empty question. Skipping.'); continue; }
             $exercise = $this->getContainer()->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\Exercise\MultipleChoice')->findOneBy(array(
