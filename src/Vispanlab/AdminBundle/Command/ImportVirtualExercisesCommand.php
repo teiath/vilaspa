@@ -83,9 +83,11 @@ class ImportVirtualExercisesCommand extends ContainerAwareCommand
             $exercise->setQuestion($fields['ΕΡΩΤΗΣΗ']);
             $answers = array();
             for($i = 1; $i <= 5; $i++) {
-                $answers[] = array(
-                    'answer' => $fields['ΑΠΑΝΤΗΣΗ '.$i],
-                );
+                if($fields['ΑΠΑΝΤΗΣΗ '.$i] != '') {
+                    $answers[] = array(
+                        'answer' => $fields['ΑΠΑΝΤΗΣΗ '.$i],
+                    );
+                }
             }
             $exercise->setAnswers($answers);
             $exercise->setCorrectAnswer($fields['ΣΩΣΤΗ ΑΠΑΝΤΗΣΗ']);
