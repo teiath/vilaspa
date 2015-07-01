@@ -82,7 +82,7 @@ class ImportVirtualExercisesCommand extends ContainerAwareCommand
             $exercise->setShowInEvaluationTest(3);
             $exercise->setQuestion($fields['ΕΡΩΤΗΣΗ']);
             $answers = array();
-            for($i = 1; i <= 5; $i++) {
+            for($i = 1; $i <= 5; $i++) {
                 $answers[] = array(
                     'answer' => $fields['ΑΠΑΝΤΗΣΗ '.$i],
                 );
