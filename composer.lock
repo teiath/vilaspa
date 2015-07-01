@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "06fc1acffed0ecb345fddae11cdadf24",
+    "hash": "ee9eb72d7c1b13241054656eb9abd5c0",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -95,12 +95,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cocur/slugify.git",
-                "reference": "a463c52320902020f87991fa7c0a1fd25531df01"
+                "reference": "43bcfe9579cde6a7ac66de975c8eb9e136c6da13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cocur/slugify/zipball/a463c52320902020f87991fa7c0a1fd25531df01",
-                "reference": "a463c52320902020f87991fa7c0a1fd25531df01",
+                "url": "https://api.github.com/repos/cocur/slugify/zipball/43bcfe9579cde6a7ac66de975c8eb9e136c6da13",
+                "reference": "43bcfe9579cde6a7ac66de975c8eb9e136c6da13",
                 "shasum": ""
             },
             "require": {
@@ -150,7 +150,7 @@
                 "slug",
                 "slugify"
             ],
-            "time": "2015-06-25 13:41:44"
+            "time": "2015-06-30 15:55:22"
         },
         {
             "name": "dflydev/markdown",
@@ -286,12 +286,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "9930e3367777a8727e229f5126c5299890d700bb"
+                "reference": "e7b77e5abe230a2cc1db5005fb86435da213ae3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/9930e3367777a8727e229f5126c5299890d700bb",
-                "reference": "9930e3367777a8727e229f5126c5299890d700bb",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/e7b77e5abe230a2cc1db5005fb86435da213ae3b",
+                "reference": "e7b77e5abe230a2cc1db5005fb86435da213ae3b",
                 "shasum": ""
             },
             "require": {
@@ -348,7 +348,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-05-13 10:08:10"
+            "time": "2015-06-29 15:03:18"
         },
         {
             "name": "doctrine/collections",
@@ -1202,12 +1202,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle.git",
-                "reference": "b63307ce86bd1318ea3325bf9fa6a005665191c7"
+                "reference": "04393c06818202190e32e2ebf8c74051de8401c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/b63307ce86bd1318ea3325bf9fa6a005665191c7",
-                "reference": "b63307ce86bd1318ea3325bf9fa6a005665191c7",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/04393c06818202190e32e2ebf8c74051de8401c5",
+                "reference": "04393c06818202190e32e2ebf8c74051de8401c5",
                 "shasum": ""
             },
             "require": {
@@ -1225,8 +1225,8 @@
                 "symfony/validator": ">=2.5.0,<2.5.5"
             },
             "require-dev": {
-                "jms/serializer": "~0.13",
-                "jms/serializer-bundle": "~0.12",
+                "jms/serializer": "~0.13|~1.0",
+                "jms/serializer-bundle": "~0.12|~1.0",
                 "phpoption/phpoption": "~1.1.0",
                 "sensio/framework-extra-bundle": "~3.0",
                 "symfony/browser-kit": "~2.3",
@@ -1238,7 +1238,7 @@
                 "symfony/yaml": "~2.3"
             },
             "suggest": {
-                "jms/serializer-bundle": "Add support for advanced serialization capabilities, recommended, requires ~0.12",
+                "jms/serializer-bundle": "Add support for advanced serialization capabilities, recommended, requires ~0.12||~1.0",
                 "sensio/framework-extra-bundle": "Add support for route annotations and the view response listener, requires ~3.0",
                 "symfony/serializer": "Add support for basic serialization capabilities and xml decoding, requires ~2.3",
                 "symfony/validator": "Add support for validation capabilities in the ParamFetcher, requires ~2.3"
@@ -1277,7 +1277,7 @@
             "keywords": [
                 "rest"
             ],
-            "time": "2015-06-23 19:29:00"
+            "time": "2015-06-29 13:24:06"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -1481,6 +1481,54 @@
                 "image processing"
             ],
             "time": "2014-08-26 11:26:34"
+        },
+        {
+            "name": "irongit/symfony2-stream-response",
+            "version": "dev-master",
+            "target-dir": "n3b/Bundle/Util/HttpFoundation/StreamResponse",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/toretto460/Symfony2-StreamResponse.git",
+                "reference": "3e5082e7beec9c9130e30e49bad44e1e99ab33b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/toretto460/Symfony2-StreamResponse/zipball/3e5082e7beec9c9130e30e49bad44e1e99ab33b1",
+                "reference": "3e5082e7beec9c9130e30e49bad44e1e99ab33b1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "n3b\\Bundle\\Util\\HttpFoundation\\StreamResponse": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "n3b",
+                    "email": "mail@n3b.ru",
+                    "homepage": "http://n3b.ru/"
+                },
+                {
+                    "name": "Simone Di Maulo",
+                    "homepage": "https://github.com/toretto460"
+                }
+            ],
+            "description": "Symfony2 StreamResponse Bundle",
+            "homepage": "https://github.com/toretto460/Symfony2-StreamResponse",
+            "keywords": [
+                "StreamResponse",
+                "file",
+                "stream"
+            ],
+            "time": "2012-08-07 09:27:11"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -2340,12 +2388,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpMenu.git",
-                "reference": "8592169d3d05085c69501a86bf51569588fef230"
+                "reference": "03badd49d673de25e5119a797030777642172a9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpMenu/zipball/8592169d3d05085c69501a86bf51569588fef230",
-                "reference": "8592169d3d05085c69501a86bf51569588fef230",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenu/zipball/03badd49d673de25e5119a797030777642172a9f",
+                "reference": "03badd49d673de25e5119a797030777642172a9f",
                 "shasum": ""
             },
             "require": {
@@ -2396,7 +2444,7 @@
                 "menu",
                 "tree"
             ],
-            "time": "2015-06-15 12:27:53"
+            "time": "2015-06-30 19:06:17"
         },
         {
             "name": "knplabs/knp-menu-bundle",
@@ -2638,6 +2686,58 @@
             "time": "2015-06-25 17:26:56"
         },
         {
+            "name": "liuggio/ExcelBundle",
+            "version": "v1.0.6",
+            "target-dir": "Liuggio/ExcelBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/liuggio/ExcelBundle.git",
+                "reference": "cf0ecbeea411d7c3bdc8abab14c3407afdf530c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/liuggio/ExcelBundle/zipball/cf0ecbeea411d7c3bdc8abab14c3407afdf530c4",
+                "reference": "cf0ecbeea411d7c3bdc8abab14c3407afdf530c4",
+                "shasum": ""
+            },
+            "require": {
+                "irongit/symfony2-stream-response": ">=1.0",
+                "php": ">=5.3.2",
+                "phpoffice/phpexcel": "1.7.9",
+                "symfony/framework-bundle": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Liuggio\\ExcelBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "liuggio",
+                    "email": "liuggio@gmail.com",
+                    "homepage": "http://www.welcometothebundle.com"
+                },
+                {
+                    "name": "ExcelBundle Contributors",
+                    "homepage": "https://github.com/liuggio/ExcelBundle#contributors"
+                }
+            ],
+            "description": "This is a Symfony2 Bundle helps you to read and write Excel files (including pdf, xlsx, odt), thanks to the PHPExcel library",
+            "homepage": "http://www.welcometothebundle.com",
+            "keywords": [
+                "Symfony2",
+                "bundle",
+                "excel",
+                "xls"
+            ],
+            "time": "2013-10-31 21:15:33"
+        },
+        {
             "name": "michelf/php-markdown",
             "version": "1.5.0",
             "source": {
@@ -2694,12 +2794,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "cc145b85fe1d1093f0bfa2d1dffb341904a1762b"
+                "reference": "ceeb33f5213d8ef383bb8f1d46a5922b4666c8aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/cc145b85fe1d1093f0bfa2d1dffb341904a1762b",
-                "reference": "cc145b85fe1d1093f0bfa2d1dffb341904a1762b",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/ceeb33f5213d8ef383bb8f1d46a5922b4666c8aa",
+                "reference": "ceeb33f5213d8ef383bb8f1d46a5922b4666c8aa",
                 "shasum": ""
             },
             "require": {
@@ -2762,7 +2862,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2015-06-22 17:09:57"
+            "time": "2015-06-30 22:26:19"
         },
         {
             "name": "nelmio/api-doc-bundle",
@@ -2771,12 +2871,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "7c8b01021522cb429e5127a4c9175efa44a9cb69"
+                "reference": "a343bb7c45fb0e9ef1fb3da94befe96fdf55e1f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/7c8b01021522cb429e5127a4c9175efa44a9cb69",
-                "reference": "7c8b01021522cb429e5127a4c9175efa44a9cb69",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/a343bb7c45fb0e9ef1fb3da94befe96fdf55e1f2",
+                "reference": "a343bb7c45fb0e9ef1fb3da94befe96fdf55e1f2",
                 "shasum": ""
             },
             "require": {
@@ -2842,7 +2942,7 @@
                 "documentation",
                 "rest"
             ],
-            "time": "2015-06-18 13:30:13"
+            "time": "2015-06-29 22:05:07"
         },
         {
             "name": "nikic/php-parser",
@@ -2935,6 +3035,62 @@
                 "set"
             ],
             "time": "2015-05-17 12:39:23"
+        },
+        {
+            "name": "phpoffice/phpexcel",
+            "version": "1.7.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPOffice/PHPExcel.git",
+                "reference": "7a7634fba664249a04fc771df677a9b9f755d7ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/7a7634fba664249a04fc771df677a9b9f755d7ec",
+                "reference": "7a7634fba664249a04fc771df677a9b9f755d7ec",
+                "shasum": ""
+            },
+            "require": {
+                "ext-xml": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPExcel": "Classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Maarten Balliauw",
+                    "homepage": "http://blog.maartenballiauw.be"
+                },
+                {
+                    "name": "Mark Baker"
+                },
+                {
+                    "name": "Franck Lefevre",
+                    "homepage": "http://blog.rootslabs.net"
+                },
+                {
+                    "name": "Erik Tilt"
+                }
+            ],
+            "description": "PHPExcel - OpenXML - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
+            "homepage": "http://phpexcel.codeplex.com",
+            "keywords": [
+                "OpenXML",
+                "excel",
+                "php",
+                "spreadsheet",
+                "xls",
+                "xlsx"
+            ],
+            "time": "2013-05-24 11:57:42"
         },
         {
             "name": "phpoption/phpoption",
@@ -3789,12 +3945,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/exporter.git",
-                "reference": "07c8b171e8f22b47ee042f2747fd982aae5c7fc7"
+                "reference": "92835b5aac7a5300b3c34f4b52ed4327a1d1ed47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/exporter/zipball/07c8b171e8f22b47ee042f2747fd982aae5c7fc7",
-                "reference": "07c8b171e8f22b47ee042f2747fd982aae5c7fc7",
+                "url": "https://api.github.com/repos/sonata-project/exporter/zipball/92835b5aac7a5300b3c34f4b52ed4327a1d1ed47",
+                "reference": "92835b5aac7a5300b3c34f4b52ed4327a1d1ed47",
                 "shasum": ""
             },
             "require": {
@@ -3844,7 +4000,7 @@
                 "export",
                 "xls"
             ],
-            "time": "2015-06-26 10:07:27"
+            "time": "2015-06-29 18:36:46"
         },
         {
             "name": "sonata-project/formatter-bundle",
@@ -4063,30 +4219,31 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataNotificationBundle.git",
-                "reference": "d4ae7d58b820225da5c776bcac35f5a506f924df"
+                "reference": "2ee862ae79b5f99137845c566f3a61cada9e3f5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataNotificationBundle/zipball/d4ae7d58b820225da5c776bcac35f5a506f924df",
-                "reference": "d4ae7d58b820225da5c776bcac35f5a506f924df",
+                "url": "https://api.github.com/repos/sonata-project/SonataNotificationBundle/zipball/2ee862ae79b5f99137845c566f3a61cada9e3f5d",
+                "reference": "2ee862ae79b5f99137845c566f3a61cada9e3f5d",
                 "shasum": ""
             },
             "require": {
                 "friendsofsymfony/rest-bundle": "~1.1",
-                "jms/serializer": "~0.13",
-                "jms/serializer-bundle": "~0.11",
+                "jms/serializer-bundle": "~0.11|~1.0",
                 "nelmio/api-doc-bundle": "~2.4",
-                "sonata-project/core-bundle": "~2.2,>2.2.4",
+                "sonata-project/core-bundle": "^2.2.6",
                 "sonata-project/datagrid-bundle": "~2.2",
                 "sonata-project/doctrine-extensions": "~1.0",
                 "sonata-project/easy-extends-bundle": "~2.1",
                 "symfony/framework-bundle": "~2.3"
             },
+            "conflict": {
+                "jms/serializer": "<0.13"
+            },
             "require-dev": {
                 "fabpot/php-cs-fixer": "~0.5|~1.0",
                 "guzzle/guzzle": "~3.0",
                 "liip/monitor-bundle": "~2.0",
-                "sonata-project/core-bundle": "~2.2@dev,>2.2.4",
                 "sonata-project/doctrine-orm-admin-bundle": "~2.2",
                 "symfony/phpunit-bridge": "~2.7|~3.0",
                 "videlalvaro/php-amqplib": "~2.0"
@@ -4130,7 +4287,7 @@
                 "page",
                 "sonata"
             ],
-            "time": "2015-06-26 10:32:13"
+            "time": "2015-06-29 10:25:39"
         },
         {
             "name": "stof/doctrine-extensions-bundle",
@@ -4244,12 +4401,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "b86333344fe5dc5b649bb0ea694820f5ebeeed5c"
+                "reference": "0a6e9031371dcb384d395b1fa7bd5139a7847a60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/b86333344fe5dc5b649bb0ea694820f5ebeeed5c",
-                "reference": "b86333344fe5dc5b649bb0ea694820f5ebeeed5c",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/0a6e9031371dcb384d395b1fa7bd5139a7847a60",
+                "reference": "0a6e9031371dcb384d395b1fa7bd5139a7847a60",
                 "shasum": ""
             },
             "require": {
@@ -4289,7 +4446,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2015-06-28 07:39:43"
+            "time": "2015-06-28 17:20:48"
         },
         {
             "name": "symfony/assetic-bundle",
@@ -4481,12 +4638,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "cbca187a496973da2cecfaed73513b80e376d35b"
+                "reference": "6a45129b4170d0632eadb6ed2a796e8a71a287a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/cbca187a496973da2cecfaed73513b80e376d35b",
-                "reference": "cbca187a496973da2cecfaed73513b80e376d35b",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/6a45129b4170d0632eadb6ed2a796e8a71a287a7",
+                "reference": "6a45129b4170d0632eadb6ed2a796e8a71a287a7",
                 "shasum": ""
             },
             "require": {
@@ -4590,7 +4747,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-06-27 20:15:38"
+            "time": "2015-06-30 16:51:15"
         },
         {
             "name": "twig/extensions",

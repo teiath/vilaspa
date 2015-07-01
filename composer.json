@@ -19,6 +19,7 @@
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "doctrine/doctrine-cache-bundle": "*",
         "knplabs/knp-paginator-bundle": "2.4.*",
+        "liuggio/excelbundle": "1.0.*",
         "twig/extensions": "1.2.*",
         "sunra/php-simple-html-dom-parser": "v1.5.0",
         "symfony/assetic-bundle": "2.6.*",

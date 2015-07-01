@@ -26,6 +26,8 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             // User Bundle
             new FOS\UserBundle\FOSUserBundle(),
+            // Liuggio Excel Bundle
+            new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             // JMS
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
