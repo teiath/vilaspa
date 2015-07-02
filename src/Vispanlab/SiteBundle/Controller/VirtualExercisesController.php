@@ -48,8 +48,14 @@ class VirtualExercisesController extends Controller {
                     'subjectarea' => $sa,
                 ));
             } else {
-                $exercises = $this->container->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\Exercise\BaseExercise')->findAll();
+                $exercises = array();
+                foreach($aoe->getSubjectAreas() as $curSa) {
+                    $exercises = array_merge($exercises, $this->container->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\Exercise\BaseExercise')->findBy(array(
+                        'subjectarea' => $curSa,
+                    )));
+                }
             }
+            shuffle($exercises);
         }
         // Filter by showInEvaluationTest
         $exercises = array_filter($exercises, function($e) use ($type) {
