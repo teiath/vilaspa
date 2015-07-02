@@ -39,10 +39,11 @@
             <div class="col-md-6">
                 {% set addedDefs = [] %}
                 {% for def in concept.getDefinitionForOtherLang(app.request.locale) %}
+                    {% set nameForLang = (concept.hasNameForLang(def.locale) ? concept.nameForLang(def.locale) : concept.nameForLang(app.request.locale) %}
                     {% include 'VispanlabSiteBundle:ConceptLibrary:concept_block.html.twig' with {
                         'concept': concept,
                         'method': 'definition',
-                        'block_name' : ((concept.hasNameForLang(def.locale) ? concept.nameForLang(def.locale) : concept.nameForLang(app.request.locale)).textFormatted|format_text(concept.nameForLang(def.locale).format_type)|striptags),
+                        'block_name' : nameForLang.textFormatted|format_text(nameForLang.format_type)|striptags),
                         'locale': def.locale,
                         'showFlags': false,
                         'extraClasses': 'linked',
