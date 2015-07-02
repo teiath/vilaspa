@@ -75,7 +75,7 @@ class VirtualExercisesController extends Controller {
         $exercises = $paginator->paginate(
             $exercises,
             $this->getRequest()->query->getInt('page', 1)/*page number*/,
-            5/*limit per page*/
+            10/*limit per page*/
         );
         // End pagination
         return $this->render('VispanlabSiteBundle:VirtualExercises:show_exercises.html.twig', array(
