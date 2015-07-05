@@ -56,14 +56,14 @@ services:
     onoff.admin:
         class: Vispanlab\AdminBundle\Admin\Exercise\OnOffAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Σωστό/Λάθος }
+            - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Σωστό / Λάθος }
         arguments: [null, Vispanlab\SiteBundle\Entity\Exercise\OnOff, SonataAdminBundle:CRUD]
         calls:
             - [ setSecurityContext, ["@security.context"] ]
     solved.admin:
         class: Vispanlab\AdminBundle\Admin\Exercise\SolvedAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Λυμένες }
+            - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Λυμένες Ασκήσεις }
         arguments: [null, Vispanlab\SiteBundle\Entity\Exercise\Solved, SonataAdminBundle:CRUD]
         calls:
             - [ setSecurityContext, ["@security.context"] ]

@@ -33,11 +33,11 @@ concept:
 virtual_exercises:
   heading: Εικονικές Ασκήσεις
   MultipleChoice: Πολλαπλής Επιλογής
-  OnOff: Σωστό/Λάθος
-  Solved: Λυμένες
+  OnOff: Σωστό / Λάθος
+  Solved: Λυμένες Ασκήσεις
   Matching: Αντιστοίχισης
   ExamPaper: Παλαιά Θέματα
-  EvaluationTest: Τεστ Αξολόγησης
+  EvaluationTest: Ασκήσεις Αξιολόγησης
 
 # Admin
 Area Of Expertise List: Λίστα Γνωστικών Αντικειμένων
@@ -75,7 +75,7 @@ Question: Ερώτηση
 Answers: Απαντήσεις
 Correct Answer: Σωστή Απάντηση
 correct_answer_help: Εισάγετε τον αριθμό της σωστής απάντησης. Η αρίθμηση των απαντήσεων αρχίζει από το 1.
-On Off List: Λίστα Ερωτήσεων Σωστό/Λάθος
+On Off List: Λίστα Ερωτήσεων Σωστό / Λάθος
 on_off_correct_answer_help: Για σωστό εισάγετε 1 ενω για λάθος εισάγετε 2.
 ve_off: Λάθος
 ve_on: Σωστό
@@ -95,4 +95,4 @@ Exam Paper List: Λίστα Παλαιών Θεμάτων
 Date: Ημ/νία
 Previous: Προηγούμενο
 Next: Επόμενο
-Show In Evaluation Test: Εμφάνιση σε Τεστ Αξιολόγησης
+Show In Evaluation Test: Εμφάνιση σε Ασκήσεις Αξιολόγησης
