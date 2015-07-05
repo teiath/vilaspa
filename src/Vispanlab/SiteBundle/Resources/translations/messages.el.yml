@@ -38,6 +38,8 @@ virtual_exercises:
   Matching: Αντιστοίχισης
   ExamPaper: Παλαιά Θέματα
   EvaluationTest: Ασκήσεις Αξιολόγησης
+  attention: "* επιβεβαιώστε ότι όλες οι επιλογές σας έχουν καταχωρηθεί και εμφανίζονται πριν πατήσετε έλεγχος"
+  refresh: Ανανέωση Ερωτήσεων
 
 # Admin
 Area Of Expertise List: Λίστα Γνωστικών Αντικειμένων

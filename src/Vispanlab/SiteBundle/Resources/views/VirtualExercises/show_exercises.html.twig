@@ -10,7 +10,7 @@
 </style>
 <div class="row text-center virtual-exercises">
     <div class="col-md-12">
-        <h2 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)|raw|replace({'<BR />': ' '})|raw}}</h2>
+        <h4 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)|raw|replace({'<BR />': ' '})|raw}}</h4>
         {% if subject_area != null %}<h4>{{subject_area.name(app.request.locale)}}</h4>{% endif %}
         <h4>{{('virtual_exercises.'~type)|trans}}<hr style="margin-bottom: 10px;" /></h4>
         <div class="row">
@@ -21,15 +21,20 @@
                     {% endfor %}
                     {% if type == 'EvaluationTest' %}
                         <div style="clear: both;">
-                            <input type="submit" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" />
+                            <input type="submit" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" />{#<br />
+                            <small style="font-size: 75%;">{{'virtual_exercises.attention'|trans}}</small>#}
+                        </div>
+                    {% else %}
+                        <div style="clear: both;">
+                            <a href="{{path(app.request.get('_route'), app.request.get('_route_params'))}}" class="btn btn-default">{{'virtual_exercises.refresh'|trans}}</a>
                         </div>
                     {% endif %}
                 </form>
             </div>
         </div>
-        {% if type != 'EvaluationTest' %}
+        {#{% if type != 'EvaluationTest' %}
             {{ knp_pagination_render(exercises) }}
-        {% endif %}
+        {% endif %}#}
     </div>
 </div>
 {% endblock %}
@@ -151,6 +156,7 @@
             <div style="clear: both;">
                 <hr />
                 <input type="button" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" />
+                <small style="font-size: 75%;">{{'virtual_exercises.attention'|trans}}</small>
             </div>
         {% endif %}
     </div>

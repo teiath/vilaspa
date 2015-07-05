@@ -55,8 +55,8 @@ class VirtualExercisesController extends Controller {
                     )));
                 }
             }
-            shuffle($exercises);
         }
+        shuffle($exercises);
         // Filter by showInEvaluationTest
         $exercises = array_filter($exercises, function($e) use ($type) {
             if($type != 'EvaluationTest') {
@@ -75,7 +75,7 @@ class VirtualExercisesController extends Controller {
         $exercises = $paginator->paginate(
             $exercises,
             $this->getRequest()->query->getInt('page', 1)/*page number*/,
-            10/*limit per page*/
+            ($type != 'EvaluationTest' ? 5 : 10)/*limit per page*/
         );
         // End pagination
         return $this->render('VispanlabSiteBundle:VirtualExercises:show_exercises.html.twig', array(
