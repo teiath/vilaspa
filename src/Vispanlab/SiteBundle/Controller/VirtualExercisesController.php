@@ -95,15 +95,18 @@ class VirtualExercisesController extends Controller {
     public function gradeExercises(AreaOfExpertise $aoe, $type, SubjectArea $sa = null) {
         $correctExercises = array();
         $wrongExercises = array();
+        $exercises = array();
         foreach($this->getRequest()->request->all() as $curId => $curAnswer) {
             $curExerciseId = substr($curId, 3);
             $curExercise = $this->container->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\Exercise\BaseExercise')->find($curExerciseId);
             if(!$curExercise) { throw new \Exception('Exercise with id '.$curExerciseId.' not found for grading'); }
             if($curExercise->isAnswerCorrect($curAnswer)) { $correctExercises[] = $curExercise; } else { $wrongExercises[] = $curExercise; }
+            $exercises[] = $curExercise;
         }
         return $this->render('VispanlabSiteBundle:VirtualExercises:grade_exercises.html.twig', array(
             'area_of_expertise' => $aoe,
             'subject_area' => $sa,
+            'exercises' => $exercises,
             'correct_exercises' => $correctExercises,
             'wrong_exercises' => $wrongExercises,
             'type' => $type,

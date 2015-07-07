@@ -68,7 +68,7 @@ class Matching extends BaseExercise {
     public function isAnswerCorrect($answer) {
         foreach($this->getLeftAnswers() as $inc => $curAnswer) {
             $correctMatches = explode(',', $curAnswer['matches']);
-            $selectedMatches = explode(',', $answer[$inc]);
+            $selectedMatches = $answer[$inc];
             $diff = array_diff($correctMatches, $selectedMatches);
             if(count($diff) > 0) {
                 return false;

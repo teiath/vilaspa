@@ -1,4 +1,6 @@
-{% extends 'VispanlabSiteBundle::base.html.twig' %}
+{% extends 'VispanlabSiteBundle:VirtualExercises:show_exercises.html.twig' %}
+
+{% import 'VispanlabSiteBundle:VirtualExercises:show_exercises.html.twig' as exercisestwig %}
 
 {% block content %}
 <div class="row text-center virtual-exercises">
@@ -8,7 +10,29 @@
         <h4>{{('virtual_exercises.'~type)|trans}}<hr style="margin-bottom: 10px;" /></h4>
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
-                <strong>Βαθμός: {{correct_exercises|length}}/{{(correct_exercises|length)+(wrong_exercises|length)}}</strong>
+                {% set grade = correct_exercises|length %}
+                <h4>Βαθμός: {{grade}}/{{(correct_exercises|length)+(wrong_exercises|length)}}</h4>
+                <h5 class="text-muted" style="margin-bottom: 0;">
+                    {% if grade == 10 %}
+                        {{'virtual_exercises.congrats'|trans}}
+                    {% elseif grade == 8 or grade == 9 %}
+                        {{'virtual_exercises.good'|trans}}
+                    {% elseif grade == 5 or grade == 6 or grade == 7 %}
+                        {{'virtual_exercises.average'|trans}}
+                    {% else %}
+                        {{'virtual_exercises.try_harder'|trans}}
+                    {% endif %}
+                </h5>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <form action="#" method="POST">
+                    {% for exercise in exercises %}
+                        {{exercisestwig.displayExercise(exercise, type, app.request.get('mc-'~exercise.id))}}
+                    {% endfor %}
+                </form>
             </div>
         </div>
     </div>

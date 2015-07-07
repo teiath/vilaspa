@@ -39,26 +39,27 @@
 </div>
 {% endblock %}
 
-{% macro displayExercise(exercise, type) %}
+{% macro displayExercise(exercise, type, solution) %}
     {% import _self as exercisestwig %}
+    {% if solution is not defined %}{% set solution = null %}{% endif %}
     <table class="table table-bordered ve-table text-left">
         <tr><td>
         {% if (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\MultipleChoice' %}
-            {{exercisestwig.displayMultipleChoice(exercise, type)}}
+            {{exercisestwig.displayMultipleChoice(exercise, type, solution)}}
         {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\OnOff' %}
-            {{exercisestwig.displayOnOff(exercise, type)}}
+            {{exercisestwig.displayOnOff(exercise, type, solution)}}
         {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Solved' %}
-            {{exercisestwig.displaySolved(exercise, type)}}
+            {{exercisestwig.displaySolved(exercise, type, solution)}}
         {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Matching' %}
-            {{exercisestwig.displayMatching(exercise, type)}}
+            {{exercisestwig.displayMatching(exercise, type, solution)}}
         {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\ExamPaper' %}
-            {{exercisestwig.displayExamPaper(exercise, type)}}
+            {{exercisestwig.displayExamPaper(exercise, type, solution)}}
         {% endif %}
         </td></tr>
     </table>
 {% endmacro %}
 
-{% macro displayMultipleChoice(exercise, type) %}
+{% macro displayMultipleChoice(exercise, type, solution) %}
     <div class="multiple-choice">
         <h4 class="text-center">{{exercise.question}}</h4>
         <hr />
@@ -66,7 +67,7 @@
         {% for answer in (exercise.answers|shuffle) %}
             <li>
                 <div class="row">
-                    <div class="col-md-1"><input type="radio" id="mc-{{exercise.id}}-{{loop.index}}" name="mc-{{exercise.id}}" value="{{answer.answer}}" data-iscorrect="{{answer.is_correct is defined and answer.is_correct ? 'true' : 'false'}}" /></div><div class="col-md-11"><label style="font-weight: normal;" for="mc-{{exercise.id}}-{{loop.index}}">{{answer.answer|trans}}</label></div>
+                    <div class="col-md-1"><input type="radio" id="mc-{{exercise.id}}-{{loop.index}}" name="mc-{{exercise.id}}" value="{{answer.answer}}" data-iscorrect="{{answer.is_correct is defined and answer.is_correct ? 'true' : 'false'}}" {% if solution == answer.answer %}checked="checked" data-solved="true"{% endif %} /></div><div class="col-md-11"><label style="font-weight: normal;" for="mc-{{exercise.id}}-{{loop.index}}">{{answer.answer|trans}}</label></div>
                 </div>
             </li>
         {% endfor %}
@@ -75,14 +76,14 @@
     </div>
 {% endmacro %}
 
-{% macro displayOnOff(exercise, type) %}
+{% macro displayOnOff(exercise, type, solution) %}
     <div class="multiple-choice">
         <h4 class="text-center">{{exercise.question}}</h4>
         <hr />
         <div class="row">
         {% for answer in exercise.answers %}
             <div class="col-md-6 text-center">
-                    <input type="radio" id="mc-{{exercise.id}}-{{loop.index}}" name="mc-{{exercise.id}}" value="{{answer.answer}}" data-iscorrect="{{answer.is_correct is defined and answer.is_correct ? 'true' : 'false'}}" /> <label style="font-weight: normal;" for="mc-{{exercise.id}}-{{loop.index}}">{{answer.answer|trans}}</label>
+                    <input type="radio" id="mc-{{exercise.id}}-{{loop.index}}" name="mc-{{exercise.id}}" value="{{answer.answer}}" data-iscorrect="{{answer.is_correct is defined and answer.is_correct ? 'true' : 'false'}}" {% if solution == answer.answer %}checked="checked" data-solved="true"{% endif %} /> <label style="font-weight: normal;" for="mc-{{exercise.id}}-{{loop.index}}">{{answer.answer|trans}}</label>
             </div>
         {% endfor %}
         </div>
@@ -90,7 +91,7 @@
     </div>
 {% endmacro %}
 
-{% macro displaySolved(exercise, type) %}
+{% macro displaySolved(exercise, type, solution) %}
     <div class="solved">
         <div>
             <h4 class="text-center">{{exercise.question}}</h4>
@@ -124,7 +125,7 @@
     </div>
 {% endmacro %}
 
-{% macro displayMatching(exercise, type) %}
+{% macro displayMatching(exercise, type, solution) %}
     <div class="row matching" style="margin-left: 0; margin-right: 0;">
         <h4 class="text-center">{{exercise.question}}</h4>
         <hr />
@@ -137,7 +138,7 @@
                             {{answer.answer}}
                         </div>
                         <div class="col-md-3">
-                            <select class="matching-token-input" multiple="multiple" name="mc-{{exercise.id}}[{{inc}}]" data-matches="{{answer.matches}}" style="width: 100%;">
+                            <select class="matching-token-input" multiple="multiple" name="mc-{{exercise.id}}[{{inc}}][]" data-matches="{{answer.matches}}" style="width: 100%;" {% if solution[inc] is defined %}data-solutionvalue="{{solution[inc]|join(',')}}" data-solved="true"{% endif %}>
                                 {% for answer in exercise.rightAnswers %}
                                     <option value="{{loop.index}}">{{loop.index}}</option>
                                 {% endfor %}
@@ -150,23 +151,21 @@
         </div>
         <div class="col-md-6 matching-right">
             <ol>
-            {% for answer in (exercise.rightAnswers|shuffle) %}
+            {% for answer in exercise.rightAnswers %}
                 <li>{{answer.answer}}</li>
             {% endfor %}
             </ol>
         </div>
-        {% if type != 'EvaluationTest' %}
-            <div style="clear: both;">
-                <hr />
-                <input type="button" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" />
-                <small style="font-size: 75%;">{{'virtual_exercises.attention'|trans}}</small>
-            </div>
-        {% endif %}
+        <div style="clear: both;{% if type == 'EvaluationTest' %}display: none;{% endif %}">
+            <hr />
+            <input type="button" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" />
+            <small style="font-size: 75%;">{{'virtual_exercises.attention'|trans}}</small>
+        </div>
         {% if exercise.relatedConcepts|length > 0 and type != 'EvaluationTest' %}<h5 class="text-center"><HR /><small>{{'virtual_exercises.see_library'|trans}}{% for concept in exercise.relatedConcepts %}<a href="{{path('concept', {'aoe': (concept.areasofexpertise|first).url, 'concept': concept.id})}}" target="_blank">{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}</a>{% if not loop.last %},{% endif %}{% endfor %}</small></h5>{% endif %}
     </div>
 {% endmacro %}
 
-{% macro displayExamPaper(exercise, type) %}
+{% macro displayExamPaper(exercise, type, solution) %}
     <div class="exam-paper">
         {#<h4 class="text-center">{{exercise.date|format_date()}}</h4>
         <hr />#}
@@ -213,22 +212,27 @@ var arr_diff = function(a1, a2) {
     }
 };*/
 var initMultipleChoice = function($this) {
+    var checkSolution = function() {
+        if($(this).attr('data-iscorrect') === 'true') {
+            // Correct
+            $(this).parent().parent().prepend('<i class="fa fa-check" style="color: green;"></i>');
+            $(this).parents('.ve-table').addClass('ve-correct');
+        } else {
+            // Wrong
+            //cloneExercise($this, 'multiple_choice', true);
+            $(this).parent().parent().prepend('<i class="fa fa-times" style="color: red;"></i>');
+            $(this).parents('.ve-table').addClass('ve-wrong');
+        }
+        $this.find("input:radio").iCheck('disable');
+    };
     if(!isEvaluationTest) {
-        $this.find("input:radio").on('ifChecked', function () {
-            if($(this).attr('data-iscorrect') === 'true') {
-                // Correct
-                $(this).parent().parent().prepend('<i class="fa fa-check" style="color: green;"></i>');
-                $(this).parents('.ve-table').addClass('ve-correct');
-            } else {
-                // Wrong
-                //cloneExercise($this, 'multiple_choice', true);
-                $(this).parent().parent().prepend('<i class="fa fa-times" style="color: red;"></i>');
-                $(this).parents('.ve-table').addClass('ve-wrong');
-            }
-            $this.find("input:radio").iCheck('disable');
-        });
+        $this.find("input:radio").on('ifChecked', checkSolution);
     }
-    $this.find("input:radio").iCheck('enable');
+    if($this.find("[data-solved='true']").size() > 0) { // Just showing the solution
+        checkSolution.apply($this.find("input:radio:checked"));
+    } else {
+        $this.find("input:radio").iCheck('enable');
+    }
 };
 var initMatching = function($this) {
     var select2Options = {
@@ -253,8 +257,7 @@ var initMatching = function($this) {
     });
     // End constraints
     // Validation
-    if(!isEvaluationTest) {
-        $this.find('.matching-check').on('click', function() {
+    var checkSolution = function() {
         var $submit = $(this);
         var correct = true;
         $this.find('select.matching-token-input').each(function() {
@@ -278,7 +281,15 @@ var initMatching = function($this) {
             $submit.parents('.ve-table').addClass('ve-wrong');
         }
         $submit.hide();
-    });
+    };
+    if(!isEvaluationTest) {
+        $this.find('.matching-check').on('click', checkSolution);
+    }
+    if($this.find("[data-solved='true']").size() > 0) { // Just showing the solution
+        $this.find('select.matching-token-input[data-solved="true"]').each(function() {
+            $(this).select2('val', $(this).attr('data-solutionvalue').split(','));
+        });
+        checkSolution.apply($this.find('.matching-check'));
     }
     // End validation
 };
