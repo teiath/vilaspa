@@ -37,6 +37,7 @@ class SolvedAdmin extends Admin
             ->add('methodology')
             ->add('solution')
             ->add('result')
+            ->add('relatedConcepts')
         ;
         parent::configureFormFields($formMapper);
     }
@@ -62,6 +63,7 @@ class SolvedAdmin extends Admin
             ->add('methodology')
             ->add('solution')
             ->add('result')
+            ->add('relatedConcepts')
         ;
     }
 

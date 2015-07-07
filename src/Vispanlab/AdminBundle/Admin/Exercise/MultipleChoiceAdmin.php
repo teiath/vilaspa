@@ -40,6 +40,7 @@ class MultipleChoiceAdmin extends Admin
             ))
             ->add('correctAnswer', 'integer', array('help' => 'correct_answer_help'))
             ->add('showInEvaluationTest', 'choice', array('choices' => BaseExercise::getShowInEvaluationTestChoices()))
+            ->add('relatedConcepts')
         ;
         parent::configureFormFields($formMapper);
     }
@@ -62,6 +63,7 @@ class MultipleChoiceAdmin extends Admin
             ->add('question')
             ->add('answers', 'answers_array')
             ->add('showInEvaluationTest', 'choice', array('choices' => BaseExercise::getShowInEvaluationTestChoices()))
+            ->add('relatedConcepts')
         ;
     }
 

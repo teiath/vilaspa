@@ -45,6 +45,7 @@ class MatchingAdmin extends Admin
                 'allow_delete' => true,
             ))
             ->add('showInEvaluationTest', 'choice', array('choices' => BaseExercise::getShowInEvaluationTestChoices()))
+            ->add('relatedConcepts')
         ;
         parent::configureFormFields($formMapper);
     }
@@ -68,6 +69,7 @@ class MatchingAdmin extends Admin
             ->add('leftAnswers', 'matches_array')
             ->add('rightAnswers', 'answers_array')
             ->add('showInEvaluationTest', 'choice', array('choices' => BaseExercise::getShowInEvaluationTestChoices()))
+            ->add('relatedConcepts')
         ;
     }
 

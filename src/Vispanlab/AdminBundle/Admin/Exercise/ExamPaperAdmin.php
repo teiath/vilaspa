@@ -41,6 +41,7 @@ class ExamPaperAdmin extends Admin
                 'event_dispatcher'     => $formMapper->getFormBuilder()->getEventDispatcher(),
                 'listener'             => true,
             ))
+            ->add('relatedConcepts')
         ;
         parent::configureFormFields($formMapper);
     }
@@ -62,6 +63,7 @@ class ExamPaperAdmin extends Admin
             ->add('subjectarea')
             ->add('date')
             ->add('text')
+            ->add('relatedConcepts')
         ;
     }
 

@@ -40,6 +40,14 @@ abstract class BaseExercise {
     const SIMPLE_EXERCISE = 1;
     const EVALUATION_TEST_EXERCISE = 2;
     const BOTH_EXERCISE = 3;
+    /**
+     * @ORM\ManyToMany(targetEntity="Vispanlab\SiteBundle\Entity\Concept")
+     * @ORM\JoinTable(name="exercise_related_concepts",
+     *      joinColumns={@ORM\JoinColumn(name="exercise_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="concept_id", referencedColumnName="id")}
+     *      )
+     */
+    protected $relatedConcepts;
 
     public function getId() {
         return $this->id;
@@ -55,6 +63,14 @@ abstract class BaseExercise {
 
     public function setSubjectarea(SubjectArea $subjectarea) {
         $this->subjectarea = $subjectarea;
+    }
+
+    public function getRelatedConcepts() {
+        return $this->relatedConcepts;
+    }
+
+    public function setRelatedConcepts($relatedConcepts) {
+        $this->relatedConcepts = $relatedConcepts;
     }
 
     public static function getShowInEvaluationTestChoices() {

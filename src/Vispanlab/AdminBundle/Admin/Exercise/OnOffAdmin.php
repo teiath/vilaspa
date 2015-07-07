@@ -20,6 +20,7 @@ class OnOffAdmin extends MultipleChoiceAdmin
             ->add('question')
             ->add('correctAnswer', 'integer', array('help' => 'on_off_correct_answer_help'))
             ->add('showInEvaluationTest', 'choice', array('choices' => BaseExercise::getShowInEvaluationTestChoices()))
+            ->add('relatedConcepts')
         ;
     }
 }
