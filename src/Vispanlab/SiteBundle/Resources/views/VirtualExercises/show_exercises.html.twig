@@ -67,7 +67,7 @@
         {% for answer in (exercise.answers|shuffle) %}
             <li>
                 <div class="row">
-                    <div class="col-md-1"><input type="radio" id="mc-{{exercise.id}}-{{loop.index}}" name="mc-{{exercise.id}}" value="{{answer.answer}}" data-iscorrect="{{answer.is_correct is defined and answer.is_correct ? 'true' : 'false'}}" {% if solution == answer.answer %}checked="checked" data-solved="true"{% endif %} /></div><div class="col-md-11"><label style="font-weight: normal;" for="mc-{{exercise.id}}-{{loop.index}}">{{answer.answer|trans}}</label></div>
+                    <div class="col-md-1" style="position: relative;"><input type="radio" id="mc-{{exercise.id}}-{{loop.index}}" name="mc-{{exercise.id}}" value="{{answer.answer}}" data-iscorrect="{{answer.is_correct is defined and answer.is_correct ? 'true' : 'false'}}" {% if solution == answer.answer %}checked="checked" data-solved="true"{% endif %} /></div><div class="col-md-11"><label style="font-weight: normal;" for="mc-{{exercise.id}}-{{loop.index}}">{{answer.answer|trans}}</label></div>
                 </div>
             </li>
         {% endfor %}
@@ -215,12 +215,12 @@ var initMultipleChoice = function($this) {
     var checkSolution = function() {
         if($(this).attr('data-iscorrect') === 'true') {
             // Correct
-            $(this).parent().parent().prepend('<i class="fa fa-check" style="color: green;"></i>');
+            $(this).parent().parent().prepend('<i class="fa fa-check" style="color: green; position: absolute; z-index: 1000; right: 27px; top: 5px;"></i>');
             $(this).parents('.ve-table').addClass('ve-correct');
         } else {
             // Wrong
             //cloneExercise($this, 'multiple_choice', true);
-            $(this).parent().parent().prepend('<i class="fa fa-times" style="color: red;"></i>');
+            $(this).parent().parent().prepend('<i class="fa fa-times" style="color: red; position: absolute; z-index: 1000; right: 28px; top: 4px;"></i>');
             $(this).parents('.ve-table').addClass('ve-wrong');
         }
         $this.find("input:radio").iCheck('disable');
