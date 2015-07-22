@@ -87,6 +87,46 @@ class VirtualExercisesController extends Controller {
     }
 
     /**
+     * @Route("/ve_search/{aoe}", name="search_exercises")
+     * @ParamConverter("aoe", class="Vispanlab\SiteBundle\Entity\AreaOfExpertise", options={"repository_method" = "findOneByUrl"})
+     * @Secure(roles="ROLE_USER")
+     */
+    public function searchExercises(AreaOfExpertise $aoe) {
+        $exercises = $this->container->get('doctrine')->getManager()->createQuery(
+            'SELECT DISTINCT e
+            FROM Vispanlab\SiteBundle\Entity\Exercise\BaseExercise e
+            JOIN e.subjectarea sa
+            JOIN e.relatedConcepts r JOIN r.name n
+            WHERE sa.areaofexpertise = :aoe AND (n.text LIKE :q)'
+        )
+        ->setParameter('aoe', $aoe)
+        ->setParameter('q', $this->getRequest()->get('q'))
+        ->getResult();
+        // Filter by showInEvaluationTest
+        $exercises = array_filter($exercises, function($e) {
+            if(method_exists($e, 'getShowInEvaluationTest') && ($e->getShowInEvaluationTest() == BaseExercise::SIMPLE_EXERCISE || $e->getShowInEvaluationTest() == BaseExercise::BOTH_EXERCISE)) {
+                return true;
+            }
+            return false;
+        });
+        // Pagination
+        $paginator  = $this->get('knp_paginator');
+        $exercises = $paginator->paginate(
+            $exercises,
+            $this->getRequest()->query->getInt('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
+        // End pagination
+        return $this->render('VispanlabSiteBundle:VirtualExercises:show_exercises.html.twig', array(
+            'area_of_expertise' => $aoe,
+            'subject_area' => null,
+            'exercises' => $exercises,
+            'type' => 'SearchExercise',
+            'search_term' => $this->getRequest()->get('q'),
+        ));
+    }
+
+    /**
      * @Route("/ve_grade/{aoe}/{type}/{sa}", name="grade_exercises", defaults={"sa" = null})
      * @ParamConverter("aoe", class="Vispanlab\SiteBundle\Entity\AreaOfExpertise", options={"repository_method" = "findOneByUrl"})
      * @ParamConverter("sa", class="Vispanlab\SiteBundle\Entity\SubjectArea", options={"repository_method" = "findOneByUrl"})

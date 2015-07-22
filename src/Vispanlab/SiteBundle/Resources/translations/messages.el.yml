@@ -45,6 +45,8 @@ virtual_exercises:
   good: Πήγες Καλά
   average: Χρυσή μετριότητα
   try_harder: Προσπάθησε περισότερο
+  search_placeholder: Αναζήτηση Ασκήσεων
+  no_exercises: Δεν βρέθηκαν ασκήσεις
 
 # Admin
 Area Of Expertise List: Λίστα Γνωστικών Αντικειμένων

@@ -73,3 +73,16 @@
 {% import "VispanlabSiteBundle::base.html.twig" as baseMacros %}
 {{baseMacros.search_js_outside_library(area_of_expertise.sortedConcepts(app.request.locale))}}
 {% endblock %}
+
+{% block search_bar %}
+<form action="{{path('search_exercises', {'aoe': area_of_expertise.url})}}#" method="GET" class="sidebar-form concept-search-form" role="search">
+    <div class="input-group">
+        <input type="text" name="q" value="{{ app.request.get('q') }}" class="form-control" placeholder="{{ 'virtual_exercises.search_placeholder'|trans }}" data-provide="typeahead" autocomplete="off">
+            <span class="input-group-btn">
+                <button class="btn btn-flat" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+    </div>
+</form>
+{% endblock %}

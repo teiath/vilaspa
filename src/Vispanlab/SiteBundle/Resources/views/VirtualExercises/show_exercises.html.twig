@@ -1,4 +1,4 @@
-{% extends 'VispanlabSiteBundle::base.html.twig' %}
+{% extends 'VispanlabSiteBundle:VirtualExercises:virtual_exercises.html.twig' %}
 
 {% import _self as exercisestwig %}
 
@@ -12,19 +12,23 @@
     <div class="col-md-12">
         <h4 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)|raw|replace({'<BR />': ' '})|raw}}</h4>
         {% if subject_area != null %}<h4>{{subject_area.name(app.request.locale)}}</h4>{% endif %}
-        <h4>{{('virtual_exercises.'~type)|trans}}<hr style="margin-bottom: 10px;" /></h4>
+        {% if type != 'SearchExercise' %}<h4>{{('virtual_exercises.'~type)|trans}}<hr style="margin-bottom: 10px;" /></h4>{% endif %}
+        {% if search_term != null %}<h4>{{search_term}}<hr style="margin-bottom: 10px;" /></h4>{% endif %}
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
                 <form action="{{path('grade_exercises', {'aoe': area_of_expertise.url, 'type': type, 'sa': (subject_area != null ? subject_area.url : null)})}}" method="POST">
                     {% for exercise in (exercises|shuffle) %}
                         {{exercisestwig.displayExercise(exercise, type)}}
                     {% endfor %}
+                    {% if exercises|length <= 0 %}
+                        <h3>{{'virtual_exercises.no_exercises'|trans}}</h3>
+                    {% endif %}
                     {% if type == 'EvaluationTest' %}
                         <div style="clear: both;">
                             <input type="submit" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" />{#<br />
                             <small style="font-size: 75%;">{{'virtual_exercises.attention'|trans}}</small>#}
                         </div>
-                    {% else %}
+                    {% elseif type != 'SearchExercise' %}
                         <div style="clear: both;">
                             <a href="{{path(app.request.get('_route'), app.request.get('_route_params'))}}" class="btn btn-default">{{'virtual_exercises.refresh'|trans}}</a>
                         </div>
@@ -298,9 +302,4 @@ $(document).ready(function() {
     $('.matching').each(function() { initMatching($(this)); });
 });
 </script>
-{% endblock %}
-
-{% block search_js %}
-{% import "VispanlabSiteBundle::base.html.twig" as baseMacros %}
-{{baseMacros.search_js_outside_library(area_of_expertise.sortedConcepts(app.request.locale))}}
 {% endblock %}
