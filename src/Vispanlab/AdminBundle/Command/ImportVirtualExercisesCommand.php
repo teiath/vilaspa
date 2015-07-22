@@ -9,6 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 use Vispanlab\SiteBundle\Entity\Exercise\OnOff;
 use Vispanlab\SiteBundle\Entity\Exercise\MultipleChoice;
+use Vispanlab\SiteBundle\Entity\Exercise\Matching;
 
 class ImportVirtualExercisesCommand extends ContainerAwareCommand
 {
@@ -27,7 +28,7 @@ class ImportVirtualExercisesCommand extends ContainerAwareCommand
             'ignoreFirstLine' => true
         );
         // Σωστό/Λάθος
-        $xls = $this->parseCSV('C:\Users\Niral\Desktop\topografia\yliko\EEXA_01.07.2015,askPOLEO.xlsx', 0);
+        $xls = $this->parseCSV('C:\Users\Niral\Desktop\topografia\yliko\EEXA_21.07.2015,askPOLEO.xlsx', 0);
         $headersRow = $xls->getRowIterator(2)->current();
         $headers = $this->parseHeadersToArray($headersRow);
         foreach ($xls->getRowIterator(3) as $row) {
@@ -38,16 +39,16 @@ class ImportVirtualExercisesCommand extends ContainerAwareCommand
             ));
             if($exercise) { $output->writeln('Exercise '.$fields['ΕΡΩΤΗΣΗ'].' already exists. Skipping.'); continue; }
             $exercise = new OnOff();
-            if($fields['ΘΕΜΑΤΙΚΗ ΕΝΟΤΗΤΑ'] != null) {
-                $subjectArea = $this->getContainer()->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\SubjectArea')->findOneBy(array(
-                    'nameEl' => $fields['ΘΕΜΑΤΙΚΗ ΕΝΟΤΗΤΑ'],
-                ));
-                if(!$subjectArea) { throw new \Exception('Subject Area not found'); }
-            } else {
+            //if($fields['ΘΕΜΑΤΙΚΗ ΕΝΟΤΗΤΑ'] != null) {
+            //    $subjectArea = $this->getContainer()->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\SubjectArea')->findOneBy(array(
+            //        'nameEl' => $fields['ΘΕΜΑΤΙΚΗ ΕΝΟΤΗΤΑ'],
+            //    ));
+            //    if(!$subjectArea) { throw new \Exception('Subject Area not found'); }
+            //} else {
                 $subjectArea = $this->getContainer()->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\SubjectArea')->findOneBy(array(
                     'nameEl' => 'ΠΟΛΕΟΔΟΜΙΑ',
                 ));
-            }
+            //}
             $exercise->setSubjectarea($subjectArea);
             $exercise->setShowInEvaluationTest(3);
             $exercise->setQuestion($fields['ΕΡΩΤΗΣΗ']);
@@ -57,10 +58,10 @@ class ImportVirtualExercisesCommand extends ContainerAwareCommand
             $output->writeln('Added '.$fields['ΕΡΩΤΗΣΗ']);
         }
         // Πολλαπλής
-        $xls = $this->parseCSV('C:\Users\Niral\Desktop\topografia\yliko\EEXA_01.07.2015,askPOLEO.xlsx', 1);
-        $headersRow = $xls->getRowIterator(1)->current();
+        $xls = $this->parseCSV('C:\Users\Niral\Desktop\topografia\yliko\EEXA_21.07.2015,askPOLEO.xlsx', 2);
+        $headersRow = $xls->getColumnIterator('A')->current();
         $headers = $this->parseHeadersToArray($headersRow);
-        foreach ($xls->getRowIterator(2) as $row) {
+        foreach ($xls->getColumnIterator('B') as $row) {
             $fields = $this->parseRowToArray($row, $headers);
             if(!isset($fields['ΕΡΩΤΗΣΗ'])) { $output->writeln('Empty question. Skipping.'); continue; }
             $exercise = $this->getContainer()->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\Exercise\MultipleChoice')->findOneBy(array(
@@ -68,16 +69,16 @@ class ImportVirtualExercisesCommand extends ContainerAwareCommand
             ));
             if($exercise) { $output->writeln('Exercise '.$fields['ΕΡΩΤΗΣΗ'].' already exists. Skipping.'); continue; }
             $exercise = new MultipleChoice();
-            if($fields['ΘΕΜΑΤΙΚΗ ΕΝΟΤΗΤΑ'] != null) {
-                $subjectArea = $this->getContainer()->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\SubjectArea')->findOneBy(array(
-                    'nameEl' => $fields['ΘΕΜΑΤΙΚΗ ΕΝΟΤΗΤΑ'],
-                ));
-                if(!$subjectArea) { throw new \Exception('Subject Area not found'); }
-            } else {
+            //if($fields['ΘΕΜΑΤΙΚΗ ΕΝΟΤΗΤΑ'] != null) {
+            //    $subjectArea = $this->getContainer()->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\SubjectArea')->findOneBy(array(
+            //        'nameEl' => $fields['ΘΕΜΑΤΙΚΗ ΕΝΟΤΗΤΑ'],
+            //    ));
+            //    if(!$subjectArea) { throw new \Exception('Subject Area not found'); }
+            //} else {
                 $subjectArea = $this->getContainer()->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\SubjectArea')->findOneBy(array(
                     'nameEl' => 'ΠΟΛΕΟΔΟΜΙΑ',
                 ));
-            }
+            //}
             $exercise->setSubjectarea($subjectArea);
             $exercise->setShowInEvaluationTest(3);
             $exercise->setQuestion($fields['ΕΡΩΤΗΣΗ']);
@@ -91,6 +92,64 @@ class ImportVirtualExercisesCommand extends ContainerAwareCommand
             }
             $exercise->setAnswers($answers);
             $exercise->setCorrectAnswer($fields['ΣΩΣΤΗ ΑΠΑΝΤΗΣΗ']);
+            $this->getContainer()->get('doctrine')->getManager()->persist($exercise);
+            $this->getContainer()->get('doctrine')->getManager()->flush($exercise);
+            $output->writeln('Added '.$fields['ΕΡΩΤΗΣΗ']);
+        }
+        // Αντιστοίχισης
+        $xls = $this->parseCSV('C:\Users\Niral\Desktop\topografia\yliko\EEXA_21.07.2015,askPOLEO.xlsx', 3);
+        $headersRow = $xls->getRowIterator(2)->current();
+        $headers = $this->parseHeadersToArray($headersRow);
+        foreach ($xls->getRowIterator(3) as $row) {
+            $fields = $this->parseRowToArray($row, $headers);
+            if(!isset($fields['ΕΡΩΤΗΣΗ'])) { $output->writeln('Empty question. Skipping.'); continue; }
+            $exercise = $this->getContainer()->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\Exercise\Matching')->findOneBy(array(
+                'question' => $fields['ΕΡΩΤΗΣΗ'],
+            ));
+            if($exercise) { $output->writeln('Exercise '.$fields['ΕΡΩΤΗΣΗ'].' already exists. Skipping.'); continue; }
+            $exercise = new Matching();
+            //if($fields['ΘΕΜΑΤΙΚΗ ΕΝΟΤΗΤΑ'] != null) {
+            //    $subjectArea = $this->getContainer()->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\SubjectArea')->findOneBy(array(
+            //        'nameEl' => $fields['ΘΕΜΑΤΙΚΗ ΕΝΟΤΗΤΑ'],
+            //    ));
+            //    if(!$subjectArea) { throw new \Exception('Subject Area not found'); }
+            //} else {
+                $subjectArea = $this->getContainer()->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\SubjectArea')->findOneBy(array(
+                    'nameEl' => 'ΠΟΛΕΟΔΟΜΙΑ',
+                ));
+            //}
+            $exercise->setSubjectarea($subjectArea);
+            $exercise->setShowInEvaluationTest(3);
+            $exercise->setQuestion($fields['ΕΡΩΤΗΣΗ']);
+            // Matches
+            $matches = array();
+            $origMatches = explode(',', $fields['ΑΝΤΙΣΤΟΙΧΙΣΕΙΣ']);
+            $ordA = ord('A');
+            foreach($origMatches as $curMatch) {
+                $parts = explode('-', trim($curMatch));
+                $matches[trim($parts[0])] = ord(trim($parts[1]))-$ordA+1;
+            }
+            // Left
+            $answers = array();
+            for($i = 1; $i <= 5; $i++) {
+                if($fields['ΑΡΙΣΤΕΡΗ '.$i] != '') {
+                    $answers[] = array(
+                        'answer' => $fields['ΑΡΙΣΤΕΡΗ '.$i],
+                        'matches' => $matches[$i],
+                    );
+                }
+            }
+            $exercise->setLeftAnswers($answers);
+            // Right
+            $answers = array();
+            for($i = 'A'; $i <= 'E'; $i++) {
+                if($fields['ΔΕΞΙΑ '.$i] != '') {
+                    $answers[] = array(
+                        'answer' => $fields['ΔΕΞΙΑ '.$i],
+                    );
+                }
+            }
+            $exercise->setRightAnswers($answers);
             $this->getContainer()->get('doctrine')->getManager()->persist($exercise);
             $this->getContainer()->get('doctrine')->getManager()->flush($exercise);
             $output->writeln('Added '.$fields['ΕΡΩΤΗΣΗ']);
@@ -129,7 +188,7 @@ class ImportVirtualExercisesCommand extends ContainerAwareCommand
         ;
         foreach ($finder as $file) { $csv = $file; }
 
-        $phpExcelObject = $this->getContainer()->get('xls.load_xls2007')->load($csv->getRealPath());
+        $phpExcelObject = $this->getContainer()->get('phpexcel')->createPHPExcelObject($csv->getRealPath());
         $sheet = $phpExcelObject->getSheet($sheetNum);
         //$objReader = PHPExcel_IOFactory::createReader($inputFileType);
         return $sheet;
