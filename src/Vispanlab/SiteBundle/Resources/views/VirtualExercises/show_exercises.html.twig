@@ -239,8 +239,14 @@ var initMultipleChoice = function($this) {
     }
 };
 var initMatching = function($this) {
+    var maximumSelectionLength = 0;
+    if($this.find('.matching-right').size() > $this.find('.matching-left').size()) {
+        maximumSelectionLength = Math.ceil($this.find('.matching-right').size()/$this.find('.matching-left').size());
+    } else {
+        maximumSelectionLength = Math.ceil($this.find('.matching-left').size()/$this.find('.matching-right').size());
+    }
     var select2Options = {
-        maximumSelectionLength: Math.ceil($this.find('.matching-right').size()/$this.find('.matching-left').size())
+        maximumSelectionLength: maximumSelectionLength
     };
     $this.find('.matching-token-input').val('');
     $this.find('.matching-token-input').each(function() {
