@@ -240,10 +240,10 @@ var initMultipleChoice = function($this) {
 };
 var initMatching = function($this) {
     var maximumSelectionLength = 0;
-    if($this.find('.matching-right').size() > $this.find('.matching-left').size()) {
-        maximumSelectionLength = Math.ceil($this.find('.matching-right').size()/$this.find('.matching-left').size());
+    if($this.find('.matching-right > * > *').size() > $this.find('.matching-left > * > *').size()) {
+        maximumSelectionLength = Math.ceil($this.find('.matching-right > * > *').size()/$this.find('.matching-left > * > *').size());
     } else {
-        maximumSelectionLength = Math.ceil($this.find('.matching-right').size()/$this.find('.matching-left').size());
+        maximumSelectionLength = Math.ceil($this.find('.matching-right > * > *').size()/$this.find('.matching-left > * > *').size());
     }
     var select2Options = {
         maximumSelectionLength: maximumSelectionLength
@@ -255,7 +255,7 @@ var initMatching = function($this) {
         $(this).select2('enable');
     });
     // Constraints
-    if($this.find('.matching-right').size() >= $this.find('.matching-left').size()) {
+    if($this.find('.matching-right > * > *').size() >= $this.find('.matching-left > * > *').size()) {
         var $selects = $this.find('.matching-token-input');
         $selects.on('change', function(e) {
             var selectedValues = $(this).select2('val');
