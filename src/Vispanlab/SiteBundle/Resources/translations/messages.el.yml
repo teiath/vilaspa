@@ -35,8 +35,8 @@ virtual_exercises:
   MultipleChoice: Πολλαπλής Επιλογής
   OnOff: Σωστό / Λάθος
   Solved: Λυμένες Ασκήσεις
-  Matching: Αντιστοίχισης
-  ExamPaper: Παλαιά Θέματα
+  Matching: Ασκήσεις Αντιστοίχισης
+  ExamPaper: Μη Λυμένες Ασκήσεις
   EvaluationTest: Ασκήσεις Αξιολόγησης
   attention: "* επιβεβαιώστε ότι όλες οι επιλογές σας έχουν καταχωρηθεί και εμφανίζονται πριν πατήσετε έλεγχος"
   refresh: Ανανέωση Ερωτήσεων
@@ -100,7 +100,7 @@ Right Answers: Δεξί Μέρος
 ve_answer: Περιεχόμενο
 ve_matches: Αντιστοιχίσεις
 ve_check: Έλεγχος
-Exam Paper List: Λίστα Παλαιών Θεμάτων
+Exam Paper List: Λίστα Μη Λυμένων Ασκήσεων
 Date: Ημ/νία
 Previous: Προηγούμενο
 Next: Επόμενο

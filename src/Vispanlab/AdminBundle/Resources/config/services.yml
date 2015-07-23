@@ -70,14 +70,14 @@ services:
     matching.admin:
         class: Vispanlab\AdminBundle\Admin\Exercise\MatchingAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Αντιστοίχισης }
+            - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Ασκήσεις Αντιστοίχισης }
         arguments: [null, Vispanlab\SiteBundle\Entity\Exercise\Matching, SonataAdminBundle:CRUD]
         calls:
             - [ setSecurityContext, ["@security.context"] ]
     exam_paper.admin:
         class: Vispanlab\AdminBundle\Admin\Exercise\ExamPaperAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Παλαιά Θέματα }
+            - { name: sonata.admin, manager_type: orm, group: Εικονικές Ασκήσεις, label: Μη Λυμένες Ασκήσεις }
         arguments: [null, Vispanlab\SiteBundle\Entity\Exercise\ExamPaper, SonataAdminBundle:CRUD]
         calls:
             - [ setSecurityContext, ["@security.context"] ]

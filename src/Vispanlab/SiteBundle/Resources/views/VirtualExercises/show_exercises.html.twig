@@ -13,7 +13,7 @@
         <h4 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)|raw|replace({'<BR />': ' '})|raw}}</h4>
         {% if subject_area != null %}<h4>{{subject_area.name(app.request.locale)}}</h4>{% endif %}
         {% if type != 'SearchExercise' %}<h4>{{('virtual_exercises.'~type)|trans}}<hr style="margin-bottom: 10px;" /></h4>{% endif %}
-        {% if search_term != null %}<h4>{{search_term}}<hr style="margin-bottom: 10px;" /></h4>{% endif %}
+        {% if search_term is defined and search_term != null %}<h4>{{search_term}}<hr style="margin-bottom: 10px;" /></h4>{% endif %}
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
                 <form action="{{path('grade_exercises', {'aoe': area_of_expertise.url, 'type': type, 'sa': (subject_area != null ? subject_area.url : null)})}}" method="POST">
@@ -71,7 +71,7 @@
         {% for answer in (exercise.answers|shuffle) %}
             <li>
                 <div class="row">
-                    <div class="col-md-1" style="position: relative;"><input type="radio" id="mc-{{exercise.id}}-{{loop.index}}" name="mc-{{exercise.id}}" value="{{answer.answer}}" data-iscorrect="{{answer.is_correct is defined and answer.is_correct ? 'true' : 'false'}}" {% if solution == answer.answer %}checked="checked" data-solved="true"{% endif %} /></div><div class="col-md-11"><label style="font-weight: normal;" for="mc-{{exercise.id}}-{{loop.index}}">{{answer.answer|trans}}</label></div>
+                    <div class="col-md-1" style="position: relative;"><input type="radio" required id="mc-{{exercise.id}}-{{loop.index}}" name="mc-{{exercise.id}}" value="{{answer.answer}}" data-iscorrect="{{answer.is_correct is defined and answer.is_correct ? 'true' : 'false'}}" {% if solution == answer.answer %}checked="checked" data-solved="true"{% endif %} /></div><div class="col-md-11"><label style="font-weight: normal;" for="mc-{{exercise.id}}-{{loop.index}}">{{answer.answer|trans}}</label></div>
                 </div>
             </li>
         {% endfor %}
@@ -87,7 +87,7 @@
         <div class="row">
         {% for answer in exercise.answers %}
             <div class="col-md-6 text-center">
-                    <input type="radio" id="mc-{{exercise.id}}-{{loop.index}}" name="mc-{{exercise.id}}" value="{{answer.answer}}" data-iscorrect="{{answer.is_correct is defined and answer.is_correct ? 'true' : 'false'}}" {% if solution == answer.answer %}checked="checked" data-solved="true"{% endif %} /> <label style="font-weight: normal;" for="mc-{{exercise.id}}-{{loop.index}}">{{answer.answer|trans}}</label>
+                    <input type="radio" required id="mc-{{exercise.id}}-{{loop.index}}" name="mc-{{exercise.id}}" value="{{answer.answer}}" data-iscorrect="{{answer.is_correct is defined and answer.is_correct ? 'true' : 'false'}}" {% if solution == answer.answer %}checked="checked" data-solved="true"{% endif %} /> <label style="font-weight: normal;" for="mc-{{exercise.id}}-{{loop.index}}">{{answer.answer|trans}}</label>
             </div>
         {% endfor %}
         </div>
@@ -142,7 +142,7 @@
                             {{answer.answer}}
                         </div>
                         <div class="col-md-3">
-                            <select class="matching-token-input" multiple="multiple" name="mc-{{exercise.id}}[{{inc}}][]" data-matches="{{answer.matches}}" style="width: 100%;" {% if solution[inc] is defined %}data-solutionvalue="{{solution[inc]|join(',')}}" data-solved="true"{% endif %}>
+                            <select class="matching-token-input" required multiple="multiple" name="mc-{{exercise.id}}[{{inc}}][]" data-matches="{{answer.matches}}" style="width: 100%;" {% if solution[inc] is defined %}data-solutionvalue="{{solution[inc]|join(',')}}" data-solved="true"{% endif %}>
                                 {% for answer in exercise.rightAnswers %}
                                     <option value="{{loop.index}}">{{loop.index}}</option>
                                 {% endfor %}

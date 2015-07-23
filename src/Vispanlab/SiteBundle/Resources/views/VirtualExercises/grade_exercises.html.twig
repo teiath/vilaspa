@@ -32,6 +32,9 @@
                     {% for exercise in exercises %}
                         {{exercisestwig.displayExercise(exercise, type, app.request.get('mc-'~exercise.id))}}
                     {% endfor %}
+                    <div style="clear: both;">
+                        <a href="{{path('show_exercises', app.request.get('_route_params'))}}" class="btn btn-default">{{'virtual_exercises.refresh'|trans}}</a>
+                    </div>
                 </form>
             </div>
         </div>
