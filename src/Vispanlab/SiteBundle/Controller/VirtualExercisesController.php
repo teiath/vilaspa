@@ -100,7 +100,7 @@ class VirtualExercisesController extends Controller {
             WHERE sa.areaofexpertise = :aoe AND (n.text LIKE :q)'
         )
         ->setParameter('aoe', $aoe)
-        ->setParameter('q', $this->getRequest()->get('q'))
+        ->setParameter('q', '%'.$this->getRequest()->get('q').'%')
         ->getResult();
         // Filter by showInEvaluationTest
         $exercises = array_filter($exercises, function($e) {
