@@ -110,4 +110,15 @@ class MatchingAdmin extends Admin
         }
         return $proxyQuery;
     }
+
+    public function getExportFields()
+    {
+        return array(
+            'id',
+            'question' => 'question',
+            'leftAnswers' => 'getLeftAnswersCondensed',
+            'rightAnswers' => 'getRightAnswersCondensed',
+            'matches' => 'getMatchesCondensed',
+        );
+    }
 }

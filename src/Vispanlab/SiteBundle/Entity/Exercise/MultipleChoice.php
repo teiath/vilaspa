@@ -62,6 +62,10 @@ class MultipleChoice extends BaseExercise {
         $this->showInEvaluationTest = $showInEvaluationTest;
     }
 
+    public function getAnswersCondensed() {
+        return implode('<br style="mso-data-placement:same-cell;" />', array_map(function($a) { return (isset($a['is_correct']) && $a['is_correct'] == true ? '[x]': '').$a['answer']; }, $this->answers));
+    }
+
     public function isAnswerCorrect($answer) {
         foreach($this->getAnswers() as $curAnswer) {
             if($curAnswer['answer'] == $answer) {

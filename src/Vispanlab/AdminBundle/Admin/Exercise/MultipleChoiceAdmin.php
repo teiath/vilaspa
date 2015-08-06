@@ -104,4 +104,13 @@ class MultipleChoiceAdmin extends Admin
         }
         return $proxyQuery;
     }
+
+    public function getExportFields()
+    {
+        return array(
+            'id',
+            'question' => 'question',
+            'answers' => 'getAnswersCondensed',
+        );
+    }
 }

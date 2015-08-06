@@ -65,6 +65,23 @@ class Matching extends BaseExercise {
         $this->showInEvaluationTest = $showInEvaluationTest;
     }
 
+    public function getLeftAnswersCondensed() {
+        $i = 1;
+        return implode('<br style="mso-data-placement:same-cell;" />', array_map(function($a) use(&$i) { return ($i++).') '.$a['answer']; }, $this->leftAnswers));
+    }
+
+    public function getRightAnswersCondensed() {
+        $i = 'A';
+        return implode('<br style="mso-data-placement:same-cell;" />', array_map(function($a) use(&$i) { return ($i++).') '.$a['answer']; }, $this->rightAnswers));
+    }
+
+    public function getMatchesCondensed() {
+        $i = 1;
+        return implode('<br style="mso-data-placement:same-cell;" />', array_map(function($a) use(&$i) {
+            return ($i++).'->'.implode(',', array_map(function($m) { $j = 'A'; for($k = 1; $k < $m; $k++) { $j++; }; return $j; }, explode(',', $a['matches'])));
+        }, $this->leftAnswers));
+    }
+
     public function isAnswerCorrect($answer) {
         foreach($this->getLeftAnswers() as $inc => $curAnswer) {
             $correctMatches = explode(',', $curAnswer['matches']);
