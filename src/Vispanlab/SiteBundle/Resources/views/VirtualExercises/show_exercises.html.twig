@@ -91,7 +91,7 @@
             </div>
         {% endfor %}
         </div>
-        {% if exercise.relatedConcepts|length > 0 and type != 'EvaluationTest' %}<h5 class="text-center"><HR /><small>{{'virtual_exercises.see_library'|trans}}{% for concept in exercise.relatedConcepts %}<a href="{{path('concept', {'aoe': (concept.areasofexpertise|first).url, 'concept': concept.id})}}" target="_blank">{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}</a>{% if not loop.last %},{% endif %}{% endfor %}</small></h5>{% endif %}
+        {% if exercise.relatedConcepts|length > 0 and type != 'EvaluationTest' %}<h5 class="text-center"><HR /><small>{{'virtual_exercises.see_library'|trans}}{% for concept in exercise.relatedConcepts %}{% if concept.hasNameForLang(app.request.locale) %}<a href="{{path('concept', {'aoe': (concept.areasofexpertise|first).url, 'concept': concept.id})}}" target="_blank">{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}</a>{% endif %}{% if not loop.last %},{% endif %}{% endfor %}</small></h5>{% endif %}
     </div>
 {% endmacro %}
 
