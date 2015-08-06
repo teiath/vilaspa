@@ -7,7 +7,7 @@ common:
   admin_env_link: Admin Panel
   user_env_link: User Environment
   concept_library: Glossary
-  virtual_assignments: Virtual Assignments
+  virtual_assignments: Exercises
   user_guide: User Guide
   responsible: Head of Virtual Lab
   copyright: Reuse of the material is permitted only with reference to the source.
@@ -17,7 +17,7 @@ home:
   text1: You can navigate to the available areas of expertise by using the left-hand menu.
 
 concept_library:
-  heading: Library
+  heading: Glossary
   goto_concept: Go to
   search_placeholder: Search Concept
 
