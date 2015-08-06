@@ -6,7 +6,7 @@ common:
   civilian_register: Civilian Register
   admin_env_link: Admin Panel
   user_env_link: User Environment
-  concept_library: Library
+  concept_library: Glossary
   virtual_assignments: Virtual Assignments
   user_guide: User Guide
   responsible: Head of Virtual Lab
@@ -29,6 +29,24 @@ concept:
   COMMENTS: COMMENTS/EXAMPLE
   PREVIOUS: "PREVIOUS:"
   NEXT: "NEXT:"
+
+virtual_exercises:
+  heading: Exercises
+  MultipleChoice: Multiple Choice
+  OnOff: Right / Wrong
+  Solved: Solved Exercises
+  Matching: Matching Exercises
+  ExamPaper: Unsolved Exercises
+  EvaluationTest: Evaluation Test
+  attention: "* please ensure that all your choices have been entered and appear before pressing check"
+  refresh: Refresh Questions
+  see_library: "See glossary: "
+  congrats: Congratulations
+  good: Well done
+  average: Golden mediocrity
+  try_harder: Try harder
+  search_placeholder: Search Exercises
+  no_exercises: No exercises found
 
 # Admin
 Area Of Expertise List: Area of Expertise List
