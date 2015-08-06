@@ -242,6 +242,26 @@ class Concept {
         return $def;
     }
 
+    public function getNameCondensed() {
+        return strip_tags(implode('<br style="mso-data-placement:same-cell;" />', $this->getName()->map(function($d) { return $d->getLocale().':'.$d->getTextFormatted(); })->toArray()), '<br>');
+    }
+
+    public function getDefinitionCondensed() {
+        return strip_tags(implode('<br style="mso-data-placement:same-cell;" />', $this->getDefinition()->map(function($d) { return $d->getLocale().':'.$d->getTextFormatted(); })->toArray()), '<br>');
+    }
+
+    public function getAlternativeDefinitionsCondensed() {
+        return strip_tags(implode('<br style="mso-data-placement:same-cell;" />', $this->getAlternativeDefinitions()->map(function($d) { return $d->getLocale().':'.$d->getTextFormatted(); })->toArray()), '<br>');
+    }
+
+    public function getRelatedConceptsCondensed() {
+        return strip_tags(implode('<br style="mso-data-placement:same-cell;" />', $this->getRelatedConcepts()->map(function($d) { return $d->getLocale().':'.$d->getTextFormatted(); })->toArray()), '<br>');
+    }
+
+    public function getMediaCondensed() {
+        return implode('<br style="mso-data-placement:same-cell;" />', $this->getMedia()->map(function($d) { return $d->getLocale().':'.$d->getTextFormatted(); })->toArray());
+    }
+
     public function __toString() {
         if($this->getName()->count() <= 0 || $this->getNameForLang('el') == null) {
             return 'Νέα Έννοια';

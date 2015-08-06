@@ -1,4 +1,0 @@
-form:
-    name: "Όνομα:"
-    surname: "Επώνυμο:"
-    password_confirmation: "Επαλήθευση Κωδικού"

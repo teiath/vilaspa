@@ -135,4 +135,17 @@ class ConceptAdmin extends Admin
     public function preUpdate($recipe) {
         return $this->prePersist($recipe);
     }
+
+    public function getExportFields()
+    {
+        return array(
+            'id',
+            'name' => 'getNameCondensed',
+            'definition' => 'getDefinitionCondensed',
+            'alternativeDefinitions' => 'getAlternativeDefinitionsCondensed',
+            'relatedConcepts' => 'getRelatedConceptsCondensed',
+            'media' => 'getMediaCondensed',
+            'comments'
+        );
+    }
 }
