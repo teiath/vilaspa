@@ -3,7 +3,7 @@ common:
   areas_of_expertise: Areas of Expertise
   login: Login
   logout: Logout
-  civilian_register: Civilian Register
+  civilian_register: Civilian Registration
   admin_env_link: Admin Panel
   user_env_link: User Environment
   concept_library: Glossary
@@ -15,6 +15,10 @@ common:
 home:
   welcome: Welcome %user%
   text1: You can navigate to the available areas of expertise by using the left-hand menu.
+  # Not logged in
+  register: Register
+  register_with_tei: If you already have an account for TEI of Athens' electronic services (email, wifi, etc.) you can login directly using your account credentials.
+  register_without_tei: Otherwise you can register by clicking the button below.
 
 concept_library:
   heading: Glossary

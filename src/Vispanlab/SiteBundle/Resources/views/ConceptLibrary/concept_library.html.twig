@@ -12,13 +12,23 @@
         {% endif %}
         {% set curLetter = newLetter %}
     {% endfor %}
-    {% for newLetter in ['Α', 'Β', 'Γ', 'Δ', 'Ε', 'Ζ', 'Η', 'Θ', 'Ι', 'Κ', 'Λ', 'Μ', 'Ν', 'Ξ', 'Ο', 'Π', 'Ρ', 'Σ', 'Τ', 'Υ', 'Φ', 'Χ', 'Ψ', 'Ω'] %}
-        {% if newLetter in displayedLetters %}
-            <li class="alphabet-letter"><a href="#concept-glossary-letter-{{newLetter}}">{{newLetter}}</a></li>
-        {% else %}
-            <li class="alphabet-letter text-muted">{{newLetter}}</li>
-        {% endif %}
-    {% endfor %}
+    {% if app.request.locale == 'el' %}
+        {% for newLetter in ['Α', 'Β', 'Γ', 'Δ', 'Ε', 'Ζ', 'Η', 'Θ', 'Ι', 'Κ', 'Λ', 'Μ', 'Ν', 'Ξ', 'Ο', 'Π', 'Ρ', 'Σ', 'Τ', 'Υ', 'Φ', 'Χ', 'Ψ', 'Ω'] %}
+            {% if newLetter in displayedLetters %}
+                <li class="alphabet-letter"><a href="#concept-glossary-letter-{{newLetter}}">{{newLetter}}</a></li>
+            {% else %}
+                <li class="alphabet-letter text-muted">{{newLetter}}</li>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% for newLetter in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'] %}
+            {% if newLetter in displayedLetters %}
+                <li class="alphabet-letter"><a href="#concept-glossary-letter-{{newLetter}}">{{newLetter}}</a></li>
+            {% else %}
+                <li class="alphabet-letter text-muted">{{newLetter}}</li>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
     </ul>
     <hr style="margin-top: 10px;" />
 </div>
