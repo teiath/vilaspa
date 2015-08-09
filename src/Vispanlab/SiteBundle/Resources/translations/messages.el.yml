@@ -9,8 +9,8 @@ common:
   concept_library: Βιβλιοθήκη Εννοιών
   virtual_assignments: Ασκήσεις
   user_guide: Οδηγός Χρήσης
-  responsible: Υπεύθυνος Εικονικού Εργαστηρίου
-  copyright: Δεν επιτρέπεται επαναχρησιμοποίηση του υλικού χωρίς αναφορά στην πηγή.
+  funded_by: Με τη συγχρηματοδοτηση της Ελλαδας και της Ευρωπαικης Ενωσης
+  license: Το περιεχόμενο του παρόντος ιστοχώρου υπάγεται σε Άδεια Χρήσης Creative Commons Attribution 3.0
 
 home:
   welcome: Καλώς Όρισες %user%

@@ -9,8 +9,8 @@ common:
   concept_library: Glossary
   virtual_assignments: Exercises
   user_guide: User Guide
-  responsible: Head of Virtual Lab
-  copyright: Reuse of the material is permitted only with reference to the source.
+  funded_by: Co-financed by Greece and the European Union
+  license: This work is licensed under a Creative Commons Attribution 3.0 License
 
 home:
   welcome: Welcome %user%
