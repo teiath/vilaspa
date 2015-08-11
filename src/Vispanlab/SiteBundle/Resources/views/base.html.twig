@@ -73,22 +73,26 @@
 
 {% block sonata_admin_content %}
 {{parent()}}
-<div style="margin-left: 220px; position: absolute; bottom: 15px; left: 0px; text-align: center; border-top: 1px solid #ccc; width: 87%; padding-left: 15px; padding-right: 15px; padding-top: 5px;">
+<div style="margin-left: 220px; position: absolute; bottom: 15px; left: 0px; text-align: center; border-top: 1px solid #ccc; width: 87%; padding-left: 15px; padding-right: 15px; padding-top: 5px;" class="footer">
     <div class="row">
         <div class="col-md-3 pull-left">
-            <small>Υπεύθυνος Εικονικού Εργαστηρίου Χωρικής Ανάλυσης</small><BR />
-            <small><a href="mailto:kionas@teiath.gr">Γιάννης Κιουσόπουλος</a>,<BR /> Καθηγητής Σχολής Τεχνολογικών Εφαρμογών ΤΕΙ-Α</small><BR />
+            <small>Εικονικό Εργαστήριο Χωρικής Ανάλυσης</small><BR />
+            <small>Ιδέα-Υλοποίηση: <a href="mailto:kionas@teiath.gr">Γιάννης Κιουσόπουλος</a>, καθηγητής ΤΕΙ-Α</small><BR />
         </div>
-        <div class="col-md-3">
-            <div><img src="{{asset('img/espa_logo.png')}}" alt="ΕΣΠΑ logo" /></div>
-            <div><small>{{'common.funded_by'|trans}}</small></div>
-        </div>
-        <div class="col-md-3">
-            <a rel="license" href="http://creativecommons.org/licenses/by/3.0/gr/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/3.0/gr/88x31.png" /></a><small><br />{{'common.license'|trans}}</a></small>
+        <div class="col-md-6 very-small">
+            <div class="row">
+                <div class="col-md-5">
+                    <div><img src="{{asset('img/espa_logo.png')}}" alt="ΕΣΠΑ logo" style="height: 15px;" /></div>
+                    <div><small>{{'common.funded_by'|trans}}</small></div>
+                </div>
+                <div class="col-md-7">
+                    <a rel="license" href="http://creativecommons.org/licenses/by/3.0/gr/"><img alt="Creative Commons License" style="border-width:0; height: 15px;" src="https://i.creativecommons.org/l/by/3.0/gr/88x31.png" /></a><small><br />{{'common.license'|trans}}</a></small>
+                </div>
+            </div>
         </div>
         <div class="col-md-3 pull-right">
-            <small>Director of Virtual Spatial Analysis Lab</small><BR />
-            <small><a href="mailto:kionas@teiath.gr">John Kiousopoulos</a>,<BR /> Professor, Faculty of Technological Applications TEI-A</small><BR />
+            <small>Spatial Analysis Virtual Lab</small><BR />
+            <small>Concept-Development: <a href="mailto:kionas@teiath.gr">John Kiousopoulos</a>, professor TEI-A</small><BR />
         </div>
     </div>
 </div>
