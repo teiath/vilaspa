@@ -33,6 +33,10 @@ h6,
     width: 100%;
 }
 
+.content {
+    padding-bottom: 100px;
+}
+
 /* Concept Search */
 .slimScrollDiv {
     overflow: visible !important;
