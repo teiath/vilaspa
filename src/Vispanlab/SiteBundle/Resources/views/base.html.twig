@@ -2,19 +2,6 @@
 
 {% block sonata_head_title %}{% block title %}Εικονικό Εργαστήριο Χωρικής Ανάλυσης{% endblock %}{% endblock %}
 
-{% block logo %}
-    {% spaceless %}
-    <a class="logo" href="{{ url('home') }}">
-        {% if 'single_image' == admin_pool.getOption('title_mode') or 'both' == admin_pool.getOption('title_mode') %}
-            <img src="{{ asset(admin_pool.titlelogo) }}" alt="{{ admin_pool.title }}">
-        {% endif %}
-        {% if 'single_text' == admin_pool.getOption('title_mode') or 'both' == admin_pool.getOption('title_mode') %}
-            <span style="font-size: 70%;">{{ admin_pool.title }}<br /><small style="font-size: 75%;">{{'common.title'|trans|raw}}</small></span>
-        {% endif %}
-    </a>
-    {% endspaceless %}
-{% endblock %}
-
 {% block sonata_breadcrumb %}
     <ol class="nav navbar-top-links breadcrumb hidden-xs">
         {%- for  menu in cnerta_breadcrumb_get('sidebar') %}
@@ -73,7 +60,7 @@
 
 {% block sonata_admin_content %}
 {{parent()}}
-<div style="margin-left: 220px; position: absolute; bottom: 15px; left: 0px; text-align: center; border-top: 1px solid #ccc; width: 87%; padding-left: 15px; padding-right: 15px; padding-top: 5px;" class="footer">
+<div style="position: absolute; bottom: 15px; left: 0px; text-align: center; border-top: 1px solid #ccc; width: 87%; padding-left: 15px; padding-right: 15px; padding-top: 5px;" class="footer">
     <div class="row">
         <div class="col-md-3 pull-left">
             <small>Εικονικό Εργαστήριο Χωρικής Ανάλυσης</small><BR />
