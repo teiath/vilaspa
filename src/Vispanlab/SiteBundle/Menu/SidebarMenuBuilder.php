@@ -63,6 +63,7 @@ class SidebarMenuBuilder
     public function createBottomMenu(Request $request)
     {
         $menu = $this->factory->createItem('root');
+        $menu->addChild('common.user_guide', array('uri' => '#docs', 'attributes' => array('class' => 'home')));
         if($this->securityContext->isGranted('ROLE_ADMIN') || $this->securityContext->isGranted('ROLE_AREA_ADMIN')) {
             if(strpos($request->getRequestUri(), 'admin') === false) {
                 $menu->addChild('common.admin_env_link', array('route' => 'sonata_admin_dashboard', 'attributes' => array('class' => 'home')));
