@@ -40,6 +40,10 @@ class AreaOfExpertise {
      * @ORM\OneToMany(targetEntity="SubjectArea", mappedBy="areaofexpertise")
      */
     protected $subjectAreas;
+    /**
+     * @ORM\Column (name="under_construction", type="boolean")
+     */
+    protected $underConstruction = false;
 
     public function __construct() {
         $this->concepts = new ArrayCollection();
@@ -133,6 +137,14 @@ class AreaOfExpertise {
             }
         }
         return $result;
+    }
+
+    function getUnderConstruction() {
+        return $this->underConstruction;
+    }
+
+    function setUnderConstruction($underConstruction) {
+        $this->underConstruction = $underConstruction;
     }
 
     function stripGrAccent($tempName)

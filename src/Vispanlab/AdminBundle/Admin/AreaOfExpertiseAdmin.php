@@ -31,6 +31,7 @@ class AreaOfExpertiseAdmin extends Admin
             ->add('url', null, array('help' => 'url_help'))
             ->add('nameEl')
             ->add('nameEn')
+            ->add('underConstruction', null, array('required' => false))
         ;
         parent::configureFormFields($formMapper);
     }

@@ -8,13 +8,14 @@ common:
   user_env_link: User Environment
   concept_library: Glossary
   virtual_assignments: Exercises
+  under_construction: Under Construction
   user_guide: User Guide
   funded_by: Co-financed by Greece and the European Union
   license: This work is licensed under a Creative Commons Attribution 3.0 License
 
 home:
   welcome: Welcome %user%
-  text1: You can navigate to the available areas of expertise by using the left-hand menu.
+  text1: You can navigate to the available fields of knowledge by using the left-hand menu.
   # Not logged in
   register: Register
   register_with_tei: If you already have an account for TEI of Athens' electronic services (email, wifi, etc.) you can login directly using your account credentials.

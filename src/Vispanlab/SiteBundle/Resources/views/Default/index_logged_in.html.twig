@@ -3,9 +3,9 @@
 {% block content %}
 <div class="row text-center index-logged-in">
     <div class="col-md-12" style="position: relative;">
-        <img src="{{asset('img/tei_logo_background.gif')}}" alt="TEI Logo" style="opacity: 0.1; position: absolute; margin-left: -150px;" />
+        <img src="{{asset('img/tei_logo_background.gif')}}" alt="TEI Logo" style="opacity: 0.1; position: absolute; margin-left: -150px; top: 150px;" />
         <h2>{{'home.welcome'|trans({'%user%': app.user.name})}}</h2>
-        <p>{{'home.text1'|trans}}</p>
+        <p style="margin-top: 30px;">{{'home.text1'|trans}}</p>
     </div>
 </div>
 {% endblock %}

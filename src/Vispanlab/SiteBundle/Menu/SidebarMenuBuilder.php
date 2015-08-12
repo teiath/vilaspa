@@ -32,18 +32,22 @@ class SidebarMenuBuilder
 
         foreach($areasofexpertise as $curArea) {
             $areaMenu = $menu->addChild($curArea->getName($request->getLocale()), array('uri' => '#', 'attributes' => array('class' => 'home')));
-            $libraryMenu = $areaMenu->addChild('common.concept_library', array('route' => 'concept_library', 'routeParameters' => array('aoe' => $curArea->getUrl()), 'attributes' => array('class' => 'home')));
-            foreach($curArea->getConcepts($request->getLocale()) as $curConcept) {
-                $libraryMenu->addChild($curConcept->getNameForLang($request->getLocale())->getText_formatted(), array('route' => 'concept', 'routeParameters' => array('aoe' => $curArea->getUrl(), 'concept' => $curConcept->getId()), 'attributes' => array('class' => 'home')));
-            }
-            $veMenu = $areaMenu->addChild('common.virtual_assignments', array('route' => 'virtual_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl()), 'attributes' => array('class' => 'home')));
-            $exerciseTypes = array('MultipleChoice', 'OnOff', 'Solved', 'Matching', 'ExamPaper', 'EvaluationTest');
-            foreach($exerciseTypes as $curExerciseType) {
-                $veMenu->addChild($curExerciseType.'null_subject_area', array('label' => 'virtual_exercises.'.$curExerciseType, 'route' => 'show_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl(), 'type' => $curExerciseType), 'attributes' => array('class' => 'home')));
-            }
-            foreach($curArea->getSubjectAreas($request->getLocale()) as $curSubjectArea) {
+            if($curArea->getUnderConstruction() == true) {
+                $areaMenu->addChild('common.under_construction', array('route' => 'home', 'attributes' => array('class' => 'home under_construction')));
+            } else {
+                $libraryMenu = $areaMenu->addChild('common.concept_library', array('route' => 'concept_library', 'routeParameters' => array('aoe' => $curArea->getUrl()), 'attributes' => array('class' => 'home')));
+                foreach($curArea->getConcepts($request->getLocale()) as $curConcept) {
+                    $libraryMenu->addChild($curConcept->getNameForLang($request->getLocale())->getText_formatted(), array('route' => 'concept', 'routeParameters' => array('aoe' => $curArea->getUrl(), 'concept' => $curConcept->getId()), 'attributes' => array('class' => 'home')));
+                }
+                $veMenu = $areaMenu->addChild('common.virtual_assignments', array('route' => 'virtual_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl()), 'attributes' => array('class' => 'home')));
+                $exerciseTypes = array('MultipleChoice', 'OnOff', 'Solved', 'Matching', 'ExamPaper', 'EvaluationTest');
                 foreach($exerciseTypes as $curExerciseType) {
-                    $veMenu->addChild($curExerciseType.$curSubjectArea->getUrl(), array('label' => 'virtual_exercises.'.$curExerciseType, 'route' => 'show_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl(), 'sa' => $curSubjectArea->getUrl(), 'type' => $curExerciseType), 'attributes' => array('class' => 'home')));
+                    $veMenu->addChild($curExerciseType.'null_subject_area', array('label' => 'virtual_exercises.'.$curExerciseType, 'route' => 'show_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl(), 'type' => $curExerciseType), 'attributes' => array('class' => 'home')));
+                }
+                foreach($curArea->getSubjectAreas($request->getLocale()) as $curSubjectArea) {
+                    foreach($exerciseTypes as $curExerciseType) {
+                        $veMenu->addChild($curExerciseType.$curSubjectArea->getUrl(), array('label' => 'virtual_exercises.'.$curExerciseType, 'route' => 'show_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl(), 'sa' => $curSubjectArea->getUrl(), 'type' => $curExerciseType), 'attributes' => array('class' => 'home')));
+                    }
                 }
             }
         }
