@@ -145,3 +145,9 @@ h6,
 .ve-wrong .icheckbox_minimal, .ve-wrong .iradio_minimal {
     background-color: lightpink;
 }
+
+.solved h4.expand-link {
+    font-weight: bold;
+    color: #3C8DBC;
+    cursor: pointer;
+}

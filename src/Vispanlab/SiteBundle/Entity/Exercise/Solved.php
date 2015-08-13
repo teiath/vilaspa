@@ -17,11 +17,11 @@ class Solved extends BaseExercise {
      */
     protected $question;
     /**
-     * @ORM\Column (name="data", type="string", length=255)
+     * @ORM\Column (name="data", type="text")
      */
     protected $data;
     /**
-     * @ORM\Column (name="requested", type="string", length=255)
+     * @ORM\Column (name="requested", type="text")
      */
     protected $requested;
     /**
@@ -37,7 +37,7 @@ class Solved extends BaseExercise {
      */
     protected $solution;
     /**
-     * @ORM\Column (name="result", type="string", length=255)
+     * @ORM\Column (name="result", type="text")
      */
     protected $result;
 

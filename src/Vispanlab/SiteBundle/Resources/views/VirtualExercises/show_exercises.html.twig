@@ -52,12 +52,10 @@
             {{exercisestwig.displayMultipleChoice(exercise, type, solution)}}
         {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\OnOff' %}
             {{exercisestwig.displayOnOff(exercise, type, solution)}}
-        {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Solved' %}
+        {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Solved' or (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Unsolved' %}
             {{exercisestwig.displaySolved(exercise, type, solution)}}
         {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Matching' %}
             {{exercisestwig.displayMatching(exercise, type, solution)}}
-        {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Unsolved' %}
-            {{exercisestwig.displayUnsolved(exercise, type, solution)}}
         {% endif %}
         </td></tr>
     </table>
@@ -96,35 +94,54 @@
 {% endmacro %}
 
 {% macro displaySolved(exercise, type, solution) %}
-    <div class="solved">
+    <div class="solved text-center">
         <div>
-            <h4 class="text-center">{{exercise.question}}</h4>
+            <h4 class="text-center">{{'Goal'|trans}}</h4>
+            <p>{{exercise.goal|nl2br}}</p>
         </div>
         <hr />
         <div>
-            <h4 class="text-center">{{'Data'|trans}}</h4>
-            {{exercise.data}}
+            <h4 class="text-center">{{'Exercise'|trans}}</h4>
+            <p>{{exercise.question|nl2br}}</p>
         </div>
         <hr />
         <div>
-            <h4 class="text-center">{{'Requested'|trans}}</h4>
-            {{exercise.requested}}
+            <h4 class="text-center expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_data">{{'Data'|trans}}</h4>
+            <p class="collapse" id="e_{{exercise.id}}_data">{{exercise.data|nl2br}}</p>
+            <div data-toggle="collapse" data-target="#e_{{exercise.id}}_data" class="text-center collapse-arrows-wrapper"><i class="fa fa-angle-double-down"></i></div>
         </div>
         <hr />
         <div>
-            <h4 class="text-center">{{'Methodology'|trans}}</h4>
-            {{exercise.methodology}}
+            <h4 class="text-center expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_requested">{{'Requested'|trans}}</h4>
+            <p class="collapse" id="e_{{exercise.id}}_requested">{{exercise.requested|nl2br}}</p>
+            <div data-toggle="collapse" data-target="#e_{{exercise.id}}_requested" class="text-center collapse-arrows-wrapper"><i class="fa fa-angle-double-down"></i></div>
+        </div>
+        {% if (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Solved' %}
+        <hr />
+        <div>
+            <h4 class="text-center expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_methodology">{{'Methodology'|trans}}</h4>
+            <p class="collapse" id="e_{{exercise.id}}_methodology">{{exercise.methodology|nl2br}}</p>
+            <div data-toggle="collapse" data-target="#e_{{exercise.id}}_methodology" class="text-center collapse-arrows-wrapper"><i class="fa fa-angle-double-down"></i></div>
         </div>
         <hr />
         <div>
-            <h4 class="text-center">{{'Solution'|trans}}</h4>
-            {{exercise.solution}}
+            <h4 class="text-center expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_algorithm">{{'Algorithm'|trans}}</h4>
+            <p class="collapse" id="e_{{exercise.id}}_algorithm">{{exercise.algorithm|nl2br}}</p>
+            <div data-toggle="collapse" data-target="#e_{{exercise.id}}_algorithm" class="text-center collapse-arrows-wrapper"><i class="fa fa-angle-double-down"></i></div>
         </div>
         <hr />
         <div>
-            <h4 class="text-center">{{'Result'|trans}}</h4>
-            {{exercise.result}}
+            <h4 class="text-center expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_solution">{{'Solution'|trans}}</h4>
+            <p class="collapse" id="e_{{exercise.id}}_solution">{{exercise.solution|nl2br}}</p>
+            <div data-toggle="collapse" data-target="#e_{{exercise.id}}_solution" class="text-center collapse-arrows-wrapper"><i class="fa fa-angle-double-down"></i></div>
         </div>
+        <hr />
+        <div>
+            <h4 class="text-center expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_result">{{'Result'|trans}}</h4>
+            <p class="collapse" id="e_{{exercise.id}}_result">{{exercise.result|nl2br}}</p>
+            <div data-toggle="collapse" data-target="#e_{{exercise.id}}_result" class="text-center collapse-arrows-wrapper"><i class="fa fa-angle-double-down"></i></div>
+        </div>
+        {% endif %}
         {% if exercise.relatedConcepts|length > 0 and type != 'EvaluationTest' %}<h5 class="text-center"><HR /><small>{{'virtual_exercises.see_library'|trans}}{% for concept in exercise.relatedConcepts %}<a href="{{path('concept', {'aoe': (concept.areasofexpertise|first).url, 'concept': concept.id})}}" target="_blank">{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}</a>{% if not loop.last %},{% endif %}{% endfor %}</small></h5>{% endif %}
     </div>
 {% endmacro %}
@@ -169,19 +186,10 @@
     </div>
 {% endmacro %}
 
-{% macro displayUnsolved(exercise, type, solution) %}
-    <div class="exam-paper">
-        {#<h4 class="text-center">{{exercise.date|format_date()}}</h4>
-        <hr />#}
-        <div>
-        {{exercise.textFormatted|format_text(exercise.format_type)|raw}}
-        </div>
-        {% if exercise.relatedConcepts|length > 0 and type != 'EvaluationTest' %}<h5 class="text-center"><HR /><small>{{'virtual_exercises.see_library'|trans}}{% for concept in exercise.relatedConcepts %}<a href="{{path('concept', {'aoe': (concept.areasofexpertise|first).url, 'concept': concept.id})}}" target="_blank">{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}</a>{% if not loop.last %},{% endif %}{% endfor %}</small></h5>{% endif %}
-    </div>
-{% endmacro %}
-
 {% block javascripts %}
 {{parent()}}
+<script src="{{asset('bundles/sonataadmin/vendor/bootstrap/js/transition.js')}}"></script>
+<script src="{{asset('bundles/sonataadmin/vendor/bootstrap/js/collapse.js')}}"></script>
 <script type="text/javascript">
 var isEvaluationTest = {{type == 'EvaluationTest' ? 'true' : 'false'}};
 var arr_diff = function(a1, a2) {
@@ -299,9 +307,20 @@ var initMatching = function($this) {
     }
     // End validation
 };
+var initSolved = function($this) {
+    $this.find('.collapse').on('hide.bs.collapse', function (e) {
+        $(this).parent().find('.collapse-arrows-wrapper i').removeClass('fa-angle-double-up');
+        $(this).parent().find('.collapse-arrows-wrapper i').addClass('fa-angle-double-down');
+    });
+    $this.find('.collapse').on('show.bs.collapse', function (e) {
+        $(this).parent().find('.collapse-arrows-wrapper i').removeClass('fa-angle-double-down');
+        $(this).parent().find('.collapse-arrows-wrapper i').addClass('fa-angle-double-up');
+    });
+};
 $(document).ready(function() {
     $('.multiple-choice').each(function() { initMultipleChoice($(this)); });
     $('.matching').each(function() { initMatching($(this)); });
+    $('.solved').each(function() { initSolved($(this)); });
 });
 </script>
 {% endblock %}

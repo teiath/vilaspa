@@ -60,7 +60,7 @@ class VirtualExercisesController extends Controller {
         // Filter by showInEvaluationTest
         $exercises = array_filter($exercises, function($e) use ($type) {
             if($type != 'EvaluationTest') {
-                if(method_exists($e, 'getShowInEvaluationTest') && ($e->getShowInEvaluationTest() == BaseExercise::SIMPLE_EXERCISE || $e->getShowInEvaluationTest() == BaseExercise::BOTH_EXERCISE)) {
+                if(!method_exists($e, 'getShowInEvaluationTest') || ($e->getShowInEvaluationTest() == BaseExercise::SIMPLE_EXERCISE || $e->getShowInEvaluationTest() == BaseExercise::BOTH_EXERCISE)) {
                     return true;
                 }
             } else {
