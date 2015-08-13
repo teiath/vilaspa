@@ -40,7 +40,7 @@ class SidebarMenuBuilder
                     $libraryMenu->addChild($curConcept->getNameForLang($request->getLocale())->getText_formatted(), array('route' => 'concept', 'routeParameters' => array('aoe' => $curArea->getUrl(), 'concept' => $curConcept->getId()), 'attributes' => array('class' => 'home')));
                 }
                 $veMenu = $areaMenu->addChild('common.virtual_assignments', array('route' => 'virtual_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl()), 'attributes' => array('class' => 'home')));
-                $exerciseTypes = array('MultipleChoice', 'OnOff', 'Solved', 'Matching', 'ExamPaper', 'EvaluationTest');
+                $exerciseTypes = array('MultipleChoice', 'OnOff', 'Solved', 'Matching', 'Unsolved', 'EvaluationTest');
                 foreach($exerciseTypes as $curExerciseType) {
                     $veMenu->addChild($curExerciseType.'null_subject_area', array('label' => 'virtual_exercises.'.$curExerciseType, 'route' => 'show_exercises', 'routeParameters' => array('aoe' => $curArea->getUrl(), 'type' => $curExerciseType), 'attributes' => array('class' => 'home')));
                 }

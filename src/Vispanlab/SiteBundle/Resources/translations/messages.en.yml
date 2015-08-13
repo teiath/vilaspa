@@ -41,7 +41,7 @@ virtual_exercises:
   OnOff: Right / Wrong
   Solved: Solved Exercises
   Matching: Matching Exercises
-  ExamPaper: Unsolved Exercises
+  Unsolved: Unsolved Exercises
   EvaluationTest: Evaluation Test
   attention: "* please ensure that all your choices have been entered and appear before pressing check"
   refresh: Refresh Questions

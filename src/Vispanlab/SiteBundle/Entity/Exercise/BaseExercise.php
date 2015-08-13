@@ -19,7 +19,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  *  "on_off" = "OnOff",
  *  "solved" = "Solved",
  *  "matching" = "Matching",
- *  "exam_paper" = "ExamPaper"
+ *  "unsolved" = "Unsolved"
  * })
  */
 abstract class BaseExercise {
@@ -48,6 +48,10 @@ abstract class BaseExercise {
      *      )
      */
     protected $relatedConcepts;
+
+    public function __construct() {
+        $this->relatedConcepts = new ArrayCollection();
+    }
 
     public function getId() {
         return $this->id;

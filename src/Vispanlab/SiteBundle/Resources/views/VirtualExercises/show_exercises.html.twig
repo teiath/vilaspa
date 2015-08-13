@@ -56,8 +56,8 @@
             {{exercisestwig.displaySolved(exercise, type, solution)}}
         {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Matching' %}
             {{exercisestwig.displayMatching(exercise, type, solution)}}
-        {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\ExamPaper' %}
-            {{exercisestwig.displayExamPaper(exercise, type, solution)}}
+        {% elseif (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Unsolved' %}
+            {{exercisestwig.displayUnsolved(exercise, type, solution)}}
         {% endif %}
         </td></tr>
     </table>
@@ -169,7 +169,7 @@
     </div>
 {% endmacro %}
 
-{% macro displayExamPaper(exercise, type, solution) %}
+{% macro displayUnsolved(exercise, type, solution) %}
     <div class="exam-paper">
         {#<h4 class="text-center">{{exercise.date|format_date()}}</h4>
         <hr />#}

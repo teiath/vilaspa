@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class ExamPaperAdmin extends Admin
+class UnsolvedAdmin extends Admin
 {
     protected $datagridValues = array(
         '_sort_order' => 'DESC', // Descendant ordering (default = 'ASC')
@@ -31,16 +31,9 @@ class ExamPaperAdmin extends Admin
     {
         $formMapper
             ->add('subjectarea', null, array('required' => true, 'group_by' => 'areaofexpertise',))
-            ->add('date', null, array('required' => true))
-            ->add('text', 'sonata_formatter_type', array(
-                'source_field'         => 'text',
-                'source_field_options' => array('attr' => array('class' => 'span10', 'rows' => 20)),
-                'format_field'         => 'format_type',
-                'target_field'         => 'text_formatted',
-                'ckeditor_context'     => 'default',
-                'event_dispatcher'     => $formMapper->getFormBuilder()->getEventDispatcher(),
-                'listener'             => true,
-            ))
+            ->add('question')
+            ->add('data')
+            ->add('requested')
             ->add('relatedConcepts')
         ;
         parent::configureFormFields($formMapper);
@@ -61,8 +54,9 @@ class ExamPaperAdmin extends Admin
             )))
             ->addIdentifier('id')
             ->add('subjectarea')
-            ->add('date')
-            ->add('text')
+            ->add('question')
+            ->add('data')
+            ->add('requested')
             ->add('relatedConcepts')
         ;
     }
@@ -75,7 +69,6 @@ class ExamPaperAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('date')
             ->add('subjectarea')
         ;
         parent::configureDatagridFilters($datagridMapper);

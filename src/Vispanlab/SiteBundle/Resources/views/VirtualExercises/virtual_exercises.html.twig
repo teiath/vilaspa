@@ -47,10 +47,10 @@
                 </td>
             </tr>
             <tr class="info">
-                <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'ExamPaper', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.ExamPaper'|trans}}</a>
-                {% if (area_of_expertise.getSubjectAreasWithExerciseType('ExamPaper')|length) > 1 %}
-                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('ExamPaper') %}
-                        <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'ExamPaper', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
+                <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'Unsolved', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.Unsolved'|trans}}</a>
+                {% if (area_of_expertise.getSubjectAreasWithExerciseType('Unsolved')|length) > 1 %}
+                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('Unsolved') %}
+                        <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'Unsolved', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
                     {% endfor %}
                 {% endif %}
                 </td>
