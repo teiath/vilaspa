@@ -31,6 +31,7 @@ class UnsolvedAdmin extends Admin
     {
         $formMapper
             ->add('subjectarea', null, array('required' => true, 'group_by' => 'areaofexpertise',))
+            ->add('goal')
             ->add('question')
             ->add('data')
             ->add('requested')
@@ -54,6 +55,7 @@ class UnsolvedAdmin extends Admin
             )))
             ->addIdentifier('id')
             ->add('subjectarea')
+            ->add('goal')
             ->add('question')
             ->add('data')
             ->add('requested')
