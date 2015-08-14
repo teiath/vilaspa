@@ -53,6 +53,10 @@ h6,
     margin-top: 10px;
 }
 
+.under-construction {
+    
+}
+
 /* Concept Search */
 .slimScrollDiv {
     overflow: visible !important;
@@ -64,6 +68,10 @@ h6,
 
 .skin-black .sidebar .dropdown-menu a {
     color: #333;
+}
+
+.skin-black .sidebar-form input[type="text"] {
+    color: #fff;
 }
 
 /*.concept-glossary {
@@ -101,6 +109,11 @@ h6,
     padding-top: 15px;
     margin-left: 0;
     margin-right: 0;
+}
+
+.skin-black .concept-search-form .input-group {
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
 }
 /* End Concept Search */
 
@@ -150,4 +163,8 @@ h6,
     font-weight: bold;
     color: #3C8DBC;
     cursor: pointer;
+}
+
+.iradio_minimal {
+  background-position: -120px 0;
 }

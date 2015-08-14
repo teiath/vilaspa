@@ -27,14 +27,12 @@ class SidebarMenuBuilder
 
     public function createSideMenu(Request $request)
     {
-        $areasofexpertise = $this->em->getRepository('Vispanlab\SiteBundle\Entity\AreaOfExpertise')->findAll();
+        $areasofexpertise = $this->em->getRepository('Vispanlab\SiteBundle\Entity\AreaOfExpertise')->findBy(array(), array('sortOrder' => 'ASC', 'id' => 'ASC'));
         $menu = $this->factory->createItem('root');
 
         foreach($areasofexpertise as $curArea) {
-            $areaMenu = $menu->addChild($curArea->getName($request->getLocale()), array('uri' => '#', 'attributes' => array('class' => 'home')));
-            if($curArea->getUnderConstruction() == true) {
-                $areaMenu->addChild('common.under_construction', array('route' => 'home', 'attributes' => array('class' => 'home under_construction')));
-            } else {
+            $areaMenu = $menu->addChild($curArea->getName($request->getLocale()), array('uri' => '#', 'attributes' => array('class' => 'home', 'under_construction' => $curArea->getUnderConstruction())));
+            if($curArea->getUnderConstruction() != true) {
                 $libraryMenu = $areaMenu->addChild('common.concept_library', array('route' => 'concept_library', 'routeParameters' => array('aoe' => $curArea->getUrl()), 'attributes' => array('class' => 'home')));
                 foreach($curArea->getConcepts($request->getLocale()) as $curConcept) {
                     $libraryMenu->addChild($curConcept->getNameForLang($request->getLocale())->getText_formatted(), array('route' => 'concept', 'routeParameters' => array('aoe' => $curArea->getUrl(), 'concept' => $curConcept->getId()), 'attributes' => array('class' => 'home')));

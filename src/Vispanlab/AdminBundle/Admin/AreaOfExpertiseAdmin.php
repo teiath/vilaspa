@@ -11,8 +11,8 @@ use Sonata\AdminBundle\Show\ShowMapper;
 class AreaOfExpertiseAdmin extends Admin
 {
     protected $datagridValues = array(
-        '_sort_order' => 'DESC', // Descendant ordering (default = 'ASC')
-        '_sort_by' => 'id' // name of the ordered field (default = the model id
+        '_sort_order' => 'ASC', // Descendant ordering (default = 'ASC')
+        '_sort_by' => 'sortOrder' // name of the ordered field (default = the model id
     );
 
     protected function configureRoutes(RouteCollection $collection)
@@ -32,6 +32,7 @@ class AreaOfExpertiseAdmin extends Admin
             ->add('nameEl')
             ->add('nameEn')
             ->add('underConstruction', null, array('required' => false))
+            ->add('sortOrder', null, array('required' => true))
         ;
         parent::configureFormFields($formMapper);
     }
@@ -52,6 +53,7 @@ class AreaOfExpertiseAdmin extends Admin
             ->addIdentifier('url')
             ->add('nameEl')
             ->add('nameEn')
+            ->add('sortOrder')
         ;
     }
 

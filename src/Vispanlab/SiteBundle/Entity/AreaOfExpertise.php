@@ -44,6 +44,10 @@ class AreaOfExpertise {
      * @ORM\Column (name="under_construction", type="boolean")
      */
     protected $underConstruction = false;
+    /**
+     * @ORM\Column (name="sort_order", type="integer")
+     */
+    protected $sortOrder = 0;
 
     public function __construct() {
         $this->concepts = new ArrayCollection();
@@ -145,6 +149,14 @@ class AreaOfExpertise {
 
     function setUnderConstruction($underConstruction) {
         $this->underConstruction = $underConstruction;
+    }
+
+    function getSortOrder() {
+        return $this->sortOrder;
+    }
+
+    function setSortOrder($sortOrder) {
+        $this->sortOrder = $sortOrder;
     }
 
     function stripGrAccent($tempName)

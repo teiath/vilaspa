@@ -7,13 +7,17 @@
 {% for curItem in item %}
 <li class="{% if curItem|length > 0 %}treeview{% endif %} active {{curItem.attribute('class')}}">
     <a href="{{curItem.uri}}">
-        <span>{{curItem.name|trans|raw}}</span>
-        {% if curItem|length > 0 %}<i class="fa pull-right fa-angle-left"></i>{% endif %}
+        <span>{{curItem.label|trans|raw}}</span>
+        {% if curItem|length > 0 %}
+            <i class="fa pull-right fa-angle-left"></i>
+        {% elseif curItem.attribute('under_construction') == true %}
+            <i class="fa pull-right fa-road" title="{{'common.under_construction'|trans}}"></i>
+        {% endif %}
     </a>
     {% if curItem|length > 0 %}
     <ul class="treeview-menu">
         {% for subitem in curItem %}
-        <li class="{{subitem.attribute('class')}}{% if matcher.isCurrent(subitem) %} active{% endif %}"><a href="{{subitem.uri}}"><i class="fa fa-angle-double-right"></i> {{subitem.name|trans|raw}}</a></li>
+        <li class="{{subitem.attribute('class')}}{% if matcher.isCurrent(subitem) %} active{% endif %}"><a href="{{subitem.uri}}"><i class="fa fa-angle-double-right"></i> {{subitem.label|trans|raw}}</a></li>
         {% endfor %}
     </ul>
     {% endif %}
