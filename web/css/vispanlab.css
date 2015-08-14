@@ -43,14 +43,18 @@ h6,
     }
 }
 
+.footer {
+    line-height: 100%;
+}
+
 .footer small {
-    font-size: 80%;
+    font-size: 85%;
+    line-height: 110%;
 }
 
 .footer .very-small {
-    font-size: 70%;
-    line-height: 100%;
-    margin-top: 10px;
+    font-size: 80%;
+    line-height: 90%;
 }
 
 .under-construction {
@@ -112,8 +116,8 @@ h6,
 }
 
 .skin-black .concept-search-form .input-group {
-    border-top: 1px solid #aaa;
-    border-bottom: 1px solid #aaa;
+    border-top: 1px solid #777;
+    border-bottom: 1px solid #777;
 }
 /* End Concept Search */
 
@@ -157,6 +161,12 @@ h6,
 
 .ve-wrong .icheckbox_minimal, .ve-wrong .iradio_minimal {
     background-color: lightpink;
+}
+
+.ve-table h4 {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: justify;
 }
 
 .solved h4.expand-link {

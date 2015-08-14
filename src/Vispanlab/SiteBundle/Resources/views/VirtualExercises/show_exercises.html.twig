@@ -61,9 +61,13 @@
     </table>
 {% endmacro %}
 
+{% macro displayRelatedConcepts(exercise, type) %}
+    {% if exercise.relatedConcepts|length > 0 and type != 'EvaluationTest' %}<h5 class="text-center"><HR /><small style="font-size: 95%;">{{'virtual_exercises.see_library'|trans}}{% for concept in exercise.relatedConcepts %}<a href="{{path('concept', {'aoe': (concept.areasofexpertise|first).url, 'concept': concept.id})}}" target="_blank">{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}</a>{% if not loop.last %}, {% endif %}{% endfor %}</small></h5>{% endif %}
+{% endmacro %}
+
 {% macro displayMultipleChoice(exercise, type, solution) %}
     <div class="multiple-choice">
-        <h4 class="text-center">{{exercise.question}}</h4>
+        <h4>{{exercise.question}}</h4>
         <hr />
         <ul>
         {% for answer in (exercise.answers|shuffle) %}
@@ -74,13 +78,14 @@
             </li>
         {% endfor %}
         </ul>
-        {% if exercise.relatedConcepts|length > 0 and type != 'EvaluationTest' %}<h5 class="text-center"><HR /><small>{{'virtual_exercises.see_library'|trans}}{% for concept in exercise.relatedConcepts %}<a href="{{path('concept', {'aoe': (concept.areasofexpertise|first).url, 'concept': concept.id})}}" target="_blank">{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}</a>{% if not loop.last %},{% endif %}{% endfor %}</small></h5>{% endif %}
+        {% import _self as exercisestwig %}
+        {{exercisestwig.displayRelatedConcepts(exercise, type)}}
     </div>
 {% endmacro %}
 
 {% macro displayOnOff(exercise, type, solution) %}
     <div class="multiple-choice">
-        <h4 class="text-center">{{exercise.question}}</h4>
+        <h4>{{exercise.question}}</h4>
         <hr />
         <div class="row">
         {% for answer in exercise.answers %}
@@ -89,66 +94,68 @@
             </div>
         {% endfor %}
         </div>
-        {% if exercise.relatedConcepts|length > 0 and type != 'EvaluationTest' %}<h5 class="text-center"><HR /><small>{{'virtual_exercises.see_library'|trans}}{% for concept in exercise.relatedConcepts %}{% if concept.hasNameForLang(app.request.locale) %}<a href="{{path('concept', {'aoe': (concept.areasofexpertise|first).url, 'concept': concept.id})}}" target="_blank">{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}</a>{% endif %}{% if not loop.last %},{% endif %}{% endfor %}</small></h5>{% endif %}
+        {% import _self as exercisestwig %}
+        {{exercisestwig.displayRelatedConcepts(exercise, type)}}
     </div>
 {% endmacro %}
 
 {% macro displaySolved(exercise, type, solution) %}
-    <div class="solved text-center">
+    <div class="solved text-justify">
         <div>
-            <h4 class="text-center">{{'Goal'|trans}}</h4>
+            <h4>{{'Goal'|trans}}</h4>
             <p>{{exercise.goal|nl2br}}</p>
         </div>
         <hr />
         <div>
-            <h4 class="text-center">{{'Exercise'|trans}}</h4>
+            <h4>{{'Exercise'|trans}}</h4>
             <p>{{exercise.question|nl2br}}</p>
         </div>
         <hr />
         <div>
-            <h4 class="text-center expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_data">{{'Data'|trans}}</h4>
+            <h4 class="expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_data">{{'Data'|trans}}</h4>
             <p class="collapse" id="e_{{exercise.id}}_data">{{exercise.data|nl2br}}</p>
             <div data-toggle="collapse" data-target="#e_{{exercise.id}}_data" class="text-center collapse-arrows-wrapper"><i class="fa fa-angle-double-down"></i></div>
         </div>
         <hr />
         <div>
-            <h4 class="text-center expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_requested">{{'Requested'|trans}}</h4>
+            <h4 class="expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_requested">{{'Requested'|trans}}</h4>
             <p class="collapse" id="e_{{exercise.id}}_requested">{{exercise.requested|nl2br}}</p>
             <div data-toggle="collapse" data-target="#e_{{exercise.id}}_requested" class="text-center collapse-arrows-wrapper"><i class="fa fa-angle-double-down"></i></div>
         </div>
         {% if (exercise|get_class) == 'Vispanlab\\SiteBundle\\Entity\\Exercise\\Solved' %}
         <hr />
         <div>
-            <h4 class="text-center expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_methodology">{{'Methodology'|trans}}</h4>
+            <h4 class="expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_methodology">{{'Methodology'|trans}}</h4>
             <p class="collapse" id="e_{{exercise.id}}_methodology">{{exercise.methodology|nl2br}}</p>
             <div data-toggle="collapse" data-target="#e_{{exercise.id}}_methodology" class="text-center collapse-arrows-wrapper"><i class="fa fa-angle-double-down"></i></div>
         </div>
         <hr />
         <div>
-            <h4 class="text-center expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_algorithm">{{'Algorithm'|trans}}</h4>
+            <h4 class="expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_algorithm">{{'Algorithm'|trans}}</h4>
             <p class="collapse" id="e_{{exercise.id}}_algorithm">{{exercise.algorithm|nl2br}}</p>
             <div data-toggle="collapse" data-target="#e_{{exercise.id}}_algorithm" class="text-center collapse-arrows-wrapper"><i class="fa fa-angle-double-down"></i></div>
         </div>
         <hr />
         <div>
-            <h4 class="text-center expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_solution">{{'Solution'|trans}}</h4>
+            <h4 class="expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_solution">{{'Solution'|trans}}</h4>
             <p class="collapse" id="e_{{exercise.id}}_solution">{{exercise.solution|nl2br}}</p>
             <div data-toggle="collapse" data-target="#e_{{exercise.id}}_solution" class="text-center collapse-arrows-wrapper"><i class="fa fa-angle-double-down"></i></div>
         </div>
         <hr />
         <div>
-            <h4 class="text-center expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_result">{{'Result'|trans}}</h4>
+            <h4 class="expand-link" data-toggle="collapse" data-target="#e_{{exercise.id}}_result">{{'Result'|trans}}</h4>
             <p class="collapse" id="e_{{exercise.id}}_result">{{exercise.result|nl2br}}</p>
             <div data-toggle="collapse" data-target="#e_{{exercise.id}}_result" class="text-center collapse-arrows-wrapper"><i class="fa fa-angle-double-down"></i></div>
         </div>
         {% endif %}
-        {% if exercise.relatedConcepts|length > 0 and type != 'EvaluationTest' %}<h5 class="text-center"><HR /><small>{{'virtual_exercises.see_library'|trans}}{% for concept in exercise.relatedConcepts %}<a href="{{path('concept', {'aoe': (concept.areasofexpertise|first).url, 'concept': concept.id})}}" target="_blank">{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}</a>{% if not loop.last %},{% endif %}{% endfor %}</small></h5>{% endif %}
+        {% import _self as exercisestwig %}
+        {{exercisestwig.displayRelatedConcepts(exercise, type)}}
     </div>
 {% endmacro %}
 
 {% macro displayMatching(exercise, type, solution) %}
     <div class="row matching" style="margin-left: 0; margin-right: 0;">
-        <h4 class="text-center">{{exercise.question}}</h4>
+        <h4>{{exercise.question}}</h4>
         <hr />
         <div class="col-md-6 matching-left" style="border-right: 1px #CCC solid;">
             <ul>
@@ -182,7 +189,8 @@
             <input type="button" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" />
             <small style="font-size: 75%;">{{'virtual_exercises.attention'|trans}}</small>
         </div>
-        {% if exercise.relatedConcepts|length > 0 and type != 'EvaluationTest' %}<h5 class="text-center"><HR /><small>{{'virtual_exercises.see_library'|trans}}{% for concept in exercise.relatedConcepts %}<a href="{{path('concept', {'aoe': (concept.areasofexpertise|first).url, 'concept': concept.id})}}" target="_blank">{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}</a>{% if not loop.last %},{% endif %}{% endfor %}</small></h5>{% endif %}
+        {% import _self as exercisestwig %}
+        {{exercisestwig.displayRelatedConcepts(exercise, type)}}
     </div>
 {% endmacro %}
 

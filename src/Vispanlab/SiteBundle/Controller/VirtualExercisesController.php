@@ -71,11 +71,17 @@ class VirtualExercisesController extends Controller {
             return false;
         });
         // Pagination
+        $itemsPerPage = 10;
+        if($type == 'EvaluationTest') {
+            $itemsPerPage = 5;
+        } else if($type == 'Unsolved' || $type == 'Solved') {
+            $itemsPerPage = 1;
+        }
         $paginator  = $this->get('knp_paginator');
         $exercises = $paginator->paginate(
             $exercises,
             $this->getRequest()->query->getInt('page', 1)/*page number*/,
-            ($type != 'EvaluationTest' ? 5 : 10)/*limit per page*/
+            $itemsPerPage/*limit per page*/
         );
         // End pagination
         return $this->render('VispanlabSiteBundle:VirtualExercises:show_exercises.html.twig', array(
