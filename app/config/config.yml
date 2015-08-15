@@ -28,6 +28,7 @@ twig:
     strict_variables: %kernel.debug%
     globals:
         locales: %locales%
+        host: "//spatial.lab.teiath.gr"
     form:
         resources:
           - 'bootstrap_3_layout.html.twig'
@@ -184,3 +185,14 @@ stof_doctrine_extensions:
 knp_paginator:
     template:
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
+
+nelmio_api_doc:
+    name: Vispanlab API
+    sandbox:
+        authentication:
+            name: ~
+            delivery: http_basic
+            custom_endpoint: true
+        enabled: true
+    motd:
+        template: VispanlabApiBundle::motd.html.twig

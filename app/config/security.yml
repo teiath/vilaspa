@@ -25,6 +25,11 @@ security:
           id: fos_user.user_provider.username_email
 
     firewalls:
+        api:
+            pattern:    ^/api
+            http_basic: true
+            anonymous:  true # note that anonymous access is now enabled
+
         main:
             pattern: ^/
             form_login:

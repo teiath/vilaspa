@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * @author Dimosthenis Nikoudis <dnna@dnna.gr>
@@ -25,6 +26,7 @@ class Concept {
      * @ORM\ManyToOne(targetEntity="AreaOfExpertise")
      * @ORM\JoinColumn(name="areaofexpertise_id", referencedColumnName="id", onDelete="CASCADE")
      * @var AreaOfExpertise
+     * @Exclude
      */
     protected $areaofexpertise; // DEPRECTED - TO REMOVE
     /**
@@ -33,6 +35,7 @@ class Concept {
      *      joinColumns={@ORM\JoinColumn(name="concept_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="aoe_id", referencedColumnName="id")}
      *      )
+     * @Exclude
      */
     protected $areasofexpertise;
     /**

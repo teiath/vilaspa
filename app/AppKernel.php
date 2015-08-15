@@ -10,6 +10,7 @@ class AppKernel extends Kernel
         $bundles = array(
             new Vispanlab\AdminBundle\VispanlabAdminBundle(),
             new Vispanlab\CommonBundle\VispanlabCommonBundle(),
+            new Vispanlab\ApiBundle\VispanlabApiBundle(),
             new Vispanlab\SiteBundle\VispanlabSiteBundle(),
             new Vispanlab\UserBundle\VispanlabUserBundle(),
 
@@ -24,8 +25,11 @@ class AppKernel extends Kernel
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            // User Bundle
+            // User & REST Bundle
             new FOS\UserBundle\FOSUserBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            // API documentation
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             // Liuggio Excel Bundle
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             // JMS

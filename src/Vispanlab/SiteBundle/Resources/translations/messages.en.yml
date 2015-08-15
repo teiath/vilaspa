@@ -20,7 +20,7 @@ home:
   register: Register
   register_with_tei: If you already have an account for TEI of Athens' electronic services (email, wifi, etc.) you can login directly using your account credentials.
   register_without_tei: Otherwise you can register by clicking the button below.
-  users: "Users who have visited the Virtual Spatial Analysis Lab:"
+  users: "Users who have visited the virtual lab:"
 
 concept_library:
   heading: Glossary

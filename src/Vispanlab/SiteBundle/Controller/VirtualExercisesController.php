@@ -29,47 +29,7 @@ class VirtualExercisesController extends Controller {
      * @Secure(roles="ROLE_USER")
      */
     public function showExercises(AreaOfExpertise $aoe, $type, SubjectArea $sa = null) {
-        if($type != 'EvaluationTest') {
-            if($sa != null) {
-                $exercises = $this->container->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\Exercise\\'.$type)->findBy(array(
-                    'subjectarea' => $sa,
-                ));
-            } else {
-                $exercises = array();
-                foreach($aoe->getSubjectAreas() as $curSa) {
-                    $exercises = array_merge($exercises, $this->container->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\Exercise\\'.$type)->findBy(array(
-                        'subjectarea' => $curSa,
-                    )));
-                }
-            }
-        } else {
-            if($sa != null) {
-                $exercises = $this->container->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\Exercise\BaseExercise')->findBy(array(
-                    'subjectarea' => $sa,
-                ));
-            } else {
-                $exercises = array();
-                foreach($aoe->getSubjectAreas() as $curSa) {
-                    $exercises = array_merge($exercises, $this->container->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\Exercise\BaseExercise')->findBy(array(
-                        'subjectarea' => $curSa,
-                    )));
-                }
-            }
-        }
-        shuffle($exercises);
-        // Filter by showInEvaluationTest
-        $exercises = array_filter($exercises, function($e) use ($type) {
-            if($type != 'EvaluationTest') {
-                if(!method_exists($e, 'getShowInEvaluationTest') || ($e->getShowInEvaluationTest() == BaseExercise::SIMPLE_EXERCISE || $e->getShowInEvaluationTest() == BaseExercise::BOTH_EXERCISE)) {
-                    return true;
-                }
-            } else {
-                if(method_exists($e, 'getShowInEvaluationTest') && ($e->getShowInEvaluationTest() == BaseExercise::EVALUATION_TEST_EXERCISE || $e->getShowInEvaluationTest() == BaseExercise::BOTH_EXERCISE)) {
-                    return true;
-                }
-            }
-            return false;
-        });
+        $exercises = $this->container->get('vispanlab.exercise.service')->getExercises($aoe, $type, $sa);
         // Pagination
         $itemsPerPage = 10;
         if($type == 'EvaluationTest') {

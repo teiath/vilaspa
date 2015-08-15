@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * @author Dimosthenis Nikoudis <dnna@dnna.gr>
@@ -32,10 +33,12 @@ class Definition {
     protected $locale = 'el';
     /**
      * @ORM\Column (name="text", type="text")
+     * @Exclude
      */
     protected $text;
     /**
      * @ORM\Column (name="format_type", type="text")
+     * @Exclude
      */
     public $format_type = 'richhtml';
     /**
@@ -45,30 +48,35 @@ class Definition {
     /**
      * @ORM\ManyToOne(targetEntity="Concept", inversedBy="name")
      * @ORM\JoinColumn(name="concept_name_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Exclude
      * @var Concept
      */
     protected $conceptAsName;
     /**
      * @ORM\ManyToOne(targetEntity="Concept", inversedBy="definition")
      * @ORM\JoinColumn(name="concept_definition_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Exclude
      * @var Concept
      */
     protected $conceptAsDefinition;
     /**
      * @ORM\ManyToOne(targetEntity="Concept", inversedBy="alternativeDefinitions")
      * @ORM\JoinColumn(name="concept_alternative_definition_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Exclude
      * @var Concept
      */
     protected $conceptAsAlternativeDefinition;
     /**
      * @ORM\ManyToOne(targetEntity="Concept", inversedBy="relatedConcepts")
      * @ORM\JoinColumn(name="concept_related_concept_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Exclude
      * @var Concept
      */
     protected $conceptAsRelatedConcept;
     /**
      * @ORM\ManyToOne(targetEntity="Concept", inversedBy="media")
      * @ORM\JoinColumn(name="concept_media_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Exclude
      * @var Concept
      */
     protected $conceptAsMedia;

@@ -22,9 +22,18 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
 
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
+
 sitebundle:
     resource: "@VispanlabSiteBundle/Controller"
     type:     annotation
+
+apibundle:
+    type: rest
+    prefix: /api
+    resource: "@VispanlabApiBundle/Resources/config/rest_routing.yml"
 
 # Sonata
 admin:

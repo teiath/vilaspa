@@ -36,6 +36,9 @@
         "jms/security-extra-bundle": "1.5.*",
         "jms/serializer-bundle": "*",
         "friendsofsymfony/user-bundle": "*",
+        "friendsofsymfony/rest-bundle": "*",
+        "friendsofsymfony/rest": "*",
+        "nelmio/api-doc-bundle": "2.4.*",
         "stof/doctrine-extensions-bundle": "dev-patch-2",
         "gedmo/doctrine-extensions": "v2.4.0",
         "ruudk/capifony-tools": "dev-master"

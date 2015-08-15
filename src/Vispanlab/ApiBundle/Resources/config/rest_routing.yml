@@ -1,0 +1,17 @@
+api_user:
+    type: rest
+    resource: Vispanlab\ApiBundle\Controller\UserController
+    options:
+      i18n: false
+
+api_concept:
+    type: rest
+    resource: Vispanlab\ApiBundle\Controller\ConceptController
+    options:
+      i18n: false
+
+api_ve:
+    type: rest
+    resource: Vispanlab\ApiBundle\Controller\VirtualExerciseController
+    options:
+      i18n: false

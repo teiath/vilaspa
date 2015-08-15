@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * @author Dimosthenis Nikoudis <dnna@dnna.gr>
@@ -25,6 +26,7 @@ class SubjectArea {
     /**
      * @ORM\ManyToOne(targetEntity="AreaOfExpertise", inversedBy="subjectAreas")
      * @ORM\JoinColumn(name="areaofexpertise_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Exclude
      * @var AreaOfExpertise
      */
     protected $areaofexpertise;
@@ -42,6 +44,7 @@ class SubjectArea {
     protected $nameEn;
     /**
      * @ORM\OneToMany(targetEntity="Vispanlab\SiteBundle\Entity\Exercise\BaseExercise", mappedBy="subjectarea")
+     * @Exclude
      */
     protected $exercises;
 
