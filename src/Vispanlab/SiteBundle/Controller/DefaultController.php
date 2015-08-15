@@ -17,7 +17,10 @@ class DefaultController extends Controller {
                 'csrf_token' => $csrfToken,
             ));
         } else {
-            return $this->render('VispanlabSiteBundle:Default:index_logged_in.html.twig', array());
+            $usersCount = $this->container->get('doctrine')->getManager()->createQuery('SELECT COUNT(u) FROM Vispanlab\UserBundle\Entity\User u')->getSingleScalarResult();
+            return $this->render('VispanlabSiteBundle:Default:index_logged_in.html.twig', array(
+                'usersCount' => $usersCount,
+            ));
         }
     }
 }
