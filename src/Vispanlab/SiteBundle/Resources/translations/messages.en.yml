@@ -10,6 +10,9 @@ common:
   virtual_assignments: Exercises
   under_construction: Under Construction
   user_guide: User Guide
+  admin_guide: Admin Guide
+  tech_guide: Technical Guide
+  analytics: Analytics
   funded_by: Co-financed by Greece and the European Union
   license: This work is licensed under a Creative Commons Attribution 3.0 License
 

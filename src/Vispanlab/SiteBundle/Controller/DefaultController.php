@@ -23,4 +23,20 @@ class DefaultController extends Controller {
             ));
         }
     }
+
+    /**
+     * @Route("/user_guide", name="user_guide")
+     * @Template
+     */
+    public function userGuideAction() {
+        return $this->render('VispanlabSiteBundle::user_guide.html.twig', array());
+    }
+
+    /**
+     * @Route("/admin_guide", name="admin_guide")
+     * @Template
+     */
+    public function adminGuideAction() {
+        return $this->render('VispanlabSiteBundle::admin_guide.html.twig', array());
+    }
 }

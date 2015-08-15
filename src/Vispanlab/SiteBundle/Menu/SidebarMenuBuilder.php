@@ -48,7 +48,7 @@ class SidebarMenuBuilder
             }
         }
 
-        $menu->addChild('common.user_guide', array('uri' => '#docs', 'attributes' => array('class' => 'home')));
+        $menu->addChild('common.user_guide', array('route' => 'user_guide', 'attributes' => array('class' => 'home')));
         if($this->securityContext->isGranted('ROLE_ADMIN') || $this->securityContext->isGranted('ROLE_AREA_ADMIN')) {
             if(strpos($request->getRequestUri(), 'admin') === false) {
                 $menu->addChild('common.admin_env_link', array('route' => 'sonata_admin_dashboard', 'attributes' => array('class' => 'home')));
@@ -63,7 +63,9 @@ class SidebarMenuBuilder
     public function createBottomMenu(Request $request)
     {
         $menu = $this->factory->createItem('root');
-        $menu->addChild('common.user_guide', array('uri' => '#docs', 'attributes' => array('class' => 'home')));
+        $menu->addChild('common.admin_guide', array('route' => 'admin_guide', 'attributes' => array('class' => 'home')));
+        $menu->addChild('common.analytics', array('uri' => '#analytics', 'attributes' => array('class' => 'home')));
+        $menu->addChild('common.tech_guide', array('uri' => '#maintainers_guide', 'attributes' => array('class' => 'home')));
         if($this->securityContext->isGranted('ROLE_ADMIN') || $this->securityContext->isGranted('ROLE_AREA_ADMIN')) {
             if(strpos($request->getRequestUri(), 'admin') === false) {
                 $menu->addChild('common.admin_env_link', array('route' => 'sonata_admin_dashboard', 'attributes' => array('class' => 'home')));

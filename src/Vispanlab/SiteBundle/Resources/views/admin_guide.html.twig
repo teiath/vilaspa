@@ -1,0 +1,12 @@
+{% extends 'VispanlabSiteBundle:Default:index_logged_in.html.twig' %}
+
+{% block content %}
+<div class="row text-center index-logged-in">
+    <div class="col-md-12" style="position: relative;">
+        <h2>{{'home.admin_guide'|trans({'%user%': app.user.name})}}</h2>
+        <ul>
+            <li><a href="">Οδηγός Διαχειριστικού Περιβάλλοντος</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

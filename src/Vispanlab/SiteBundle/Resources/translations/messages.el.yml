@@ -10,6 +10,9 @@ common:
   virtual_assignments: Ασκήσεις
   under_construction: Υπό Κατασκευή
   user_guide: Οδηγός Χρήσης
+  admin_guide: Οδηγός Διαχειριστή
+  tech_guide: Τεχνικός Οδηγός
+  analytics: Στατιστικά Χρήσης
   funded_by: Με τη συγχρηματοδότηση της Ελλάδας<BR />και της Ευρωπαικής Ένωσης
   license: Το περιεχόμενο του παρόντος ιστοχώρου υπάγεται<BR />σε Άδεια Χρήσης Creative Commons Attribution 3.0
 
