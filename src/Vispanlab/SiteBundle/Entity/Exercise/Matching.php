@@ -51,7 +51,7 @@ class Matching extends BaseExercise {
         foreach($this->leftAnswers as $curAnswer) {
             $matches = explode(',', $curAnswer['matches']);
             foreach($matches as $curMatch) {
-                $i = $curMatch - 1;
+                $i = $curMatch;
                 if(!isset($this->rightAnswers[$i])) { echo 'Η απάντηση δεν υπάρχει στο δεξί μέρος'; die(); }
             }
         }

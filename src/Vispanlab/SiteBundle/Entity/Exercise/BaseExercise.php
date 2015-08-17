@@ -88,10 +88,10 @@ abstract class BaseExercise {
     public abstract function isAnswerCorrect($answer);
 
     public function __toString() {
-        if(!isset($this->question)) {
+        if(!isset($this->id)) {
             return 'Νέα Ερώτηση';
         } else {
-            return str_replace('<BR />', ' ', $this->question);
+            return str_replace('<BR />', ' ', $this->id);
         }
     }
 }

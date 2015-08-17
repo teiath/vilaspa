@@ -12,7 +12,7 @@ class MatchingAnswerType extends AbstractType
     {
         $builder
             ->add('answer', null, array('label' => 've_answer', 'required' => true,))
-            ->add('matches', null, array('label' => 've_matches', 'required' => true, 'sonata_help' => 'Γράψτε την απάντηση του δεξιού μέρους που αντιστοιχεί εδώ. Η αρίθμηση αρχιζει από 1. Εαν αντιστοιχεί σε πολλαπλές απαντήσεις χωρίστε με κόμμα (πχ. 1,3,4).'))
+            ->add('matches', null, array('label' => 've_matches', 'required' => true, 'sonata_help' => 'Γράψτε την απάντηση του δεξιού μέρους που αντιστοιχεί εδώ. Η αρίθμηση αρχιζει από 0. Εαν αντιστοιχεί σε πολλαπλές απαντήσεις χωρίστε με κόμμα (πχ. 1,3,4).'))
         ;
     }
 
