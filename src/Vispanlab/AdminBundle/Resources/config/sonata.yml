@@ -125,6 +125,8 @@ sonata_media:
     #    gallery_has_media: MyVendor\MediaBundle\Entity\GalleryHasMedia
     default_context: default
     db_driver: doctrine_orm # or doctrine_mongodb, doctrine_phpcr
+    buzz:
+        connector:  sonata.media.buzz.connector.curl
     contexts:
         default:  # the default context is mandatory
             providers:
