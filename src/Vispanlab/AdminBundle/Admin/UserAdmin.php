@@ -84,4 +84,14 @@ class UserAdmin extends Admin
         }
         return $roles;
     }
+
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'list':
+                return 'VispanlabAdminBundle::base_list_users.html.twig';
+            default:
+                return parent::getTemplate($name);
+        }
+    }
 }
