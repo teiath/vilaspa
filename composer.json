@@ -34,7 +34,7 @@
         "friendsofsymfony/rest": "*",
         "friendsofsymfony/comment-bundle": "*",
         "nelmio/api-doc-bundle": "2.4.*",
-        "stof/doctrine-extensions-bundle": "dev-patch-2",
+        "stof/doctrine-extensions-bundle": "*",
         "gedmo/doctrine-extensions": "v2.4.0",
         "ruudk/capifony-tools": "dev-master"
     },
