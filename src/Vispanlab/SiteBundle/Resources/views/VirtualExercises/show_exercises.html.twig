@@ -28,7 +28,7 @@
                             <input type="submit" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" />{#<br />
                             <small style="font-size: 75%;">{{'virtual_exercises.attention'|trans}}</small>#}
                         </div>
-                    {% elseif type != 'SearchExercise' %}
+                    {% elseif type != 'SearchExercise' and type != 'Solved' and type != 'Unsolved' %}
                         <div style="clear: both;">
                             <a href="{{path(app.request.get('_route'), app.request.get('_route_params'))}}" class="btn btn-default">{{'virtual_exercises.refresh'|trans}}</a>
                         </div>
@@ -36,9 +36,9 @@
                 </form>
             </div>
         </div>
-        {#{% if type != 'EvaluationTest' %}
+        {% if type == 'Solved' or type == 'Unsolved' %}
             {{ knp_pagination_render(exercises) }}
-        {% endif %}#}
+        {% endif %}
     </div>
 </div>
 {% endblock %}

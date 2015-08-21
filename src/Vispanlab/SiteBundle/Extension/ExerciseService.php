@@ -40,7 +40,7 @@ class ExerciseService {
                 }
             }
         }
-        shuffle($exercises);
+        if($type != 'Solved' && $type != 'Unsolved') { shuffle($exercises); }
         // Filter by showInEvaluationTest
         $exercises = array_filter($exercises, function($e) use ($type) {
             if($type != 'EvaluationTest') {
