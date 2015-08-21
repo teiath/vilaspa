@@ -4,12 +4,6 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url":  "git://github.com/nurikabe/StofDoctrineExtensionsBundle.git"
-        }
-    ],
     "require": {
         "php": ">=5.4",
         "symfony/symfony": "2.6.*",
@@ -38,6 +32,7 @@
         "friendsofsymfony/user-bundle": "*",
         "friendsofsymfony/rest-bundle": "*",
         "friendsofsymfony/rest": "*",
+        "friendsofsymfony/comment-bundle": "*",
         "nelmio/api-doc-bundle": "2.4.*",
         "stof/doctrine-extensions-bundle": "dev-patch-2",
         "gedmo/doctrine-extensions": "v2.4.0",

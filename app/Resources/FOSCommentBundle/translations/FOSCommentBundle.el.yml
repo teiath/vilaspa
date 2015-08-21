@@ -1,0 +1,31 @@
+fos_comment_comment_new_headline_first:       Σχολίασε πρώτος/η
+fos_comment_comment_new_headline:             Συζήτηση
+fos_comment_comment_new_submit:               Καταχώρηση
+fos_comment_comment_new_cancel:               Ακύρωση
+
+fos_comment_comment_edit_submit:              Καταχώρηση
+fos_comment_comment_edit_cancel:              Ακύρωση
+
+fos_comment_comment_reply_reply_to:           Απάντηση σε %name%
+fos_comment_comment_reply_cancel:             Ακύρωση
+
+fos_comment_comment_show_by:                  Από
+fos_comment_comment_show_voteup:              Ψήφος πάνω
+fos_comment_comment_show_votedown:            Ψήφος κάτω
+fos_comment_comment_show_reply:               Απάντηση
+
+fos_comment_comment_vote_score:               "Score: "
+
+fos_comment_comment_tree_load_more:           Φόρτωση περισσότερων απαντήσεων
+
+Showing %num% comment|Showing %num% comments: Εμφάνιση %num% σχολίου|Εμφάνιση %num% σχολίων
+
+fos_comment_rss_feed:                         RSS Feed
+
+fos_comment_thread_close:                     Κλείσιμο συζήτησης
+fos_comment_thread_open:                      Νέα συζήτηση
+fos_comment_thread_comment_count:             %count% σχόλιο|%count% σχόλια
+fos_comment_comment_edit:                     Επεξεργασία
+fos_comment_comment_delete:                   Διαγραφή σχολίου
+fos_comment_comment_undelete:                 Επαναφορά σχολίου
+fos_comment_comment_deleted:                  "[διαγράφτηκε]"

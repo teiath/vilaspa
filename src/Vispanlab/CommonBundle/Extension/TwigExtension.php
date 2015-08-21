@@ -42,7 +42,7 @@ class TwigExtension extends \Twig_Extension
   }
 
   public function getGlobals() {
-      if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+      if (!is_object($this->container->get('security.context')->getToken()) || false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
           return array();
       }
       return array(

@@ -178,3 +178,20 @@ h6,
 .iradio_minimal {
   background-position: -120px 0;
 }
+
+/* Comments */
+.comments h3 {
+    /*margin-top: -25px;
+    text-align: left;*/
+    display: none;
+}
+
+.comments .fos_comment_comment_form_holder h3 {
+    display: block;
+    font-size: 16px;
+}
+
+.fos_comment_submit input[type="submit"], .fos_comment_submit input, .fos_comment_comment_edit_show_form, .fos_comment_comment_remove, .fos_comment_comment_reply button, .fos_comment_thread_commentable_action {
+    font-size: 12px;
+    padding: 6px 12px;
+}

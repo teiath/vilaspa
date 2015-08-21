@@ -82,6 +82,12 @@
         </div>
     </div>
 </div>
+<hr />
+<div class="row">
+    <div class="col-md-offset-1 col-md-10 comments">
+    {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': ('concept_comments_'~concept.id)} %}
+    </div>
+</div>
 <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

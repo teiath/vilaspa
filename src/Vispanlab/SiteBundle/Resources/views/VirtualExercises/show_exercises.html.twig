@@ -17,8 +17,10 @@
         <div class="row">
             <div class="col-md-offset-1 col-md-10">
                 <form action="{{path('grade_exercises', {'aoe': area_of_expertise.url, 'type': type, 'sa': (subject_area != null ? subject_area.url : null)})}}" method="POST">
+                    {% set exerciseIds = [] %}
                     {% for exercise in (exercises|shuffle) %}
                         {{exercisestwig.displayExercise(exercise, type)}}
+                        {% set exerciseIds = exerciseIds|merge([exercise.id]) %}
                     {% endfor %}
                     {% if exercises|length <= 0 %}
                         <h3>{{'virtual_exercises.no_exercises'|trans}}</h3>
@@ -39,6 +41,12 @@
         {% if type == 'Solved' or type == 'Unsolved' %}
             {{ knp_pagination_render(exercises) }}
         {% endif %}
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-offset-1 col-md-10 comments">
+    {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': ('exercise_comments_'~exerciseIds|join('_'))} %}
     </div>
 </div>
 {% endblock %}

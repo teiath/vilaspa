@@ -136,6 +136,19 @@
             {% endif %}
             afterSelect: updateSearchResults
         });
+
+        // Comments
+        $('#fos_comment_thread').each(function() {
+            var $this = $(this);
+            var listener = function (event, data) {
+                $this.find('input[type="submit"]').addClass('btn btn-primary');
+                $this.find('button,input[type="button"]').addClass('btn btn-default');
+            };
+            $(this).on('fos_comment_load_thread', listener);
+            $(this).on('fos_comment_show_form', listener);
+            $(this).on('fos_comment_add_comment', listener);
+            $(this).on('fos_comment_show_edit_form', listener);
+        });
     });
 </script>
 {% endmacro %}

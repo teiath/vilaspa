@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             // User & REST Bundle
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\RestBundle\FOSRestBundle(),
+            new FOS\CommentBundle\FOSCommentBundle(),
             // API documentation
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             // Liuggio Excel Bundle
