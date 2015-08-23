@@ -33,11 +33,6 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: Definitions, label: Definitions }
         arguments: [null, Vispanlab\SiteBundle\Entity\Definition, SonataAdminBundle:CRUD]
-    user.admin:
-        class: Vispanlab\AdminBundle\Admin\UserAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Διαχείριση Χρηστών, label: Χρήστες }
-        arguments: [null, Vispanlab\UserBundle\Entity\User, SonataAdminBundle:CRUD]
     subjectarea.admin:
         class: Vispanlab\AdminBundle\Admin\SubjectAreaAdmin
         tags:
@@ -94,3 +89,8 @@ services:
         calls:
             - [setTranslationDomain, [%sonata.media.admin.media.translation_domain%]]
             - [setTemplates, [{ list: SonataMediaBundle:GalleryAdmin:list.html.twig }]]
+    user.admin:
+        class: Vispanlab\AdminBundle\Admin\UserAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Διαχείριση Χρηστών, label: Χρήστες }
+        arguments: [null, Vispanlab\UserBundle\Entity\User, SonataAdminBundle:CRUD]

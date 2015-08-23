@@ -9,19 +9,19 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Unsolved extends BaseExercise {
     /**
-     * @ORM\Column (name="goal", type="string", length=255)
+     * @ORM\Column (name="goal", type="text")
      */
     protected $goal;
     /**
-     * @ORM\Column (name="question", type="string", length=255)
+     * @ORM\Column (name="question", type="text")
      */
     protected $question;
     /**
-     * @ORM\Column (name="data", type="string", length=255)
+     * @ORM\Column (name="data", type="text")
      */
     protected $data;
     /**
-     * @ORM\Column (name="requested", type="string", length=255)
+     * @ORM\Column (name="requested", type="text")
      */
     protected $requested;
 
