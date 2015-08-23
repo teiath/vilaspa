@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Matching extends BaseExercise {
     /**
-     * @ORM\Column (name="question", type="string", length=255)
+     * @ORM\Column (name="question", type="text")
      */
     protected $question;
     /**
