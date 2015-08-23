@@ -9,11 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Solved extends BaseExercise {
     /**
-     * @ORM\Column (name="goal", type="string", length=255)
+     * @ORM\Column (name="goal", type="text")
      */
     protected $goal;
     /**
-     * @ORM\Column (name="question", type="string", length=255)
+     * @ORM\Column (name="question", type="text")
      */
     protected $question;
     /**
