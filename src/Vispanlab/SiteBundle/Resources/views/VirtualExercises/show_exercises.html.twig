@@ -273,7 +273,7 @@ var initMatching = function($this) {
         $(this).select2('enable');
     });
     // Constraints
-    if($this.find('.matching-right > * > *').size() >= $this.find('.matching-left > * > *').size()) {
+    /*if($this.find('.matching-right > * > *').size() >= $this.find('.matching-left > * > *').size()) {
         var $selects = $this.find('.matching-token-input');
         $selects.on('change', function(e) {
             var selectedValues = $(this).select2('val');
@@ -284,7 +284,7 @@ var initMatching = function($this) {
         $selects.on('select2-removed', function(e) {
             $selects.find("option[value='" + e.val + "']").attr('disabled', false);
         });
-    }
+    }*/
     // End constraints
     // Validation
     var checkSolution = function() {

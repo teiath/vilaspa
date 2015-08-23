@@ -61,15 +61,11 @@ h6,
     
 }
 
+.skin-black .sidebar > .sidebar-menu > .with-spacing {
+    margin-top: 44px;
+}
+
 /* Concept Search */
-.slimScrollDiv {
-    overflow: visible !important;
-}
-
-.sidebar {
-    overflow: visible !important;
-}
-
 .skin-black .sidebar .dropdown-menu a {
     color: #333;
 }
@@ -110,7 +106,7 @@ h6,
 }
 
 .skin-black .concept-search-form {
-    padding-top: 15px;
+    padding-top: 7px;
     margin-left: 0;
     margin-right: 0;
 }

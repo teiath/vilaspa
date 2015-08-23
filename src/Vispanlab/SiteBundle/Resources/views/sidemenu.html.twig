@@ -8,10 +8,9 @@
 <li class="{% if curItem|length > 0 %}treeview{% endif %} active {{curItem.attribute('class')}}">
     <a href="{{curItem.uri}}">
         <span>{{curItem.label|trans|raw}}</span>
+        <i class="fa pull-right fa-angle-left"></i>
         {% if curItem.attribute('under_construction') == true %}
             <i class="fa pull-right fa-exclamation-triangle" title="{{'common.under_construction'|trans}}"></i>
-        {% elseif curItem|length > 0 %}
-            <i class="fa pull-right fa-angle-left"></i>
         {% endif %}
     </a>
     {% if curItem|length > 0 %}

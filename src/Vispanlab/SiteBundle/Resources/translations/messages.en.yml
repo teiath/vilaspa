@@ -18,7 +18,7 @@ common:
 
 home:
   welcome: Welcome %user%
-  text1: You can navigate to the available fields of knowledge by using the left-hand menu.
+  text1: The SPATIAL ANALYSIS VIRTUAL LAB is an educational tool for fields of knowledge dedicated to spatial point of view.<BR />You can navigate to the available fields of knowledge by using the left-hand menu, either to explore a term or to be trained in related exercises.
   # Not logged in
   register: Register
   register_with_tei: If you already have an account for TEI of Athens' electronic services (email, wifi, etc.) you can login directly using your account credentials.
@@ -47,7 +47,7 @@ virtual_exercises:
   Matching: Matching Exercises
   Unsolved: Unsolved Exercises
   EvaluationTest: Evaluation Test
-  attention: "* please ensure that all your choices have been entered and appear before pressing check"
+  attention: "Select all the correct matching options"
   refresh: Refresh Questions
   see_library: "See glossary: "
   congrats: Congratulations
