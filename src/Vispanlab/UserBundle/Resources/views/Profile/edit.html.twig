@@ -1,8 +1,8 @@
-{% extends 'VispanlabSiteBundle::base.html.twig' %}
+{% extends 'VispanlabSiteBundle:Default:index.html.twig' %}
 
 {% block title %}Ο λογαριασμός μου | Pet Date{% endblock %}
 
-{% block main %}
+{% block inner_content %}
 <form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
     <div class="row">
         <h3>Ο λογαριασμός μου</h3>

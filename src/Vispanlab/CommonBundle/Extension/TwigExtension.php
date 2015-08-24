@@ -42,9 +42,11 @@ class TwigExtension extends \Twig_Extension
   }
 
   public function getGlobals() {
-      if (!is_object($this->container->get('security.context')->getToken()) || false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
-          return array();
-      }
+      /*if (!is_object($this->container->get('security.context')->getToken()) || false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+          return array(
+            'base_template' => $this->getBaseTemplate(),
+          );
+      }*/
       return array(
         'base_template' => $this->getBaseTemplate(),
         'admin_pool'      => $this->container->get('sonata.admin.pool'),

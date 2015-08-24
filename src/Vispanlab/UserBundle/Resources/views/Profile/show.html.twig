@@ -1,11 +1,6 @@
-{% extends 'VispanlabSiteBundle::base.html.twig' %}
+{% extends 'VispanlabSiteBundle:Default:index.html.twig' %}
 
-{% block title %}{{user.username}} | Pet Date{% endblock %}
+{% block title %}{{user.username}} | Vispanlab{% endblock %}
 
-{% block main %}
-<p><a href="{{path('dog', {'dog': user.dog.id})}}">Προβολή προφίλ σκύλου</a></p>
-<p><a href="{{path('home')}}">Επιστροφή στην αρχική</a></p>
-{#<script>
-    window.location = "{{path('dog', {'dog': user.dog.id})}}";
-</script>#}
+{% block inner_content %}
 {% endblock %}
