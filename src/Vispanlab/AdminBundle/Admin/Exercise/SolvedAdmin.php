@@ -39,6 +39,15 @@ class SolvedAdmin extends Admin
             ->add('algorithm')
             ->add('solution')
             ->add('result')
+            ->add('media', 'sonata_formatter_type', array(
+                'source_field'         => 'media',
+                'source_field_options' => array('attr' => array('class' => 'span10', 'rows' => 20)),
+                'format_field'         => 'format_type',
+                'target_field'         => 'media_formatted',
+                'ckeditor_context'     => 'default',
+                'event_dispatcher'     => $formMapper->getFormBuilder()->getEventDispatcher(),
+                'listener'             => true,
+            ))
             ->add('relatedConcepts')
         ;
         parent::configureFormFields($formMapper);

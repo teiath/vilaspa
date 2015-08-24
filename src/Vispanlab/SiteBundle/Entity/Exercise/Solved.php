@@ -40,6 +40,18 @@ class Solved extends BaseExercise {
      * @ORM\Column (name="result", type="text")
      */
     protected $result;
+    /**
+     * @ORM\Column (name="media", type="text")
+     */
+    protected $media;
+    /**
+     * @ORM\Column (name="format_type", type="text")
+     */
+    public $format_type = 'richhtml';
+    /**
+     * @ORM\Column (name="media_formatted", type="text")
+     */
+    public $media_formatted;
 
     function getGoal() {
         return $this->goal;
@@ -103,6 +115,34 @@ class Solved extends BaseExercise {
 
     public function setResult($result) {
         $this->result = $result;
+    }
+
+    public function getMedia() {
+        return $this->media;
+    }
+
+    public function setMedia($media) {
+        $this->media = $media;
+    }
+
+    public function getFormat_type() {
+        return $this->format_type;
+    }
+
+    public function setFormat_type($format_type) {
+        $this->format_type = $format_type;
+    }
+
+    public function getMedia_formatted() {
+        return $this->media_formatted;
+    }
+
+    public function setMedia_formatted($media_formatted) {
+        $this->media_formatted = $media_formatted;
+    }
+
+    public function getMediaFormatted() {
+        return $this->getMedia_formatted();
     }
 
     public function isAnswerCorrect($answer) { return true; }
