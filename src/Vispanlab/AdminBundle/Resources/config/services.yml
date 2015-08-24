@@ -94,3 +94,8 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Διαχείριση Χρηστών, label: Χρήστες }
         arguments: [null, Vispanlab\UserBundle\Entity\User, SonataAdminBundle:CRUD]
+    comment.admin:
+        class: Vispanlab\AdminBundle\Admin\Comment\CommentAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Διαχείριση Σχολίων, label: Σχόλια }
+        arguments: [null, Vispanlab\SiteBundle\Entity\Comment\Comment, SonataAdminBundle:CRUD]
