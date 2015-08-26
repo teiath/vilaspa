@@ -48,7 +48,7 @@ class SidebarMenuBuilder
             }
         }
 
-        $menu->addChild('common.user_guide', array('route' => 'user_guide', 'attributes' => array('class' => 'with-spacing home')));
+        $menu->addChild('common.user_guide', array('uri' => '/user_guide.docx', 'attributes' => array('class' => 'with-spacing home')));
         if($this->securityContext->isGranted('ROLE_ADMIN') || $this->securityContext->isGranted('ROLE_AREA_ADMIN')) {
             if(strpos($request->getRequestUri(), 'admin') === false) {
                 $menu->addChild('common.admin_env_link', array('route' => 'sonata_admin_dashboard', 'attributes' => array('class' => 'home')));
@@ -73,7 +73,7 @@ class SidebarMenuBuilder
                 $menu->addChild('common.user_env_link', array('route' => 'home', 'attributes' => array('class' => 'home')));
             }
         }
-        //$menu->addChild('common.user_guide', array('uri' => '#docs', 'attributes' => array('class' => 'home')));
+        //$menu->addChild('common.user_guide', array('uri' => '/user_guide.docx', 'attributes' => array('class' => 'home')));
 
         return $menu;
     }
@@ -82,7 +82,7 @@ class SidebarMenuBuilder
         $menu = $this->factory->createItem('root');
         $menu->addChild('common.login', array('route' => 'fos_user_security_login', 'attributes' => array('class' => 'home')));
         $menu->addChild('common.civilian_register', array('route' => 'fos_user_registration_register', 'attributes' => array('class' => 'home')));
-        $menu->addChild('common.user_guide', array('route' => 'user_guide', 'attributes' => array('class' => 'with-spacing home')));
+        $menu->addChild('common.user_guide', array('uri' => '/user_guide.docx', 'attributes' => array('class' => 'with-spacing home')));
 
         return $menu;
     }
