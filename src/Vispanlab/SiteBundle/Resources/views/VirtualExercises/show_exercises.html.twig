@@ -43,12 +43,14 @@
         {% endif %}
     </div>
 </div>
+{% if type == 'Solved' or type == 'Unsolved' %}
 <hr />
 <div class="row">
     <div class="col-md-offset-1 col-md-10 comments">
     {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': ('exercise_comments_'~exerciseIds|join('_'))} %}
     </div>
 </div>
+{% endif %}
 
 <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
