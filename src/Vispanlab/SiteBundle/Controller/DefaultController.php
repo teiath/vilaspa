@@ -15,6 +15,7 @@ class DefaultController extends Controller {
             $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
             return $this->render('VispanlabSiteBundle:Default:index.html.twig', array(
                 'csrf_token' => $csrfToken,
+                'areasofexpertise' => $this->container->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\AreaOfExpertise')->findBy(array(), array('sortOrder' => 'ASC', 'id' => 'ASC')),
             ));
         } else {
             $usersCount = $this->container->get('doctrine')->getManager()->createQuery('SELECT COUNT(u) FROM Vispanlab\UserBundle\Entity\User u')->getSingleScalarResult();

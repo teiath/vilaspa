@@ -1,7 +1,9 @@
 {% extends 'VispanlabSiteBundle::base.html.twig' %}
 
+{% block page_title %}{{'common.title'|trans|striptags|raw}}{% endblock %}
+
 {% block content %}
-    <h3 style="margin-top: 0;" class="text-center"><strong>{% block title %}{{ admin_pool.title }}{% endblock %}</strong><hr /></h3>
+    <h3 style="margin-top: 0;" class="text-center"><strong>{% block title %}{{'common.title'|trans|striptags|raw}}{% endblock %}</strong><hr /></h3>
     {% block inner_content %}
     <div class="row text-center">
         <div class="col-md-3 col-md-offset-2 well well-lg">
@@ -16,6 +18,17 @@
         </div>
     </div>
     {% endblock %}
+{% endblock %}
+
+{% block footer_content %}
+    {% if areasofexpertise is defined %}
+    <div class="row text-center" style="position: absolute; bottom: 80px; width: 100%;">
+        <div class="col-md-12">
+            <p><small>{% for aoe in areasofexpertise %}{{aoe.name(app.request.locale)|striptags|replace({'&': '& '}|raw)}}{% if not loop.last %}, {% endif %}{% endfor %}</small></p>
+        </div>
+    </div>
+    {% endif %}
+    {{parent()}}
 {% endblock %}
 
 {% block sonata_top_nav_menu_login %}

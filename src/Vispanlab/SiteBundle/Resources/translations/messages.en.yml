@@ -1,9 +1,9 @@
 common:
-  title: Virtual<BR />Spatial Analysis Lab
-  areas_of_expertise: Areas of Expertise
+  title: Virtual<BR /> Spatial Analysis Lab
+  areas_of_expertise: Fields of Knowledge
   login: Login
   logout: Logout
-  civilian_register: Civilian Registration
+  civilian_register: Registration
   admin_env_link: Admin Panel
   user_env_link: User Environment
   concept_library: Glossary
@@ -23,6 +23,7 @@ home:
   register: Register
   register_with_tei: If you already have an account for TEI of Athens' electronic services (email, wifi, etc.) you can login directly using your account credentials.
   register_without_tei: Otherwise you can register by clicking the button below.
+  areas_of_expertise: Fields of Knowledge
   users: "Visitors:"
 
 concept_library:
@@ -58,11 +59,11 @@ virtual_exercises:
   no_exercises: No exercises found
 
 # Admin
-Area Of Expertise List: Area of Expertise List
+Area Of Expertise List: Fields of Knowledge List
 Url: Unique URL
 url_help: String that appears in the URL when accessing a resource (eg. /concept_library/). Has to contain up to 20 latin characters.
 Name: Name
 Concepts: Concepts
 Concept List: Concept List
-Areaofexpertise: Area of Expertise
+Areaofexpertise: Fields of Knowledge
 Media_caps: DIAGRAM/MAP/etc.

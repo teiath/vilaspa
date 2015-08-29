@@ -3,10 +3,10 @@
 {% block content %}
 <div class="row text-center index-logged-in">
     <div class="col-md-12" style="position: relative;">
-        <img src="{{asset('img/tei_logo_background.gif')}}" alt="TEI Logo" style="opacity: 0.1; position: absolute; margin-left: -150px; top: 170px;" />
+        <img src="{{asset('img/tei_logo_background.gif')}}" alt="TEI Logo" style="opacity: 0.1; position: absolute; margin-left: -150px; top: 170px;" class="hidden-sm hidden-xs" />
         <h2>{{'home.welcome'|trans({'%user%': app.user.name})}}</h2>
         <p style="margin-top: 30px;">{{'home.text1'|trans|raw}}</p>
-        <div style="margin-top: 150px;" class="text-right"><div style="display: inline-block; border: 1px solid #000; margin-right: 15px; font-size: 16px; margin-right: 20px;" class="well">{{'home.users'|trans|raw}} <strong>{{usersCount}}</strong></div></div>
+        <div style="margin-top: 150px;" class="text-left hidden-sm hidden-xs"><div style="display: inline-block; border: 1px solid #000; font-size: 16px; margin-left: 20px;" class="well">{{'home.users'|trans|raw}} <strong>{{usersCount}}</strong></div></div>
     </div>
 </div>
 {% endblock %}

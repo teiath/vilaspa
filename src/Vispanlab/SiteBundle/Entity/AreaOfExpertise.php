@@ -9,6 +9,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @author Dimosthenis Nikoudis <dnna@dnna.gr>
+ * AreaofExpertise AKA FieldOfKnowledge
  * @ORM\Entity
  */
 class AreaOfExpertise {
