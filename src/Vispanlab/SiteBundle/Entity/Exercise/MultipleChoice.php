@@ -40,7 +40,7 @@ class MultipleChoice extends BaseExercise {
     public function getCorrectAnswer() {
         foreach($this->answers as $i => $curAnswer) {
             if(isset($curAnswer['is_correct']) && $curAnswer['is_correct'] == true) {
-                return $i;
+                return $i+1;
             }
         }
     }
