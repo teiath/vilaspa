@@ -38,11 +38,13 @@ class MatchingAdmin extends Admin
                 'type' => new MatchingAnswerType(),
                 'allow_add' => true,
                 'allow_delete' => true,
+                'options' => array('label' => false)
             ))
             ->add('rightAnswers', 'collection', array(
                 'type' => new MultipleChoiceAnswerType(),
                 'allow_add' => true,
                 'allow_delete' => true,
+                'options' => array('label' => false)
             ))
             ->add('showInEvaluationTest', 'choice', array('choices' => BaseExercise::getShowInEvaluationTestChoices()))
             ->add('relatedConcepts')

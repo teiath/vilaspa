@@ -46,6 +46,7 @@ class MultipleChoice extends BaseExercise {
     }
 
     public function setCorrectAnswer($i) {
+        $i = $i - 1;
         foreach($this->answers as &$curAnswer) {
             unset($curAnswer['is_correct']);
         }

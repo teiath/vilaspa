@@ -8,10 +8,12 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class MultipleChoiceAnswerType extends AbstractType
 {
+    public static $matchingCount = 0;
+
     public function buildForm(FormBuilderInterface $builder, array $options = array())
     {
         $builder
-            ->add('answer', null, array('label' => false, 'required' => true,))
+            ->add('answer', null, array('label' => 've_answer '.self::$matchingCount++, 'required' => true,))
         ;
     }
 

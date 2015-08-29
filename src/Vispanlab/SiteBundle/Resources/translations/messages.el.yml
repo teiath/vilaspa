@@ -96,7 +96,7 @@ Multiple Choice List: Λίστα Ερωτήσεων Πολλαπλής Επιλ�
 Question: ΕΡΩΤΗΣΗ
 Answers: Απαντήσεις
 Correct Answer: Σωστή Απάντηση
-correct_answer_help: Εισάγετε τον αριθμό της σωστής απάντησης. Η αρίθμηση των απαντήσεων αρχίζει από το 0.
+correct_answer_help: Εισάγετε τον αριθμό της σωστής απάντησης.
 On Off List: Λίστα Ερωτήσεων Σωστό / Λάθος
 on_off_correct_answer_help: Για σωστό εισάγετε 1 ενω για λάθος εισάγετε 2.
 ve_off: Λάθος
@@ -114,6 +114,16 @@ Exercise: ΑΣΚΗΣΗ
 Left Answers: Αριστερό Μέρος
 Right Answers: Δεξί Μέρος
 ve_answer: Περιεχόμενο
+ve_answer 1: Απάντηση 1
+ve_answer 2: Απάντηση 2
+ve_answer 3: Απάντηση 3
+ve_answer 4: Απάντηση 4
+ve_answer 5: Απάντηση 5
+ve_answer 6: Απάντηση 6
+ve_answer 7: Απάντηση 7
+ve_answer 8: Απάντηση 8
+ve_answer 9: Απάντηση 9
+ve_answer 10: Απάντηση 10
 ve_matches: Αντιστοιχίσεις
 ve_check: Έλεγχος
 Exam Paper List: Λίστα Μη Λυμένων Ασκήσεων

@@ -37,6 +37,7 @@ class MultipleChoiceAdmin extends Admin
                 'type' => new MultipleChoiceAnswerType(),
                 'allow_add' => true,
                 'allow_delete' => true,
+                'options' => array('label' => false)
             ))
             ->add('correctAnswer', 'integer', array('help' => 'correct_answer_help'))
             ->add('showInEvaluationTest', 'choice', array('choices' => BaseExercise::getShowInEvaluationTestChoices()))
