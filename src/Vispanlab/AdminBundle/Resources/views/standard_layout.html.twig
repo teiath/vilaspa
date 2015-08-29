@@ -93,7 +93,7 @@
         <li>
             <p class="nav navbar-text">
                 <i class="fa fa-user fa-fw"></i> {{app.user.username}}
-                (<a href="{{path('fos_user_security_logout')}}">{{'common.logout'|trans}}</a>)
+                (<a href="{{path('fos_user_security_logout', {'_locale' : 'el'})}}">{{'common.logout'|trans}}</a>)
             </p>
         </li>
         {% endblock %}

@@ -6,7 +6,6 @@
         <img src="{{asset('img/tei_logo_background.gif')}}" alt="TEI Logo" style="opacity: 0.1; position: absolute; margin-left: -150px; top: 170px;" class="hidden-sm hidden-xs" />
         <h2>{{'home.welcome'|trans({'%user%': app.user.name})}}</h2>
         <p style="margin-top: 30px;">{{'home.text1'|trans|raw}}</p>
-        <div style="margin-top: 150px;" class="text-left hidden-sm hidden-xs"><div style="display: inline-block; border: 1px solid #000; font-size: 16px; margin-left: 20px;" class="well">{{'home.users'|trans|raw}} <strong>{{usersCount}}</strong></div></div>
     </div>
 </div>
 {% endblock %}
@@ -22,6 +21,11 @@
             </span>
     </div>
 </form>
+{% endblock %}
+
+{% block footer_content %}
+    <div style="position: absolute; bottom: 80px; left: 0; right: 0;" class="text-left hidden-sm hidden-xs"><div style="display: inline-block; border: 1px solid #000; font-size: 16px; margin-left: 20px;" class="well">{{'home.users'|trans|raw}} <strong>{{usersCount}}</strong></div></div>
+    {{parent()}}
 {% endblock %}
 
 {% block search_js %}

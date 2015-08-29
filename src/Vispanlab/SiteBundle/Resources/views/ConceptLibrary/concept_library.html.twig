@@ -61,20 +61,25 @@
         <h2 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)|raw|replace({'<BR />': ' '})|raw}}</h2>
         <h4>{{'concept_library.heading'|trans}}<hr style="margin-bottom: 10px;" /></h4>
         {{block('glossary')}}
-        <ul style="list-style-type: none; text-align: left;">
-        {% set curLetter = null %}
-        {% for concept in area_of_expertise.sortedConcepts(app.request.locale) %}
-            {% set newLetter = concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|stripGrAccent|first %}
-            {% if newLetter != curLetter %}
-                <li id="concept-glossary-letter-{{newLetter}}" class="alphabet-letter col-md-12"><h3>{{newLetter}}</h3></li>{% set curLetter = newLetter %}
-            {% endif %}
-            <li class="concept-search-result col-md-12" style="vertical-align: bottom;" data-name="{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}">
-                <a href="{{path('concept', {'aoe': area_of_expertise.url, 'concept': concept.id})}}">
-                    {{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}
-                </a>
-            </li>
-        {% endfor %}
-        </ul>
+        {% set concepts = area_of_expertise.sortedConcepts(app.request.locale) %}
+        {% if concepts|length > 0 %}
+            <ul style="list-style-type: none; text-align: left;">
+            {% set curLetter = null %}
+            {% for concept in concepts %}
+                {% set newLetter = concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|stripGrAccent|first %}
+                {% if newLetter != curLetter %}
+                    <li id="concept-glossary-letter-{{newLetter}}" class="alphabet-letter col-md-12"><h3>{{newLetter}}</h3></li>{% set curLetter = newLetter %}
+                {% endif %}
+                <li class="concept-search-result col-md-12" style="vertical-align: bottom;" data-name="{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}">
+                    <a href="{{path('concept', {'aoe': area_of_expertise.url, 'concept': concept.id})}}">
+                        {{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+        <h4><strong>{{'common.page_under_construction'|trans}}</strong></h4>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

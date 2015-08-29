@@ -22,7 +22,7 @@
 
 {% block footer_content %}
     {% if areasofexpertise is defined %}
-    <div class="row text-center" style="position: absolute; bottom: 80px; width: 100%;">
+    <div class="row text-center" style="position: absolute; bottom: 80px; left: 0; right: 0;">
         <div class="col-md-12">
             <p><small>{% for aoe in areasofexpertise %}{{aoe.name(app.request.locale)|striptags|replace({'&': '& '}|raw)}}{% if not loop.last %}, {% endif %}{% endfor %}</small></p>
         </div>

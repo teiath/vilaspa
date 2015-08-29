@@ -22,15 +22,17 @@
                         {{exercisestwig.displayExercise(exercise, type)}}
                         {% set exerciseIds = exerciseIds|merge([exercise.id]) %}
                     {% endfor %}
-                    {% if exercises|length <= 0 %}
-                        <h3>{{'virtual_exercises.no_exercises'|trans}}</h3>
+                    {% if exercises|length <= 0 and type == 'SearchExercise' %}
+                        <h4><strong>{{'virtual_exercises.no_exercises'|trans}}</strong></h4>
+                    {% else %}
+                        <h4><strong>{{'common.page_under_construction'|trans}}</strong></h4>
                     {% endif %}
                     {% if type == 'EvaluationTest' %}
                         <div style="clear: both;">
                             <input type="submit" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" />{#<br />
                             <small style="font-size: 75%;">{{'virtual_exercises.attention'|trans}}</small>#}
                         </div>
-                    {% elseif type != 'SearchExercise' and type != 'Solved' and type != 'Unsolved' %}
+                    {% elseif type != 'SearchExercise' and type != 'Solved' and type != 'Unsolved' and exercises|length > 0 %}
                         <div style="clear: both;">
                             <a href="{{path(app.request.get('_route'), app.request.get('_route_params'))}}" class="btn btn-default">{{'virtual_exercises.refresh'|trans}}</a>
                         </div>
@@ -212,8 +214,8 @@
         </div>
         <div style="clear: both;{% if type == 'EvaluationTest' %}display: none;{% endif %}">
             <hr />
+            <small style="font-size: 75%; margin-right: 10px;">{{'virtual_exercises.attention'|trans}}</small>
             <input type="button" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" />
-            <small style="font-size: 75%;">{{'virtual_exercises.attention'|trans}}</small>
         </div>
         {% import _self as exercisestwig %}
         {{exercisestwig.displayRelatedConcepts(exercise, type)}}

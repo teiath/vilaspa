@@ -9,6 +9,7 @@ common:
   concept_library: Glossary
   virtual_assignments: Exercises
   under_construction: Under Construction
+  page_under_construction: This page is under construction
   user_guide: User Guide
   admin_guide: Admin Guide
   tech_guide: Technical Guide
