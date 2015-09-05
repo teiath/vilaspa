@@ -24,7 +24,7 @@
                     {% endfor %}
                     {% if exercises|length <= 0 and type == 'SearchExercise' %}
                         <h4><strong>{{'virtual_exercises.no_exercises'|trans}}</strong></h4>
-                    {% else if exercises|length <= 0 %}
+                    {% elseif exercises|length <= 0 %}
                         <h4><strong>{{'common.page_under_construction'|trans}}</strong></h4>
                     {% endif %}
                     {% if type == 'EvaluationTest' %}
