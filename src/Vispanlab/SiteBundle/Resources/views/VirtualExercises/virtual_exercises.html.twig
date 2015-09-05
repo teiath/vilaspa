@@ -12,7 +12,7 @@
             <tr class="info">
                 <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'OnOff', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.OnOff'|trans}}</a>
                 {% if (area_of_expertise.getSubjectAreasWithExerciseType('OnOff')|length) > 1 %}
-                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('OnOff') %}
+                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('OnOff') if sa.name(app.request.locale) != area_of_expertise.name(app.request.locale) %}
                         <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'OnOff', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
                     {% endfor %}
                 {% endif %}
@@ -22,7 +22,7 @@
                 <td>
                     <a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'MultipleChoice', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.MultipleChoice'|trans}}</a>
                 {% if (area_of_expertise.getSubjectAreasWithExerciseType('MultipleChoice')|length) > 1 %}
-                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('MultipleChoice') %}
+                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('MultipleChoice') if sa.name(app.request.locale) != area_of_expertise.name(app.request.locale) %}
                         <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'MultipleChoice', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
                     {% endfor %}
                 {% endif %}
@@ -31,7 +31,7 @@
             <tr class="info">
                 <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'Matching', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.Matching'|trans}}</a>
                 {% if (area_of_expertise.getSubjectAreasWithExerciseType('Matching')|length) > 1 %}
-                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('Matching') %}
+                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('Matching') if sa.name(app.request.locale) != area_of_expertise.name(app.request.locale) %}
                         <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'Matching', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
                     {% endfor %}
                 {% endif %}
@@ -40,7 +40,7 @@
             <tr class="info">
                 <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'Solved', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.Solved'|trans}}</a>
                 {% if (area_of_expertise.getSubjectAreasWithExerciseType('Solved')|length) > 1 %}
-                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('Solved') %}
+                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('Solved') if sa.name(app.request.locale) != area_of_expertise.name(app.request.locale) %}
                         <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'Solved', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
                     {% endfor %}
                 {% endif %}
@@ -49,7 +49,7 @@
             <tr class="info">
                 <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'Unsolved', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.Unsolved'|trans}}</a>
                 {% if (area_of_expertise.getSubjectAreasWithExerciseType('Unsolved')|length) > 1 %}
-                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('Unsolved') %}
+                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('Unsolved') if sa.name(app.request.locale) != area_of_expertise.name(app.request.locale) %}
                         <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'Unsolved', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
                     {% endfor %}
                 {% endif %}
@@ -58,7 +58,7 @@
             <tr class="info">
                 <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'EvaluationTest', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.EvaluationTest'|trans}}</a>
                 {% if (area_of_expertise.getSubjectAreasForEvaluationTest()|length) > 1 %}
-                    {% for sa in area_of_expertise.getSubjectAreasForEvaluationTest %}
+                    {% for sa in area_of_expertise.getSubjectAreasForEvaluationTest if sa.name(app.request.locale) != area_of_expertise.name(app.request.locale) %}
                         <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'EvaluationTest', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
                     {% endfor %}
                 {% endif %}
