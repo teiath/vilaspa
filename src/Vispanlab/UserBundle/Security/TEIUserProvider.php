@@ -49,6 +49,9 @@ class TEIUserProvider extends EmailUserProvider
             if(!isset($user)) {
                 $user = new User();
                 $user->setUsername($username);
+                $name = explode(' ', $i['info'][0]['fullname'][0]);
+                $user->setName($name[0]);
+                $user->setSurname($name[1]);
                 $user->setEmail($username.'@teiath.gr');
                 $user->setEnabled(true);
                 $user->setPassword(md5(rand(1, 100).$username.'@teiath.gr'));
