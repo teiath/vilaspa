@@ -5,14 +5,14 @@ common:
   logout: Αποσύνδεση
   civilian_register: Εγγραφή
   admin_env_link: Περιβάλλον Διαχειριστή
-  user_env_link: Επαναφορά στο Περιβάλλον Χρήστη
+  user_env_link: Επαναφορά<BR />στο Περιβάλλον Χρήστη
   concept_library: Βιβλιοθήκη Εννοιών
   virtual_assignments: Ασκήσεις
   under_construction: Υπό Κατασκευή
   page_under_construction: Η σελίδα βρίσκεται υπό κατασκευή
   user_guide: Οδηγός Χρήσης
   admin_guide: Οδηγός Διαχειριστή
-  tech_guide: Τεχνικός Οδηγός
+  tech_guide: Οδηγός Συντήρησης
   analytics: Στατιστικά Χρήσης
   funded_by: Με τη συγχρηματοδότηση της Ελλάδας και της Ευρωπαικής Ένωσης
   license: Το περιεχόμενο του παρόντος ιστοχώρου υπάγεται σε Άδεια Χρήσης Creative Commons Attribution 3.0
