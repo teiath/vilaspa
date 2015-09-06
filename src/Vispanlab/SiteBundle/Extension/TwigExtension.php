@@ -288,7 +288,8 @@ class TwigExtension extends \Twig_Extension
       $links = array_filter(array_map('trim', explode($separator, $strippedContent)));
       foreach($links as &$curLink) {
           $query = $this->container->get('doctrine')->getManager()->createQuery('SELECT c,
-              (CASE WHEN d.text_formatted like :curLinkEnd THEN 0
+              (CASE WHEN d.text_formatted like :curLinkExact THEN -1
+               WHEN d.text_formatted like :curLinkEnd THEN 0
                WHEN d.text_formatted like :curLinkExtra THEN 1
                WHEN d.text_formatted like :curLinkFront THEN 2
                ELSE 3
@@ -298,6 +299,7 @@ class TwigExtension extends \Twig_Extension
               WHERE d.text_formatted LIKE :curLink AND d.locale = :locale
               ORDER BY relevance, d.text_formatted');
           $query->setParameter('curLink', '%'.$curLink.'%');
+          $query->setParameter('curLinkExact', '%>'.$curLink.'<%');
           $query->setParameter('curLinkEnd', $curLink.'%');
           $query->setParameter('curLinkExtra', '% %'.$curLink.'% %');
           $query->setParameter('curLinkFront', '%'.$curLink);
