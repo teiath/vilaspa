@@ -24,7 +24,7 @@
     {% if areasofexpertise is defined %}
     <div class="row text-center" style="position: absolute; top: -20px; left: 0; right: 0; overflow: hidden; height: 15px;">
         <div class="col-md-12">
-            <p><small>{% for aoe in areasofexpertise %}{{aoe.name(app.request.locale)|striptags|replace({'&': '& '}|raw)}}{% if not loop.last %}, {% endif %}{% endfor %}</small></p>
+            <p><small>{% for aoe in areasofexpertise %}{{aoe.name(app.request.locale)|striptags|replace({'&': '& '}|raw)}}{% if not loop.last %}&nbsp;&nbsp;&ndash;&nbsp;&nbsp;{% endif %}{% endfor %}</small></p>
         </div>
     </div>
     {% endif %}
