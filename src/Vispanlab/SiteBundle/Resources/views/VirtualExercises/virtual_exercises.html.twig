@@ -3,7 +3,7 @@
 {% block content %}
 <div class="row text-center virtual-exercises">
     <div class="col-md-12">
-        <h2 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)|raw|replace({'<BR />': ' '})|raw}}</h2>
+        <h4 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)|raw|replace({'<BR />': ' '})|raw}}</h4>
         <h4>{{'virtual_exercises.heading'|trans}}<hr style="margin-bottom: 10px;" /></h4>
         {% set linkClass = 'btn btn-primary col-md-2' %}
         {% set subLinkClass = 'btn btn-default col-md-1 col-md-offset-1' %}

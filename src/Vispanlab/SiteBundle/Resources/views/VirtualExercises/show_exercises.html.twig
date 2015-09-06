@@ -84,7 +84,7 @@
 {% endmacro %}
 
 {% macro displayRelatedConcepts(exercise, type) %}
-    {% if exercise.relatedConcepts|length > 0 and type != 'EvaluationTest' %}<h5 class="text-center"><HR /><small style="font-size: 95%;">{{'virtual_exercises.see_library'|trans}}{% for concept in exercise.relatedConcepts %}<a href="{{path('concept', {'aoe': (concept.areasofexpertise|first).url, 'concept': concept.id})}}" target="_blank">{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}</a>{% if not loop.last %}, {% endif %}{% endfor %}</small></h5>{% endif %}
+    {% if exercise.relatedConcepts|length > 0 and type != 'EvaluationTest' %}<h5 class="text-center"><HR /><small style="font-size: 95%;">{{'virtual_exercises.see_library'|trans}}{% for concept in exercise.relatedConcepts %}{% if concept.hasNameForLang(app.request.locale) %}<a href="{{path('concept', {'aoe': (concept.areasofexpertise|first).url, 'concept': concept.id})}}" target="_blank">{{concept.nameForLang(app.request.locale).textFormatted|format_text(concept.nameForLang(app.request.locale).format_type)|striptags|raw}}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}</small></h5>{% endif %}
 {% endmacro %}
 
 {% macro displayMultipleChoice(exercise, type, solution) %}
@@ -111,7 +111,7 @@
         <hr />
         <div class="row">
         {% for answer in exercise.answers %}
-            <div class="col-md-6 text-center">
+            <div class="col-md-6 text-md-center text-lg-center text-sm-left text-xs-left">
                     <input type="radio" {% if type == 'EvaluationTest' %}required{% endif %} id="mc-{{exercise.id}}-{{loop.index}}" name="mc-{{exercise.id}}" value="{{answer.answer}}" data-iscorrect="{{answer.is_correct is defined and answer.is_correct ? 'true' : 'false'}}" {% if solution == answer.answer %}checked="checked" data-solved="true"{% endif %} /> <label style="font-weight: normal;" for="mc-{{exercise.id}}-{{loop.index}}">{{answer.answer|trans}}</label>
             </div>
         {% endfor %}
