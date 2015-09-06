@@ -1,0 +1,11 @@
+{% extends 'VispanlabSiteBundle:Default:index.html.twig' %}
+
+{% block title %}{{'home.forgot_password'|trans({}, 'messages')}}{% endblock %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block inner_content %}
+<p>
+{{ 'resetting.check_email'|trans({'%email%': email}) }}
+</p>
+{% endblock %}

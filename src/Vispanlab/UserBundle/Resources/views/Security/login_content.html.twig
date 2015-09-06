@@ -24,5 +24,8 @@
   {% if app.request.get('redirect') != null %}
     <input type="hidden" name="_target_path" value="{{app.request.get('redirect')|url_decode}}" />
   {% endif %}
+  <div class="checkbox">
+      <a href="{{path('fos_user_resetting_request')}}">{{'home.forgot_password'|trans({}, 'messages')}}</a>
+  </div>
   <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 </form>
