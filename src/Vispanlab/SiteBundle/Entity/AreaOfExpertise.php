@@ -46,6 +46,14 @@ class AreaOfExpertise {
      */
     protected $underConstruction = false;
     /**
+     * @ORM\Column (name="under_construction_cl", type="boolean")
+     */
+    protected $underConstructionCl = false;
+    /**
+     * @ORM\Column (name="under_construction_ve", type="boolean")
+     */
+    protected $underConstructionVe = false;
+    /**
      * @ORM\Column (name="sort_order", type="integer")
      */
     protected $sortOrder = 0;
@@ -150,6 +158,22 @@ class AreaOfExpertise {
 
     function setUnderConstruction($underConstruction) {
         $this->underConstruction = $underConstruction;
+    }
+
+    function getUnderConstructionCl() {
+        return $this->underConstructionCl;
+    }
+
+    function getUnderConstructionVe() {
+        return $this->underConstructionVe;
+    }
+
+    function setUnderConstructionCl($underConstructionCl) {
+        $this->underConstructionCl = $underConstructionCl;
+    }
+
+    function setUnderConstructionVe($underConstructionVe) {
+        $this->underConstructionVe = $underConstructionVe;
     }
 
     function getSortOrder() {

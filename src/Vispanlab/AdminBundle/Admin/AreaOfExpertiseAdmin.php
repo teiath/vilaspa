@@ -32,6 +32,8 @@ class AreaOfExpertiseAdmin extends Admin
             ->add('nameEl')
             ->add('nameEn')
             ->add('underConstruction', null, array('required' => false))
+            ->add('underConstructionCl', null, array('required' => false))
+            ->add('underConstructionVe', null, array('required' => false))
             ->add('sortOrder', null, array('required' => true))
         ;
         parent::configureFormFields($formMapper);

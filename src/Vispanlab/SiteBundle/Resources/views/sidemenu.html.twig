@@ -16,7 +16,14 @@
     {% if curItem|length > 0 %}
     <ul class="treeview-menu">
         {% for subitem in curItem %}
-        <li class="{{subitem.attribute('class')}}{% if matcher.isCurrent(subitem) %} active{% endif %}"><a href="{{subitem.uri}}"><i class="fa fa-angle-double-right"></i> {{subitem.label|trans|raw}}</a></li>
+        <li class="{{subitem.attribute('class')}}{% if matcher.isCurrent(subitem) %} active{% endif %}">
+            <a href="{{subitem.uri}}">
+                <i class="fa fa-angle-double-right"></i> {{subitem.label|trans|raw}}
+                {% if subitem.attribute('under_construction') == true %}
+                    <i class="fa pull-right fa-exclamation-triangle" title="{{'common.under_construction'|trans}}"></i>
+                {% endif %}
+            </a>
+        </li>
         {% endfor %}
     </ul>
     {% endif %}
