@@ -206,6 +206,10 @@ h6,
   background-position: -120px 0;
 }
 
+.matching-related {
+    border-radius: 100%;
+}
+
 /* Comments */
 .comments h3 {
     /*margin-top: -25px;

@@ -54,6 +54,7 @@
 </div>
 {% endif %}
 
+{# Image element for solved exercises #}
 <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -199,6 +200,7 @@
                                     <option value="{{loop.index}}">{{loop.index}}</option>
                                 {% endfor %}
                             </select>
+                            <span class="matching-token-input-endpoint"></span>
                         </div>
                     </div>
                 </li>
@@ -207,8 +209,8 @@
         </div>
         <div class="col-md-6 matching-right">
             <ol>
-            {% for answer in exercise.rightAnswers %}
-                <li>{{answer.answer}}</li>
+            {% for rindex, answer in exercise.rightAnswers %}
+                <li><span class="matching-token-input-rendpoint" data-index="{{rindex+1}}" style="position: relative; left: -15px;"></span>{{answer.answer}}</li>
             {% endfor %}
             </ol>
         </div>
@@ -227,6 +229,7 @@
 <script src="{{asset('bundles/sonataadmin/vendor/bootstrap/js/transition.js')}}"></script>
 <script src="{{asset('bundles/sonataadmin/vendor/bootstrap/js/collapse.js')}}"></script>
 <script src="{{asset('js/vendor/jquery.elevatezoom.js')}}"></script>
+<script src="{{asset('js/vendor/jquery.connections.js')}}"></script>
 <script type="text/javascript">
 var isEvaluationTest = {{type == 'EvaluationTest' ? 'true' : 'false'}};
 var arr_diff = function(a1, a2) {
@@ -307,6 +310,24 @@ var initMatching = function($this) {
         });
     }*/
     // End constraints
+    // Draw lines
+    var drawMatchingLines = function() {
+        $this.find('div.matching-token-input').each(function() {
+            var selectedValues = $(this).select2('val');
+            $(this).parent().find('.matching-token-input-endpoint').connections('remove');
+            for (var i = 0; i < selectedValues.length; i++) {
+                //console.log($this.find('.matching-right li[data-index="'+selectedValues[i]+'"]'));
+                $(this).parent().find('.matching-token-input-endpoint').connections({
+                  to: $this.find('.matching-right .matching-token-input-rendpoint[data-index="'+selectedValues[i]+'"]'),
+                  'class': 'matching-related'
+                });
+            }
+        });
+    };
+    var $selects = $this.find('.matching-token-input');
+    $selects.on('change', function(e) { drawMatchingLines(); });
+    $(window).resize(function () { drawMatchingLines(); });
+    drawMatchingLines();
     // Validation
     var checkSolution = function() {
         var $submit = $(this);
