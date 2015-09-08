@@ -64,7 +64,7 @@ class SidebarMenuBuilder
     {
         $menu = $this->factory->createItem('root');
         $menu->addChild('common.admin_guide', array('uri' => '/admin_guide.docx', 'attributes' => array('class' => 'home')));
-        $menu->addChild('common.tech_guide', array('uri' => '/tech_guide.docx', 'attributes' => array('class' => 'home')));
+        $menu->addChild('common.tech_guide', array('uri' => '/maintainer_guide.zip', 'attributes' => array('class' => 'home')));
         $menu->addChild('common.analytics', array('uri' => 'https://www.google.com/analytics/web/?hl=en#report/visitors-overview/a66591538w103050861p107149363/', 'attributes' => array('class' => 'home')));
         if($this->securityContext->isGranted('ROLE_ADMIN') || $this->securityContext->isGranted('ROLE_AREA_ADMIN')) {
             if(strpos($request->getRequestUri(), 'admin') === false) {
