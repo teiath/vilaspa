@@ -1,0 +1,9 @@
+{% extends 'VispanlabSiteBundle:Default:index.html.twig' %}
+
+{% block title %}{{'home.forgot_password'|trans({}, 'messages')}}{% endblock %}
+
+{% trans_default_domain 'messages' %}
+
+{% block inner_content %}
+<p>{{ 'home.student_cannot_reset'|trans|raw }}</p>
+{% endblock inner_content %}

@@ -26,6 +26,7 @@ home:
   register_without_tei: Otherwise you can register by clicking the button below.
   areas_of_expertise: Fields of Knowledge
   forgot_password: I forgot my password
+  student_cannot_reset: "<b>Error</b>: Your account is connected with TEI of Athens' directory services. To reset your password please contact the institute's Network Operations Center."
   users: "Visitors:"
 
 concept_library:
