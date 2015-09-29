@@ -112,7 +112,8 @@ body.fixed .wrapper {
 }
 
 .sonata-bc .breadcrumb {
-    margin-top: 26px;
+    margin-top: 29px;
+    font-size: 11px;
 }
 
 /*
@@ -173,7 +174,7 @@ body.fixed .wrapper {
     position: fixed;
     left: 0;
     right: 0;
-    top: 50px;
+    top: 100px;
     background-color: #F9F9F9;
     z-index: 1000;
     padding-top: 10px;

@@ -3,7 +3,7 @@
 {% block sonata_head_title %}{% block title %}Εικονικό Εργαστήριο Χωρικής Ανάλυσης{% endblock %}{% endblock %}
 
 {% block sonata_breadcrumb %}
-    <ol class="nav navbar-top-links breadcrumb hidden-xs">
+    <ol class="nav navbar-top-links breadcrumb hidden-xs hidden-sm hidden-md">
         {%- for  menu in cnerta_breadcrumb_get('sidebar') %}
             {% set menuLabel = menu.label|replace({'<BR />': ' '})|striptags|trans %}
             {% if not loop.last  %}
