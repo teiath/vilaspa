@@ -11,7 +11,7 @@ sonata_block:
           
 sonata_admin:
     title:      ΕΕΧΑ
-    title_logo: /img/tei_logo.png
+    title_logo: /img/tei_logo.jpg
     options:
         use_select2: false
     templates:

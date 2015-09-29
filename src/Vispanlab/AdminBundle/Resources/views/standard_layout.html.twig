@@ -75,15 +75,64 @@
 
 {% block logo %}
     {% spaceless %}
-    <a class="logo" href="{{ url('home') }}">
-        {% if 'single_image' == admin_pool.getOption('title_mode') or 'both' == admin_pool.getOption('title_mode') %}
+    <a class="logo hidden-xs" href="{{ url('home') }}">
+        {#{% if 'single_image' == admin_pool.getOption('title_mode') or 'both' == admin_pool.getOption('title_mode') %}
             <img src="{{ asset(admin_pool.titlelogo) }}" style="height: 46px; margin-top: 3px;" alt="{{ admin_pool.title }}">
         {% endif %}
         {% if 'single_text' == admin_pool.getOption('title_mode') or 'both' == admin_pool.getOption('title_mode') %}
             <span style="font-size: 70%;">{{ admin_pool.title }}<br /><small style="font-size: 75%;">{{'common.title'|trans|raw}}</small></span>
-        {% endif %}
+        {% endif %}#}
+        <img src="{{ asset(admin_pool.titlelogo) }}" style="width: 100%; max-width: 100%;" alt="{{ admin_pool.title }}">
     </a>
     {% endspaceless %}
+{% endblock %}
+
+{% block sonata_nav %}
+{% if admin_pool is defined %}
+    <nav class="navbar navbar-static-top" role="navigation">
+        <div style="display: inline; float: left; margin-left: 35px">
+            <img class="eexa-logo" src="{{asset('img/eexa_logo.jpg')}}" />
+            <span class="eexa-logo-text hidden-xs">{{'common.title'|trans|raw}}</span>
+        </div>
+
+        <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+
+        <div class="navbar-left">
+            {% block sonata_breadcrumb %}
+                {% if _breadcrumb is not empty or action is defined %}
+                    <ol class="nav navbar-top-links breadcrumb">
+                        {% if _breadcrumb is empty %}
+                            {% if action is defined %}
+                                {% for menu in admin.breadcrumbs(action) %}
+                                    {% if not loop.last  %}
+                                        <li>
+                                            {% if menu.uri is not empty %}
+                                                <a href="{{ menu.uri }}">{{ menu.label|raw }}</a>
+                                            {% else %}
+                                                {{ menu.label }}
+                                            {% endif %}
+                                        </li>
+                                    {% else %}
+                                        <li class="active"><span>{{ menu.label }}</span></li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% else %}
+                            {{ _breadcrumb|raw }}
+                        {% endif %}
+                    </ol>
+                {% endif %}
+            {% endblock sonata_breadcrumb %}
+        </div>
+
+        {{block('sonata_top_nav_menu')}}
+    </nav>
+{% endif %}
 {% endblock %}
 
 {% block sonata_top_nav_menu %}

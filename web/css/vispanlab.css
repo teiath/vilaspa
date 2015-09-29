@@ -39,6 +39,9 @@ h6,
 }
 
 @media (min-width: 992px) {
+    .left-side {
+      top: 100px;
+    }
     .footer {
         margin-left: 220px;
     }
@@ -64,6 +67,52 @@ h6,
 
 .skin-black .sidebar > .sidebar-menu > .with-spacing {
     margin-top: 44px;
+}
+
+body > .header .navbar, body > .header .logo {
+    height: 100px;
+}
+
+body > .header .logo {
+    padding-left: 0;
+    padding-right: 0;
+    border-bottom: 10px solid #73767b;
+}
+
+body > .header .logo img {
+    padding-bottom: 0;
+}
+
+body > .header .navbar {
+    border-bottom: 10px solid #c8dd5e;
+}
+
+body > .header .navbar .sidebar-toggle {
+    margin-top: 35px;
+    margin-left: 35px;
+}
+
+.eexa-logo {
+    margin-top: 5px;
+    height: 80px;
+}
+
+.eexa-logo-text {
+    color: #73767B;
+    font-weight: bold;
+    font-size: 16px;
+    display: inline-block;
+    margin-left: 20px;
+    vertical-align: top;
+    margin-top: 28px;
+}
+
+body.fixed .wrapper {
+    margin-top: 100px;
+}
+
+.sonata-bc .breadcrumb {
+    margin-top: 26px;
 }
 
 /*
@@ -137,14 +186,24 @@ h6,
 }
 
 .skin-black .concept-search-form {
-    padding-top: 7px;
+    color: #8f8d8e;
+    background-color: #bbbab8;
+    margin-top: 0;
     margin-left: 0;
     margin-right: 0;
 }
 
+.skin-black .sidebar-form input[type="text"]:focus, .skin-black .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+    background-color: transparent;
+}
+
+.skin-black .sidebar-form .btn {
+    color: #dcdcdc;
+}
+
 .skin-black .concept-search-form .input-group {
-    border-top: 1px solid #777;
-    border-bottom: 1px solid #777;
+    border-top: 1px solid #d0cfcd;
+    border-bottom: 1px solid #d0cfcd;
 }
 /* End Concept Search */
 
