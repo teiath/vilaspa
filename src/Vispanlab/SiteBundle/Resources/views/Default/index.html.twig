@@ -3,28 +3,38 @@
 {% block page_title %}{{'common.title'|trans|striptags|raw}}{% endblock %}
 
 {% block content %}
+    {% if app.request.get('_route') != 'home' %}
     <h3 style="margin-top: 0;" class="text-center"><strong>{% block title %}{{'common.title'|trans|striptags|raw}}{% endblock %}</strong><hr /></h3>
+    {% endif %}
+
     {% block inner_content %}
-    <div class="row text-center">
-        <div class="col-md-3 col-md-offset-2 well well-lg">
-            {% include 'VispanlabUserBundle:Security:login_content.html.twig' %}
-        </div>
-        <div class="col-md-3 col-md-offset-1 well well-lg">
-            <h4><strong>{{'home.register'|trans}}</strong></h4>
-            <p>{{'home.register_with_tei'|trans}}</p>
-            <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
-            <p>{{'home.register_without_tei'|trans}}</p>
-            <p><a class="btn btn-primary" href="{{path('fos_user_registration_register')}}">{{'common.civilian_register'|trans}}</a></p>
+    <h3 style="color: #ff7906;">{{'home.welcome_generic'|trans}}</h3>
+    <p>&nbsp;</p>
+    <p style="font-size: 15px; font-weight: bold;">
+        {{'home.motto1'|trans|raw}}
+    </p>
+    <p>&nbsp;</p>
+    <p>
+        {{'home.motto2'|trans|raw}}
+    </p>
+
+    <img class="hidden-xs hidden-sm" style="max-width: 900px;" src="{{asset('img/front_maps.gif')}}" />
+
+    <div class="row">
+        <div class="col-md-10 home-motto-3 col-md-offset-2">
+            {{'home.motto3'|trans|raw}}
         </div>
     </div>
+
+    <p>&nbsp;</p>
     {% endblock %}
 {% endblock %}
 
 {% block footer_content %}
     {% if areasofexpertise is defined %}
-    <div class="row text-center" style="position: absolute; top: -20px; left: 0; right: 0; overflow: hidden; height: 15px;">
+    <div class="row text-center" style="position: absolute; top: -30px; left: 0; right: 0; overflow: hidden; height: 15px;">
         <div class="col-md-12">
-            <p><small>{% for aoe in areasofexpertise %}{{aoe.name(app.request.locale)|striptags|replace({'&': '& '}|raw)}}{% if not loop.last %}&nbsp;&nbsp;&ndash;&nbsp;&nbsp;{% endif %}{% endfor %}</small></p>
+            <p><strong>{% for aoe in areasofexpertise %}{{aoe.name(app.request.locale)|striptags|replace({'&': '& '}|raw)}}{% if not loop.last %}&nbsp;&nbsp;&bullet;&nbsp;&nbsp;{% endif %}{% endfor %}</strong></p>
         </div>
     </div>
     {% endif %}

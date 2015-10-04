@@ -4,6 +4,7 @@
 html,
 body {
   font-family: 'Open Sans', sans-serif;
+  color: #74737b;
 }
 
 /* H1 - H6 font */
@@ -146,6 +147,19 @@ body.fixed .wrapper {
   .text-lg-justify { text-align: justify; }
 }
 
+.home-motto-3 {
+    border-left: 10px solid #c8dd5e;
+}
+
+.home-motto-3 ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+.home-motto-3 ul li:before {
+    content: "\25B6";
+}
+
 /* Concept Search */
 .skin-black .sidebar .dropdown-menu a {
     color: #333;
@@ -183,6 +197,10 @@ body.fixed .wrapper {
 @media (min-width: 992px) {
     .concept-glossary.fixed {
         display: block;
+    }
+
+    .home-motto-3 {
+        margin-top: -150px;
     }
 }
 
