@@ -29,7 +29,8 @@ class TEIUserProvider extends EmailUserProvider
         $datauser .= '&password='.$password;
         $datauser .= '&m=N11050';
         $ch = curl_init();
-        curl_setopt ($ch, CURLOPT_URL,"http://195.130.109.174:8887/_api/giauth");
+        curl_setopt ($ch, CURLOPT_URL,"https://195.130.109.174:8887/_api/giauth");
+        curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
         curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt ($ch, CURLOPT_TIMEOUT, 60);
         curl_setopt ($ch, CURLOPT_FOLLOWLOCATION, 1);
@@ -67,7 +68,8 @@ class TEIUserProvider extends EmailUserProvider
         $datauser = 'username='.$username;   // testuser
         $datauser .= '&m=N11050';
         $ch = curl_init();
-        curl_setopt ($ch, CURLOPT_URL,"http://195.130.109.174:8887/_api/giauth");
+        curl_setopt ($ch, CURLOPT_URL,"https://195.130.109.174:8887/_api/giauth");
+        curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
         curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt ($ch, CURLOPT_TIMEOUT, 60);
         curl_setopt ($ch, CURLOPT_FOLLOWLOCATION, 1);
