@@ -18,6 +18,17 @@ common:
   license: This work is licensed under a Creative Commons Attribution 3.0 License
 
 home:
+  welcome_generic: Welcome
+  motto1: The SPATIAL ANALYSIS VIRTUAL LAB (VISPANLAB)<BR /> offers supplementary learning in the fields of spatial analysis,<BR /> in the form of a usable and readily accessible environment that aims<BR /> to consolidate and deepen students' knowledge.
+  motto2: You can navigate to the currently available fields of knowledge, by using the menu<BR /> on the left, to either search for the interpretation of concepts or to practice using relevant exercises.
+  motto3: |
+    In the context of VISPANLAB's continuous improvement, we welcome:
+    <ul>
+        <li> comments, remarks and opinions about the entire undertaking,</li>
+        <li> mentions for potential corrections in the content,</li>
+        <li> suggestions regarding the usabiliy, aesthetics etc.,</li>
+        <li> any other relevant proposal</li>
+    </ul>
   welcome: Welcome %user%
   text1: The SPATIAL ANALYSIS VIRTUAL LAB is an educational tool for fields of knowledge dedicated to spatial point of view.<BR /><BR />You can navigate to the available fields of knowledge by using the left-hand menu, either to explore a term or to be trained in related exercises.
   # Not logged in
