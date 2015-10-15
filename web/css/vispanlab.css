@@ -166,7 +166,24 @@ body.fixed .wrapper {
 }
 
 .skin-black .sidebar-form input[type="text"] {
-    color: #fff;
+    color: #6d6c71;
+    font-weight: bold;
+}
+
+.skin-black .sidebar-form input[type="text"]::-webkit-input-placeholder {
+    color: #6d6c71;
+}
+
+.skin-black .sidebar-form input[type="text"]:-moz-placeholder { /* Firefox 18- */
+    color: #6d6c71;
+}
+
+.skin-black .sidebar-form input[type="text"]::-moz-placeholder {  /* Firefox 19+ */
+    color: #6d6c71;
+}
+
+.skin-black .sidebar-form input[type="text"]:-ms-input-placeholder {
+    color: #6d6c71;
 }
 
 /*.concept-glossary {
