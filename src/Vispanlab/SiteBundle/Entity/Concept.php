@@ -62,10 +62,14 @@ class Concept {
      * @ORM\OrderBy({"locale" = "ASC"})
      */
     protected $media;
+
+    protected $commentsFormatType = 'richhtml';
     /**
      * @ORM\Column (name="comments", type="text", nullable=true)
      */
     protected $comments;
+
+    protected $commentsFormatted;
 
     public function __construct() {
         $this->areasofexpertise = new ArrayCollection();
@@ -229,12 +233,28 @@ class Concept {
         $this->getMedia()->removeElement($media);
     }
 
+    function getCommentsFormatType() {
+        return $this->commentsFormatType;
+    }
+
+    function setCommentsFormatType($commentsFormatType) {
+        $this->commentsFormatType = $commentsFormatType;
+    }
+
     public function getComments() {
         return $this->comments;
     }
 
     public function setComments($comments) {
         $this->comments = $comments;
+    }
+
+    function getCommentsFormatted() {
+        return $this->comments;
+    }
+
+    function setCommentsFormatted($commentsFormatted) {
+        $this->comments = $commentsFormatted;
     }
 
     public function getCommentsAsDefinition() {

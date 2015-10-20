@@ -46,7 +46,16 @@ class ConceptAdmin extends Admin
             ->add('relatedConcepts', 'sonata_type_collection', array(), array('edit' => 'inline', 'inline' => 'table'))
             //->add('media', 'sonata_type_native_collection', array('allow_add' => true, 'type' => 'entity', 'options' => array('class' => 'Application\Sonata\MediaBundle\Entity\Media'), 'allow_delete' => true, ))
             ->add('media', 'sonata_type_collection', array(), array('edit' => 'inline', 'inline' => 'table'))
-            ->add('comments', null, array('help' => 'comments_placeholder'))
+            ->add('text', 'sonata_formatter_type', array(
+                'source_field'         => 'comments',
+                'source_field_options' => array('attr' => array('class' => 'span10', 'rows' => 20)),
+                'format_field'         => 'commentsFormatType',
+                'target_field'         => 'commentsFormatted',
+                'ckeditor_context'     => 'default',
+                'event_dispatcher'     => $formMapper->getFormBuilder()->getEventDispatcher(),
+                'listener'             => true,
+                'help'                 => 'comments_placeholder',
+            ))
         ;
         parent::configureFormFields($formMapper);
     }
