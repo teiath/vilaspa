@@ -66,12 +66,17 @@ virtual_exercises:
   evaluation_info: Κάθε σωστή απάντηση αυξάνει το συνολικό βαθμό κατά 1, ενώ κάθε λανθασμένη τον μειώνει κατά 1.
   refresh: Ανανέωση Ερωτήσεων
   see_library: "Βλέπε βιβλιοθήκη εννοιών: "
+  grade: Βαθμός
   congrats: Συγχαρητήρια
   good: Πήγες Καλά
   average: Χρυσή μετριότητα
   try_harder: Προσπάθησε περισότερο
   search_placeholder: Αναζήτηση Ασκήσεων
   no_exercises: Δεν βρέθηκαν ασκήσεις
+  total_grade: Συνολικός βαθμός
+  rank: Κατάταξη
+  required_grade: Απαιτούμενος βαθμός για επόμενη κατάταξη
+  highest_rank: Υψηλότερη κατάταξη
 
 # Admin
 Area Of Expertise List: Λίστα Γνωστικών Αντικειμένων

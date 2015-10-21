@@ -66,12 +66,17 @@ virtual_exercises:
   evaluation_info: Each correct answer increases the total grade by 1, while each wrong one decreases it by 1.
   refresh: Refresh Questions
   see_library: "See glossary: "
+  grade: Grade
   congrats: Congratulations
   good: Well done
   average: Golden mediocrity
   try_harder: Try harder
   search_placeholder: Search Exercises
   no_exercises: No exercises found
+  total_grade: Total Grade
+  rank: Rank
+  required_grade: Required grade for next rank
+  highest_rank: Highest rank
 
 # Admin
 Area Of Expertise List: Fields of Knowledge List

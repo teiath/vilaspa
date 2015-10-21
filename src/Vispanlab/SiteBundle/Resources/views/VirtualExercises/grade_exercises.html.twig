@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
                 {% set grade = correct_exercises|length %}
-                <h4>Βαθμός: {{grade}}/{{(correct_exercises|length)+(wrong_exercises|length)}}</h4>
+                <h4>{{'virtual_exercises.grade'|trans}}: {{grade}}/{{(correct_exercises|length)+(wrong_exercises|length)}}</h4>
                 <h5 class="text-muted" style="margin-bottom: 0;">
                     {% if grade == 5 %}
                         {{'virtual_exercises.congrats'|trans}}
@@ -29,10 +29,10 @@
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
                 <table class="table table-bordered">
-                    <tr><td>Συνολικός βαθμός</td><td>{{app.user.userScoreForAoe(area_of_expertise).score}}</td></tr>
-                    <tr><td>Κατάταξη</td><td>{{rank}}/{{totalRanks}}</td></tr>
-                    <tr><td>Απαιτούμενος βαθμός για επόμενη κατάταξη</td><td>{{requiredScore}}</td></tr>
-                    <tr><td>Υψηλότερη κατάταξη</td><td>{{topUser.score}} ({{topUser.user.username}})</td></tr>
+                    <tr><td>{{'virtual_exercises.total_grade'|trans}}</td><td>{{app.user.userScoreForAoe(area_of_expertise).score}}</td></tr>
+                    <tr><td>{{'virtual_exercises.rank'|trans}}</td><td>{{rank}}/{{totalRanks}}</td></tr>
+                    <tr><td>{{'virtual_exercises.required_grade'|trans}}</td><td>{{requiredScore}}</td></tr>
+                    <tr><td>{{'virtual_exercises.highest_rank'|trans}}</td><td>{{topUser.score}} ({{topUser.user.username}})</td></tr>
                 </table>
                 {#<h4>Ο συνολικός σου βαθμός είναι: {{app.user.score}}</h4>
                 <h5 class="text-muted" style="margin-bottom: 0;">
