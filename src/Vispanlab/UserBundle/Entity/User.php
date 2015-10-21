@@ -5,6 +5,7 @@ use Vispanlab\SiteBundle\Entity\Dog;
 use Vispanlab\UserBundle\Wantlet\ORM\Point;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OrderBy;
 use FOS\UserBundle\Model\User as BaseUser;
@@ -39,15 +40,19 @@ class User extends BaseUser
      */
     protected $surname;
     /**
-     * @ORM\Column(name="score", type="integer", nullable=false)
+     * @ORM\OneToMany(targetEntity="UserScore", mappedBy="user")
      */
-    protected $score;
+    protected $userScore;
     /**
      * @ORM\Column(name="login_source", type="string", nullable=true)
      */
     protected $loginSource = self::LOGIN_SOURCE_LOCAL;
     const LOGIN_SOURCE_LOCAL = 'LOCAL';
     const LOGIN_SOURCE_TEI = 'TEI';
+
+    public function __construct() {
+        $this->userScore = new ArrayCollection();
+    }
 
     public function getId() {
         return $this->id;
@@ -73,12 +78,24 @@ class User extends BaseUser
         $this->surname = $surname;
     }
 
-    function getScore() {
-        return $this->score;
+    function getUserScore() {
+        return $this->userScore;
     }
 
-    function setScore($score) {
-        $this->score = $score;
+    function setUserScore($userScore) {
+        $this->userScore = $userScore;
+    }
+
+    public function getUserScoreForAoe($aoe) {
+        $criteria = Criteria::create();
+        $criteria->andWhere(Criteria::expr()->eq("areaofexpertise", $aoe));
+        $score = $this->userScore->matching($criteria);
+        if($score->count() > 0) { return $score->first(); } else {
+            $score = new UserScore();
+            $score->setAreaofexpertise($aoe);
+            $score->setUser($this);
+            return $score;
+        }
     }
 
     public function getLoginSource() {

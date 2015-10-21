@@ -28,17 +28,22 @@
         <hr />
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
-                {% set grade = correct_exercises|length %}
-                <h4>Ο συνολικός σου βαθμός είναι: {{app.user.score}}</h4>
+                <table class="table table-bordered">
+                    <tr><td>Συνολικός βαθμός</td><td>{{app.user.userScoreForAoe(area_of_expertise).score}}</td></tr>
+                    <tr><td>Κατάταξη</td><td>{{rank}}/{{totalRanks}}</td></tr>
+                    <tr><td>Απαιτούμενος βαθμός για επόμενη κατάταξη</td><td>{{requiredScore}}</td></tr>
+                    <tr><td>Υψηλότερη κατάταξη</td><td>{{topUser.score}} ({{topUser.user.username}})</td></tr>
+                </table>
+                {#<h4>Ο συνολικός σου βαθμός είναι: {{app.user.score}}</h4>
                 <h5 class="text-muted" style="margin-bottom: 0;">
                     Κατάταξη: <b>{{rank}}</b>
                 </h5>
                 <h5 class="text-muted" style="margin-bottom: 0;">
-                    Υψηλότερη κατάταξη: <b>{{topUser.username}}</b> με βαθμό <b>{{topUser.score}}</b>
-                </h5>
-                <h5 class="text-muted" style="margin-bottom: 0;">
                     Απαιτούμενος βαθμός για επόμενη κατάταξη: <b>{{requiredScore}}</b>
                 </h5>
+                <h5 class="text-muted" style="margin-bottom: 0;">
+                    Υψηλότερη κατάταξη: <b>{{topUser.username}}</b> με βαθμό <b>{{topUser.score}}</b>
+                </h5>#}
             </div>
         </div>
         <hr />

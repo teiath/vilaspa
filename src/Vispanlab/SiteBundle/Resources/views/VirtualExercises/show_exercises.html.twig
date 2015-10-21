@@ -29,8 +29,9 @@
                     {% endif %}
                     {% if type == 'EvaluationTest' %}
                         <div style="clear: both;">
-                            <input type="submit" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" />{#<br />
-                            <small style="font-size: 75%;">{{'virtual_exercises.attention'|trans}}</small>#}
+                            <input type="submit" class="matching-check btn btn-primary" value="{{'ve_check'|trans}}" /><br />
+                            {#<small style="font-size: 75%;">{{'virtual_exercises.attention'|trans}}</small>#}
+                            <small>{{'virtual_exercises.evaluation_info'|trans}}</small>
                         </div>
                     {% elseif type != 'SearchExercise' and type != 'Solved' and type != 'Unsolved' and exercises|length > 0 %}
                         <div style="clear: both;">

@@ -63,6 +63,7 @@ virtual_exercises:
   Unsolved: UNSOLVED EXERCISES
   EvaluationTest: EVALUATION TEST
   attention: "Select all the correct matching options"
+  evaluation_info: Each correct answer increases the total grade by 1, while each wrong one decreases it by 1.
   refresh: Refresh Questions
   see_library: "See glossary: "
   congrats: Congratulations
