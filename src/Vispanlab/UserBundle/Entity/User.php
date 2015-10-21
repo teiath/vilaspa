@@ -39,6 +39,10 @@ class User extends BaseUser
      */
     protected $surname;
     /**
+     * @ORM\Column(name="score", type="integer", nullable=false)
+     */
+    protected $score;
+    /**
      * @ORM\Column(name="login_source", type="string", nullable=true)
      */
     protected $loginSource = self::LOGIN_SOURCE_LOCAL;
@@ -67,6 +71,14 @@ class User extends BaseUser
 
     public function setSurname($surname) {
         $this->surname = $surname;
+    }
+
+    function getScore() {
+        return $this->score;
+    }
+
+    function setScore($score) {
+        $this->score = $score;
     }
 
     public function getLoginSource() {

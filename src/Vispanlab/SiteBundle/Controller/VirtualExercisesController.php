@@ -102,13 +102,25 @@ class VirtualExercisesController extends Controller {
         $correctExercises = array();
         $wrongExercises = array();
         $exercises = array();
+        $user = $this->container->get('security.context')->getToken()->getUser();
         foreach($this->getRequest()->request->all() as $curId => $curAnswer) {
             $curExerciseId = substr($curId, 3);
             $curExercise = $this->container->get('doctrine')->getRepository('Vispanlab\SiteBundle\Entity\Exercise\BaseExercise')->find($curExerciseId);
             if(!$curExercise) { throw new \Exception('Exercise with id '.$curExerciseId.' not found for grading'); }
-            if($curExercise->isAnswerCorrect($curAnswer)) { $correctExercises[] = $curExercise; } else { $wrongExercises[] = $curExercise; }
+            if($curExercise->isAnswerCorrect($curAnswer)) {
+                $correctExercises[] = $curExercise;
+                $user->setScore($user->getScore() + 1);
+            } else {
+                $wrongExercises[] = $curExercise;
+                $user->setScore($user->getScore() - 1);
+            }
             $exercises[] = $curExercise;
         }
+        $this->container->get('doctrine')->getManager()->persist($user);
+        $this->container->get('doctrine')->getManager()->flush($user);
+        $rank = $this->container->get('doctrine')->getManager()->createQuery('SELECT COUNT(u) AS rank FROM Vispanlab\UserBundle\Entity\User u WHERE u.score>=:score')->setParameter('score', $user->getScore())->getSingleScalarResult();
+        $topUser = $this->container->get('doctrine')->getManager()->createQuery('SELECT u FROM Vispanlab\UserBundle\Entity\User u ORDER BY u.score DESC')->setMaxResults(1)->getResult();
+        $requiredScore = $this->container->get('doctrine')->getManager()->createQuery('SELECT u.score AS rank FROM Vispanlab\UserBundle\Entity\User u WHERE u.score>:score')->setParameter('score', $user->getScore())->setMaxResults(1)->getSingleScalarResult();
         return $this->render('VispanlabSiteBundle:VirtualExercises:grade_exercises.html.twig', array(
             'area_of_expertise' => $aoe,
             'subject_area' => $sa,
@@ -116,6 +128,9 @@ class VirtualExercisesController extends Controller {
             'correct_exercises' => $correctExercises,
             'wrong_exercises' => $wrongExercises,
             'type' => $type,
+            'rank' => $rank,
+            'topUser' => $topUser[0],
+            'requiredScore' => $requiredScore,
         ));
     }
 }

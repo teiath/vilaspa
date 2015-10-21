@@ -14,6 +14,9 @@ class UserAdmin extends Admin
         '_sort_order' => 'DESC', // Descendant ordering (default = 'ASC')
         '_sort_by' => 'id' // name of the ordered field (default = the model id
     );
+    protected $formOptions = array(
+        'validation_groups' => 'Novalidation'
+    );
 
     protected function configureRoutes(RouteCollection $collection)
     {
