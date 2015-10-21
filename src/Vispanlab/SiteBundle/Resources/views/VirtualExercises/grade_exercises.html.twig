@@ -13,11 +13,11 @@
                 {% set grade = correct_exercises|length %}
                 <h4>Βαθμός: {{grade}}/{{(correct_exercises|length)+(wrong_exercises|length)}}</h4>
                 <h5 class="text-muted" style="margin-bottom: 0;">
-                    {% if grade == 10 %}
+                    {% if grade == 5 %}
                         {{'virtual_exercises.congrats'|trans}}
-                    {% elseif grade == 8 or grade == 9 %}
+                    {% elseif grade == 4 %}
                         {{'virtual_exercises.good'|trans}}
-                    {% elseif grade == 5 or grade == 6 or grade == 7 %}
+                    {% elseif grade == 3 %}
                         {{'virtual_exercises.average'|trans}}
                     {% else %}
                         {{'virtual_exercises.try_harder'|trans}}
