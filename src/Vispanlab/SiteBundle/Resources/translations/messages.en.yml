@@ -67,10 +67,10 @@ virtual_exercises:
   refresh: Refresh Questions
   see_library: "See glossary: "
   grade: Grade
-  congrats: Congratulations
-  good: Well done
-  average: Golden mediocrity
-  try_harder: Try harder
+  congrats: Congratulations!
+  good: Pretty good.
+  average: Try more!
+  try_harder: Insufficient effort.
   search_placeholder: Search Exercises
   no_exercises: No exercises found
   total_grade: Total Grade

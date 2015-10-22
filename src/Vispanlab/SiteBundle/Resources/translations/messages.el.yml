@@ -67,10 +67,10 @@ virtual_exercises:
   refresh: Ανανέωση Ερωτήσεων
   see_library: "Βλέπε βιβλιοθήκη εννοιών: "
   grade: Βαθμός
-  congrats: Συγχαρητήρια
-  good: Πήγες Καλά
-  average: Χρυσή μετριότητα
-  try_harder: Προσπάθησε περισότερο
+  congrats: Συγχαρητήρια!
+  good: Αρκετά καλά.
+  average: Προσπάθησε κι άλλο!
+  try_harder: Ανεπαρκής προσπάθεια.
   search_placeholder: Αναζήτηση Ασκήσεων
   no_exercises: Δεν βρέθηκαν ασκήσεις
   total_grade: Συνολικός βαθμός
