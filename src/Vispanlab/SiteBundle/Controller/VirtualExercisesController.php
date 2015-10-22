@@ -123,7 +123,7 @@ class VirtualExercisesController extends Controller {
         $totalRanks = $this->container->get('doctrine')->getManager()->createQuery('SELECT COUNT(u) FROM Vispanlab\UserBundle\Entity\UserScore u JOIN u.areaofexpertise aoe WHERE aoe.id = :aoe')->setParameter('aoe', $aoe->getId())->getSingleScalarResult();
         $topUser = $this->container->get('doctrine')->getManager()->createQuery('SELECT u FROM Vispanlab\UserBundle\Entity\UserScore u JOIN u.areaofexpertise aoe WHERE aoe.id = :aoe ORDER BY u.score DESC')->setParameter('aoe', $aoe->getId())->setMaxResults(1)->getResult();
         $requiredScore = $this->container->get('doctrine')->getManager()->createQuery('SELECT u.score FROM Vispanlab\UserBundle\Entity\UserScore u JOIN u.areaofexpertise aoe WHERE aoe.id = :aoe AND u.score>:score')->setParameter('aoe', $aoe->getId())->setParameter('score', $userScore->getScore())->setMaxResults(1)->getResult();
-        if(count($requiredScore) > 0) { $requiredScore = reset($requiredScore); } else { $requiredScore = $userScore->getScore(); }
+        if(count($requiredScore) > 0) { $requiredScore = reset($requiredScore); $requiredScore = $requiredScore->getScore(); } else { $requiredScore = $userScore->getScore(); }
         return $this->render('VispanlabSiteBundle:VirtualExercises:grade_exercises.html.twig', array(
             'area_of_expertise' => $aoe,
             'subject_area' => $sa,
