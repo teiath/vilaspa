@@ -26,6 +26,14 @@ class DefaultController extends Controller {
     }
 
     /**
+     * @Route("/about", name="about_us")
+     * @Template
+     */
+    public function aboutUsAction() {
+        return $this->render('VispanlabSiteBundle::about_us.html.twig', array());
+    }
+
+    /**
      * @Route("/user_guide", name="user_guide")
      * @Template
      */

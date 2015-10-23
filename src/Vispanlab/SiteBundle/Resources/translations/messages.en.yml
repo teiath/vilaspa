@@ -14,6 +14,7 @@ common:
   admin_guide: Admin Guide
   tech_guide: "Maintainer's Guide"
   analytics: Analytics
+  about_us: About us
   funded_by: Co-financed by Greece and the European Union
   license: This work is licensed under a Creative Commons Attribution 3.0 License
 
@@ -39,6 +40,21 @@ home:
   forgot_password: I forgot my password
   student_cannot_reset: "<b>Error</b>: Your account is connected with TEI of Athens' directory services. To reset your password please contact the institute's Network Operations Center."
   users: "Visitors:"
+
+about_us: |
+    <h4><b>Abstract</b></h4>
+
+    <p>The didactic at the Technological Educational Institutes (TEI), in Hellas, is inevitably connected with the education practice at the laboratories. In parallel, the tremendous development of the information technologies has pushed toward radical changes in teaching and learning procedure as: open remote access to libraries, distance learning etc. Beyond their strong innovative character, the new approaches seem to have wide social acceptance and they increase enormously the knowledge dissemination. In this framework, the development of the Spatial Analysis Virtual Laboratory (EEXA) is an effort to support the academic education in modules dedicated to the spatial notion and offered by the faculty of Technological Application at TEI of Athens (TEI-A), e.g. ‘Urban Planning’, ‘Regional Development’, ‘Cadastre’ etc. Its core idea is to provide students remote access to educational material (theory and exercises), in an attractive environment, so as to help them study and self-evaluate autonomously. This paper aims to illustrate both, the current EEXA version and thoughts concerning its future expansion.</p>
+
+    <hr />
+
+    <h4><b>Introduction – The administrative approach</b></h4>
+
+    <p>The EEXA development is due budged provided in the context of National Strategic Reference Framework (NSRF) 2007–2013, under the Operational Programme ‘Digital Convergence’. It was submitted in the context of Spatial Analysis Lab activities, together with five similar virtual laboratories of TEI-A, under the scientific supervision of assistant professor Iphigenia Founta.</p>
+
+    <p>The official announcement of the action and the project submission took place in 2010 and the final approval was received in the late 2011. Administratively, it was divided in two parts. The first one was realized by direct labour of people already have employment relationship with TEI-A. It was divided into small work packages. The relevant deliverables concern the collection of educational material, such as: definitions, maps or similar material (figures, tables, statistics etc.) and the development of exercises. As regards to the second part of the project, it focused to the software development of the final output; it was carried out by a software company, in collaboration with the authors. After a rather long barren period, the project progress has been accelerated after March 2015 and ended on October 2015.</p>
+
+    <p>The service “Spatial Analysis Virtual Laboratory” is provided by the TEI-A server (at the address: http://spatial.lab.teiath.gr/) and it is open to access by everyone, after registration. Personal computers, laptops, tablets and smartphones can be used for connecting to this service.</p>
 
 concept_library:
   heading: Glossary

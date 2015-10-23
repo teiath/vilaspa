@@ -28,7 +28,7 @@ class SidebarMenuBuilder
     public function createSideMenu(Request $request)
     {
         $areasofexpertise = $this->em->getRepository('Vispanlab\SiteBundle\Entity\AreaOfExpertise')->findBy(array(), array('sortOrder' => 'ASC', 'id' => 'ASC'));
-        $menu = $this->factory->createItem('root');
+        $menu = $this->factory->createItem('');
 
         foreach($areasofexpertise as $curArea) {
             $areaMenu = $menu->addChild($curArea->getName($request->getLocale()), array('uri' => '#', 'attributes' => array('class' => 'home', 'under_construction' => $curArea->getUnderConstruction())));
@@ -49,6 +49,7 @@ class SidebarMenuBuilder
         }
 
         $menu->addChild('common.user_guide', array('uri' => '/user_guide.pdf', 'attributes' => array('class' => 'with-spacing home')));
+        $menu->addChild('common.about_us', array('route' => 'about_us', 'attributes' => array('class' => 'home')));
         if($this->securityContext->isGranted('ROLE_ADMIN') || $this->securityContext->isGranted('ROLE_AREA_ADMIN')) {
             if(strpos($request->getRequestUri(), 'admin') === false) {
                 $menu->addChild('common.admin_env_link', array('route' => 'sonata_admin_dashboard', 'attributes' => array('class' => 'home')));
@@ -62,7 +63,7 @@ class SidebarMenuBuilder
 
     public function createBottomMenu(Request $request)
     {
-        $menu = $this->factory->createItem('root');
+        $menu = $this->factory->createItem('');
         $menu->addChild('common.admin_guide', array('uri' => '/admin_guide.docx', 'attributes' => array('class' => 'home')));
         $menu->addChild('common.tech_guide', array('uri' => '/maintainer_guide.zip', 'attributes' => array('class' => 'home')));
         $menu->addChild('common.analytics', array('uri' => 'https://www.google.com/analytics/web/?hl=en#report/visitors-overview/a66591538w103050861p107149363/', 'attributes' => array('class' => 'home')));
@@ -83,6 +84,7 @@ class SidebarMenuBuilder
         $menu->addChild('common.login', array('route' => 'fos_user_security_login', 'attributes' => array('class' => 'home')));
         $menu->addChild('common.civilian_register', array('route' => 'fos_user_registration_register', 'attributes' => array('class' => 'home')));
         $menu->addChild('common.user_guide', array('uri' => '/user_guide.pdf', 'attributes' => array('class' => 'with-spacing home')));
+        $menu->addChild('common.about_us', array('route' => 'about_us', 'attributes' => array('class' => 'home')));
 
         return $menu;
     }
