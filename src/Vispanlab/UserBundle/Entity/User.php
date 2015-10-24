@@ -52,6 +52,7 @@ class User extends BaseUser
 
     public function __construct() {
         $this->userScore = new ArrayCollection();
+        parent::__construct();
     }
 
     public function getId() {
