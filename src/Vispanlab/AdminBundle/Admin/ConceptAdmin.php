@@ -36,9 +36,7 @@ class ConceptAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $user = $this->securityContext->getToken()->getUser();
-        if($user->hasRole('ROLE_ADMIN')) {
-            $formMapper->add('areasofexpertise', null, array('required' => true));
-        }
+        $formMapper->add('areasofexpertise', null, array('required' => true));
         $formMapper
             ->add('name', 'sonata_type_collection', array(), array('edit' => 'inline', 'inline' => 'table'))
             ->add('definition', 'sonata_type_collection', array(), array('edit' => 'inline', 'inline' => 'table'))
@@ -97,8 +95,8 @@ class ConceptAdmin extends Admin
     {
         $user = $this->securityContext->getToken()->getUser();
         $datagridMapper->add('id');
+        $datagridMapper->add('name.text');
         if($user->hasRole('ROLE_ADMIN')) {
-            $datagridMapper->add('name.text');
             $datagridMapper->add('areasofexpertise');
         }
         parent::configureDatagridFilters($datagridMapper);
