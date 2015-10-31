@@ -326,7 +326,8 @@ class TwigExtension extends \Twig_Extension
       $maxCols = 1;
       foreach($veTypesAndSubjectAreas as $exerciseType => $subjectAreas) {
         $result = array();
-        foreach($subjectAreas as $i => $curSubjectArea) {
+        $i = 0;
+        foreach($subjectAreas as $curSubjectArea) {
             if($curSubjectArea->getName('el') != $curSubjectArea->getAreaofexpertise()->getName('el')) {
                 if(!in_array($curSubjectArea->getId(), $subjectAreaCols)) {
                     // If it doesn't exist in $subjectAreaCols we append it to the end of it
@@ -335,9 +336,11 @@ class TwigExtension extends \Twig_Extension
                     // If it exists in $subjectAreaCols then we append nulls in front of it until we reach the correct column
                     for($j = $i; $j < array_search($curSubjectArea->getId(), $subjectAreaCols); $j++) {
                         $result[] = null;
+                        $i++;
                     }
                 }
                 $result[] = $curSubjectArea;
+                $i++;
             }
         }
         $this->paddedSubjectAreas[$exerciseType] = $result;
