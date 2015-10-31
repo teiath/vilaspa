@@ -24,7 +24,9 @@
 {% endblock %}
 
 {% block footer_content %}
-    <div style="position: absolute; bottom: 80px; left: 0; right: 0;" class="text-left hidden-sm hidden-xs"><div style="display: inline-block; border: 1px solid #000; font-size: 16px; margin-left: 20px;" class="well">{{'home.users'|trans|raw}} <strong>{{usersCount}}</strong></div></div>
+    <div style="position: absolute; bottom: 110px; left: 0; right: 0;" class="text-left hidden-sm hidden-xs">
+        <div style="display: inline-block; border: 1px solid #000; font-size: 16px; margin-right: 20px; padding: 12px; box-shadow: 0px 5px 5px #888888;" class="well pull-right">{{'home.users'|trans|raw}} <strong>{{usersCount}}</strong></div>
+    </div>
     {{parent()}}
 {% endblock %}
 
