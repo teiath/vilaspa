@@ -105,6 +105,9 @@
                     $(this).hide();
                 }
             });
+            if($('.concept-search-result:visible').size() === 1) {
+                window.location = $('.concept-search-result:visible').find('a').attr('href');
+            }
             if(typeof e === 'object') {
                 e.preventDefault();
                 return false;
