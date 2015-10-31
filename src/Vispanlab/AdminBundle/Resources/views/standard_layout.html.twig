@@ -136,7 +136,7 @@
 {% endblock %}
 
 {% block sonata_top_nav_menu %}
-<div class="navbar-right">
+<div class="navbar-right hidden-xs hidden-sm">
     <ul class="nav navbar-nav">
         {% block sonata_top_nav_menu_login %}
         <li>
@@ -165,6 +165,21 @@
     {% if 'admin' in app.request.uri %}
     {#<h4 style="padding-left: 15px; margin-top: 20px;"><strong>{{'common.admin_env_link'|trans}}</strong></h4>#}
     {% endif %}
+    <div class="row hidden-md hidden-lg hidden-xl text-center">
+        <div class="col-md-12">
+            <i class="fa fa-user fa-fw"></i> {{app.user.username}}
+            (<a href="{{path('fos_user_security_logout', {'_locale' : 'el'})}}">{{'common.logout'|trans}}</a>)
+
+            {% for locale in locales %}
+                {% if app.request.locale != locale %}
+                <a href="{{ path(app.request.attributes.get("_route"), app.request.query.all|merge(app.request.get('_route_params'))|merge({"_locale": locale})) }}">{{ locale }}</a>
+                {% else %}
+                {{ locale }}
+                {% endif %}
+                {% if not loop.last %}|{% endif %}
+            {% endfor %}
+        </div>
+    </div>
     {{parent()}}
 {% endblock %}
 
