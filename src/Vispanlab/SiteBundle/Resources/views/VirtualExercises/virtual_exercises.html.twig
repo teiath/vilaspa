@@ -1,69 +1,44 @@
 {% extends 'VispanlabSiteBundle::base.html.twig' %}
 
+{% import _self as veMacros %}
+
+{% macro showExerciseTypeRow(type, area_of_expertise) %}
+    {% set subLinkClass = 'btn btn-default col-md-1 col-md-offset-1' %}
+    {% set subStyleClass = 'width: inherit !important;' %}
+    <tr class="info">
+        <td style="width: 240px;"><a class="btn btn-primary pull-left" style="width: 235px;" href="{{path('show_exercises', {'type': type, 'aoe': area_of_expertise.url})}}">{{('virtual_exercises.'~type)|trans}}</a></td>
+        {% for sa in (type|getVePaddedSubjectAreas) %}
+            <td>
+                {% if sa != null %}
+                    <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': type, 'aoe': sa.areaofexpertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
+                {% else %}
+                    &nbsp;
+                {% endif %}
+            </td>
+        {% endfor %}
+    </tr>
+{% endmacro %}
+
 {% block content %}
 <div class="row text-center virtual-exercises">
     <div class="col-md-12">
         <h4 style="margin-top: 0;">{{area_of_expertise.name(app.request.locale)|raw|replace({'<BR />': ' '})|raw}}</h4>
         <h4>{{'virtual_exercises.heading'|trans}}<hr style="margin-bottom: 10px;" /></h4>
-        {% set linkClass = 'btn btn-primary col-md-2' %}
-        {% set subLinkClass = 'btn btn-default col-md-1 col-md-offset-1' %}
-        {% set subStyleClass = 'width: inherit !important;' %}
         <table class="table table-bordered">
-            <tr class="info">
-                <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'OnOff', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.OnOff'|trans}}</a>
-                {% if (area_of_expertise.getSubjectAreasWithExerciseType('OnOff')|length) > 1 %}
-                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('OnOff') if sa.name(app.request.locale) != area_of_expertise.name(app.request.locale) %}
-                        <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'OnOff', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
-                    {% endfor %}
-                {% endif %}
-                </td>
-            </tr>
-            <tr class="info">
-                <td>
-                    <a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'MultipleChoice', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.MultipleChoice'|trans}}</a>
-                {% if (area_of_expertise.getSubjectAreasWithExerciseType('MultipleChoice')|length) > 1 %}
-                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('MultipleChoice') if sa.name(app.request.locale) != area_of_expertise.name(app.request.locale) %}
-                        <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'MultipleChoice', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
-                    {% endfor %}
-                {% endif %}
-                </td>
-            </tr>
-            <tr class="info">
-                <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'Matching', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.Matching'|trans}}</a>
-                {% if (area_of_expertise.getSubjectAreasWithExerciseType('Matching')|length) > 1 %}
-                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('Matching') if sa.name(app.request.locale) != area_of_expertise.name(app.request.locale) %}
-                        <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'Matching', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
-                    {% endfor %}
-                {% endif %}
-                </td>
-            </tr>
-            <tr class="info">
-                <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'Solved', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.Solved'|trans}}</a>
-                {% if (area_of_expertise.getSubjectAreasWithExerciseType('Solved')|length) > 1 %}
-                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('Solved') if sa.name(app.request.locale) != area_of_expertise.name(app.request.locale) %}
-                        <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'Solved', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
-                    {% endfor %}
-                {% endif %}
-                </td>
-            </tr>
-            <tr class="info">
-                <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'Unsolved', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.Unsolved'|trans}}</a>
-                {% if (area_of_expertise.getSubjectAreasWithExerciseType('Unsolved')|length) > 1 %}
-                    {% for sa in area_of_expertise.getSubjectAreasWithExerciseType('Unsolved') if sa.name(app.request.locale) != area_of_expertise.name(app.request.locale) %}
-                        <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'Unsolved', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
-                    {% endfor %}
-                {% endif %}
-                </td>
-            </tr>
-            <tr class="info">
-                <td><a class="{{linkClass}}" href="{{path('show_exercises', {'type': 'EvaluationTest', 'aoe': area_of_expertise.url})}}">{{'virtual_exercises.EvaluationTest'|trans}}</a>
-                {% if (area_of_expertise.getSubjectAreasForEvaluationTest()|length) > 1 %}
-                    {% for sa in area_of_expertise.getSubjectAreasForEvaluationTest if sa.name(app.request.locale) != area_of_expertise.name(app.request.locale) %}
-                        <a class="{{subLinkClass}}" style="{{subStyleClass}}" href="{{path('show_exercises', {'type': 'EvaluationTest', 'aoe': area_of_expertise.url, 'sa': sa.url})}}">{{sa.name(app.request.locale)}}</a>
-                    {% endfor %}
-                {% endif %}
-                </td>
-            </tr>
+            {{generateVeSubjectAreasTable({
+                'OnOff': area_of_expertise.getSubjectAreasWithExerciseType('OnOff'),
+                'MultipleChoice': area_of_expertise.getSubjectAreasWithExerciseType('MultipleChoice'),
+                'Matching': area_of_expertise.getSubjectAreasWithExerciseType('Matching'),
+                'Solved': area_of_expertise.getSubjectAreasWithExerciseType('Solved'),
+                'Unsolved': area_of_expertise.getSubjectAreasWithExerciseType('Unsolved'),
+                'EvaluationTest': area_of_expertise.getSubjectAreasWithExerciseType('EvaluationTest'),
+            })}}
+            {{veMacros.showExerciseTypeRow('OnOff', area_of_expertise)}}
+            {{veMacros.showExerciseTypeRow('MultipleChoice', area_of_expertise)}}
+            {{veMacros.showExerciseTypeRow('Matching', area_of_expertise)}}
+            {{veMacros.showExerciseTypeRow('Solved', area_of_expertise)}}
+            {{veMacros.showExerciseTypeRow('Unsolved', area_of_expertise)}}
+            {{veMacros.showExerciseTypeRow('EvaluationTest', area_of_expertise)}}
         </table>
     </div>
 </div>

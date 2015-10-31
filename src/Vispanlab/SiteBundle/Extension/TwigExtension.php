@@ -17,6 +17,14 @@ class TwigExtension extends \Twig_Extension
   {
     return array(
         'links_convert_filter' => new \Twig_Filter_Method($this, 'linksConvertFilter'),
+        'getVePaddedSubjectAreas' => new \Twig_Filter_Method($this, 'getVePaddedSubjectAreas'),
+    );
+  }
+
+  public function getFunctions()
+  {
+    return array(
+        'generateVeSubjectAreasTable' => new \Twig_Function_Method($this, 'generateVeSubjectAreasTable'),
     );
   }
 
@@ -310,6 +318,41 @@ class TwigExtension extends \Twig_Extension
           }
       }
       return implode(' '.$separator.' ', $links);
+  }
+
+  private $paddedSubjectAreas = array(); // Format: subjectAreaId => column number
+  public function generateVeSubjectAreasTable($veTypesAndSubjectAreas) {
+      $subjectAreaCols = array();
+      $maxCols = 1;
+      foreach($veTypesAndSubjectAreas as $exerciseType => $subjectAreas) {
+        $result = array();
+        foreach($subjectAreas as $i => $curSubjectArea) {
+            if($curSubjectArea->getName('el') != $curSubjectArea->getAreaofexpertise()->getName('el')) {
+                if(!in_array($curSubjectArea->getId(), $subjectAreaCols)) {
+                    // If it doesn't exist in $subjectAreaCols we append it to the end of it
+                    $subjectAreaCols[] = $curSubjectArea->getId();
+                } else {
+                    // If it exists in $subjectAreaCols then we append nulls in front of it until we reach the correct column
+                    for($j = $i; $j < array_search($curSubjectArea->getId(), $subjectAreaCols); $j++) {
+                        $result[] = null;
+                    }
+                }
+                $result[] = $curSubjectArea;
+            }
+        }
+        $this->paddedSubjectAreas[$exerciseType] = $result;
+        if(count($result) > $maxCols) { $maxCols = count($result); }
+      }
+      // Step 2 - Pad the end of the subject areas based on the max column number
+      foreach($veTypesAndSubjectAreas as $exerciseType => $subjectAreas) {
+          for($i = count($this->paddedSubjectAreas[$exerciseType]); $i < $maxCols; $i++) {
+              $this->paddedSubjectAreas[$exerciseType][] = null;
+          }
+      }
+  }
+
+  public function getVePaddedSubjectAreas($exerciseType) {
+      return $this->paddedSubjectAreas[$exerciseType];
   }
 
   /**
