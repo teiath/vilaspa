@@ -165,6 +165,7 @@
     {% if 'admin' in app.request.uri %}
     {#<h4 style="padding-left: 15px; margin-top: 20px;"><strong>{{'common.admin_env_link'|trans}}</strong></h4>#}
     {% endif %}
+    {% if is_granted('ROLE_USER') %}
     <div class="row hidden-md hidden-lg hidden-xl text-center">
         <div class="col-md-12">
             <i class="fa fa-user fa-fw"></i> {{app.user.username}}
@@ -180,6 +181,7 @@
             {% endfor %}
         </div>
     </div>
+    {% endif %}
     {{parent()}}
 {% endblock %}
 
