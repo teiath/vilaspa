@@ -325,6 +325,13 @@ class TwigExtension extends \Twig_Extension
       $subjectAreaCols = array();
       $maxCols = 1;
       foreach($veTypesAndSubjectAreas as $exerciseType => $subjectAreas) {
+        uasort($subjectAreas, function ($a, $b) {
+            $at = $this->stripGrAccent(strip_tags($a->getNameEl()));
+            $bt = $this->stripGrAccent(strip_tags($b->getNameEl()));
+            if($at == $bt) { return 0; }
+            return ($at > $bt) ? 1 : -1;
+        });
+
         $result = array();
         $i = 0;
         foreach($subjectAreas as $curSubjectArea) {
@@ -356,6 +363,18 @@ class TwigExtension extends \Twig_Extension
 
   public function getVePaddedSubjectAreas($exerciseType) {
       return $this->paddedSubjectAreas[$exerciseType];
+  }
+
+  private function stripGrAccent($tempName)
+  {
+      $utf8_str_split = function($str='',$len=1){
+          preg_match_all("/./u", $str, $arr);
+          $arr = array_chunk($arr[0], $len);
+          $arr = array_map('implode', $arr);
+          return $arr;
+      };
+      $tempName = str_replace($utf8_str_split("ΆάΈέΉήΌόΎύΏώί"), $utf8_str_split("ααεεηηοουυωωι"), $tempName);
+      return str_replace($utf8_str_split("αβγδεζηθικλμνξοπρστυφχψως"), $utf8_str_split("ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΣ"), $tempName);
   }
 
   /**
