@@ -163,7 +163,7 @@
 
 {% block sonata_page_content %}
     {% if 'admin' in app.request.uri %}
-    <h4 style="padding-left: 15px; margin-top: 20px;"><strong>{{'common.admin_env_link'|trans}}</strong></h4>
+    {#<h4 style="padding-left: 15px; margin-top: 20px;"><strong>{{'common.admin_env_link'|trans}}</strong></h4>#}
     {% endif %}
     {{parent()}}
 {% endblock %}
