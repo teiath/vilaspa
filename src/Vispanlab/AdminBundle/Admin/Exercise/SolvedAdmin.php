@@ -89,6 +89,7 @@ class SolvedAdmin extends Admin
     {
         $datagridMapper
             ->add('subjectarea')
+            ->add('goal')
         ;
         parent::configureDatagridFilters($datagridMapper);
     }

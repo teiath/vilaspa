@@ -77,6 +77,7 @@ class MultipleChoiceAdmin extends Admin
     {
         $datagridMapper
             ->add('subjectarea')
+            ->add('question')
             ->add('showInEvaluationTest', null, array(), 'choice', array('choices' => BaseExercise::getShowInEvaluationTestChoices()))
         ;
         parent::configureDatagridFilters($datagridMapper);
