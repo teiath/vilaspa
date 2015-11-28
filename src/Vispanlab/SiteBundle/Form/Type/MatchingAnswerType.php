@@ -13,8 +13,8 @@ class MatchingAnswerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options = array())
     {
         $builder
-            ->add('answer', null, array('label' => 've_answer '.self::$matchingCount++, 'required' => true,))
-            ->add('matches', null, array('label' => 've_matches', 'required' => true, 'sonata_help' => 'Γράψτε την απάντηση του δεξιού μέρους που αντιστοιχεί εδώ. Εαν αντιστοιχεί σε πολλαπλές απαντήσεις χωρίστε με κόμμα (πχ. 1,3,4).'))
+            ->add('answer', 'textarea', array('label' => 've_answer '.self::$matchingCount++, 'required' => true,))
+            ->add('matches', 'textarea', array('label' => 've_matches', 'required' => true, 'sonata_help' => 'Γράψτε την απάντηση του δεξιού μέρους που αντιστοιχεί εδώ. Εαν αντιστοιχεί σε πολλαπλές απαντήσεις χωρίστε με κόμμα (πχ. 1,3,4).'))
         ;
     }
 

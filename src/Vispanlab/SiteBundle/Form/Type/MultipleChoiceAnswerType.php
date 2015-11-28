@@ -13,7 +13,7 @@ class MultipleChoiceAnswerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options = array())
     {
         $builder
-            ->add('answer', null, array('label' => 've_answer '.self::$matchingCount++, 'required' => true,))
+            ->add('answer', 'textarea', array('label' => 've_answer '.self::$matchingCount++, 'required' => true,))
         ;
     }
 
