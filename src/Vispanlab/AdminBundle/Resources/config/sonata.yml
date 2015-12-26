@@ -20,7 +20,7 @@ sonata_admin:
         ajax:    SonataAdminBundle::ajax_layout.html.twig
 
         # default actions templates, should extend a global templates
-        list:    SonataAdminBundle:CRUD:list.html.twig
+        list:    VispanlabAdminBundle::list.html.twig
         show:    SonataAdminBundle:CRUD:show.html.twig
         edit:    SonataAdminBundle:CRUD:edit.html.twig
     dashboard:

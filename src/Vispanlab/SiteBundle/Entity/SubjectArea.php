@@ -130,6 +130,10 @@ class SubjectArea {
       return str_replace($utf8_str_split("αβγδεζηθικλμνξοπρστυφχψως"), $utf8_str_split("ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΣ"), $tempName);
     }
 
+    public function getNameElPreserveNewLine() {
+        return str_replace('<BR />', '&newline;', $this->nameEl);
+    }
+
     public function __toString() {
         if(!isset($this->nameEl)) {
             return 'Νέα Θεματική Ενότητα';

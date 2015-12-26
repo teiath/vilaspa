@@ -21,6 +21,7 @@ class MultipleChoiceAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('acl');
+        $collection->add('importXls', 'import_xls');
     }
 
     /**
@@ -111,6 +112,8 @@ class MultipleChoiceAdmin extends Admin
     {
         return array(
             'id',
+            'showInEvaluationTest' => 'showInEvaluationTest',
+            'subjectarea' => 'subjectarea.nameElPreserveNewLine',
             'question' => 'question',
             'answers' => 'getAnswersCondensed',
         );

@@ -118,7 +118,9 @@ class MatchingAdmin extends Admin
     {
         return array(
             'id',
+            'subjectarea' => 'subjectarea.nameElPreserveNewLine',
             'question' => 'question',
+            'showInEvaluationTest' => 'showInEvaluationTest',
             'leftAnswers' => 'getLeftAnswersCondensed',
             'rightAnswers' => 'getRightAnswersCondensed',
             'matches' => 'getMatchesCondensed',

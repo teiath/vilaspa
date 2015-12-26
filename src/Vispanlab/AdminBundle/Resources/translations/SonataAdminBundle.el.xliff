@@ -66,6 +66,10 @@
                 <source>link_add</source>
                 <target>Προσθήκη Νέου</target>
             </trans-unit>
+            <trans-unit id="link_action_import_xls">
+                <source>link_action_import_xls</source>
+                <target>Μαζική εισαγωγή (XLS)</target>
+            </trans-unit>
             <trans-unit id="link_list">
                 <source>link_list</source>
                 <target>Λίστα</target>

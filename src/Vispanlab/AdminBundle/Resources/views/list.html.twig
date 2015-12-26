@@ -1,0 +1,16 @@
+{% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
+
+{% block actions %}
+{% spaceless %}
+    {% if admin.hasRoute('create') and admin.isGranted('CREATE')%}
+        <li>{% include 'SonataAdminBundle:Core:create_button.html.twig' %}</li>
+        {% if admin.hasRoute('importXls') and admin.isGranted('CREATE')%}
+        <li>
+            <a class="sonata-action-element" href="{{ admin.generateUrl('importXls') }}">
+            <i class="fa fa-plus-circle"></i>
+            {{ 'link_action_import_xls'|trans({}, 'SonataAdminBundle') }}</a>
+        </li>
+        {% endif %}
+    {% endif %}
+{% endspaceless %}
+{% endblock %}

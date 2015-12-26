@@ -13,6 +13,11 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class OnOffAdmin extends MultipleChoiceAdmin
 {
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        return parent::configureRoutes($collection);
+    }
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
