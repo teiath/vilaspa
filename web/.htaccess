@@ -6,8 +6,11 @@
     #</IfModule>
 
     RewriteCond %{HTTP_HOST} ^spatial\.lab\.teiath\.gr$ [NC]
+    RewriteRule ^(.*)$ https://spatial.lab.uniwa.gr/$1 [R=301,L]
+
+    RewriteCond %{HTTP_HOST} ^spatial\.lab\.uniwa\.gr$ [NC]
     RewriteCond %{HTTPS} !=on
-    RewriteRule ^(.*)$ https://spatial.lab.teiath.gr/$1 [R=301,L]
+    RewriteRule ^(.*)$ https://spatial.lab.uniwa.gr/$1 [R=301,L]
 
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ app.php [QSA,L]
